@@ -3,7 +3,6 @@ import C from "./Card.module.css";
 import cat from "../../icons/cat.png";
 
 function Card(props) {
-    console.log(props);
     const { color, name, text, info } = props;
     return (
         <div

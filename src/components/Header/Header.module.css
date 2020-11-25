@@ -3,10 +3,10 @@
     grid-template-areas: 'utils logo search' ;
     grid-template-columns: 30% 40% 30%;
     background-color: #e5e5e5;
-    height: 20%;
     padding: 10px;
     justify-content: space-around;
     align-items: center;
+    z-index:15;
 }
 
 

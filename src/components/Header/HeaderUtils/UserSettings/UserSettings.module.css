@@ -1,0 +1,42 @@
+.settings {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 20%;
+    min-width: 300px;
+    background-color: #E5E5E5;
+    padding: 20px;
+    z-index: 1;
+    justify-content: space-around;
+    align-items: stretch;
+    text-align: center;
+}
+
+.userWidget {
+    height: 70px;
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid black;
+}
+.userInputContainer {
+    composes: userWidget;
+    display:flex;
+    align-items: center;
+    background-color: white;
+}
+
+.userInput {
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.userButton {
+    composes: userWidget;
+    background-color: #1DA1F2;
+    cursor: pointer;
+}
