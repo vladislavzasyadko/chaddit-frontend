@@ -1,0 +1,30 @@
+.header {
+    display: grid;
+    grid-template-areas: 'utils logo search' ;
+    grid-template-columns: 30% 40% 30%;
+    background-color: #e5e5e5;
+    height: 20%;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+.logo {
+    grid-area: 'logo';
+    text-align: center;
+}
+
+.utils {
+    display: flex;
+    flex-direction: row;
+    grid-area: 'utils';
+    text-align: center;
+    justify-content: space-around;
+}
+
+.search {
+    grid-area: 'search';
+    justify-content: center;
+}

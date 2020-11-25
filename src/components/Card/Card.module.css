@@ -1,0 +1,25 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.cardImage {
+    background-size: 'cover';
+    height: '50%'; 
+    width: '100%';
+    border-radius: '5px';
+}
+
+.cardTextPreview {
+    display: inline-block;
+    position: relative;
+    user-select: none;
+    background: linear-gradient(to bottom, black 0%, transparent 80%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
