@@ -3,11 +3,11 @@ import H from "./Header.module.css";
 import Logo from "./Logo";
 import Search from "./Search/Search";
 
-function Header() {
+function Header(props) {
     return (
         <div className={H.header}>
             <div className={H.utils}>
-                <div>User Icon</div>
+                <div onClick={props.clickSettings}>User Icon</div>
                 <div>Chats Icon</div>
                 <div>Add Topic</div>
             </div>
