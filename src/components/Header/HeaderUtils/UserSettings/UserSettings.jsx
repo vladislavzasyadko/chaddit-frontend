@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import U from "./UserSettings.module.css";
 import showPass from "../../../../icons/showpass.png";
+import { waitFor } from "@testing-library/react";
 
 const useClickOutside = (handler) => {
     const domNode = useRef();
@@ -28,52 +30,59 @@ function UserSettings(props) {
     let domNode = useClickOutside(() => {
         props.clickOutsideSettings();
     });
-
-    return (
-        <div ref={domNode} className={U.settings}>
-            <div style={{ marginTop: "100px" }}>Почта</div>
-            <div>
-                <div className={U.userInputContainer}>
-                    <input
-                        className={U.userInput}
-                        type={"text"}
-                        placeholder={"Старый пароль"}
-                    />
+    console.log(props)
+    return ReactDOM.createPortal(
+        <div
+            className={props.settingsActive ? U.darkBackground : U.darkBackgroundHidden}
+        >
+            <div ref={domNode} className={props.settingsActive ? U.settings : U.settingsHidden}>
+                <div style={{ marginTop: "100px" }}>Почта</div>
+                <div>
+                    <div className={U.userInputContainer}>
+                        <input
+                            className={U.userInput}
+                            type={"text"}
+                            placeholder={"danila#228"}
+                        />
+                    </div>
+                    <button className={U.userButton}> Изменить имя </button>
                 </div>
-                <button className={U.userButton}> Изменить имя </button>
-            </div>
-            <div>
-                <div className={U.userInputContainer}>
-                    <input
-                        className={U.userInput}
-                        type={passView ? "password" : "text"}
-                        placeholder={"Старый пароль"}
-                    />
-                    <img
-                        src={showPass}
-                        height={"30px"}
-                        onClick={(e) => setPassView(!passView)}
-                    />
+                <div>
+                    <div className={U.userInputContainer}>
+                        <input
+                            className={U.userInput}
+                            type={passView ? "password" : "text"}
+                            placeholder={"Старый пароль"}
+                        />
+                        <img
+                            src={showPass}
+                            height={"30px"}
+                            onClick={(e) => setPassView(!passView)}
+                        />
+                    </div>
+                    <div className={U.userInputContainer}>
+                        <input
+                            className={U.userInput}
+                            type={passView ? "password" : "text"}
+                            placeholder={"Новый пароль"}
+                        />
+                        <img
+                            src={showPass}
+                            height={"30px"}
+                            onClick={(e) => setPassView(!passView)}
+                        />
+                    </div>
+                    <button className={U.userButton}>Изменить пароль</button>
                 </div>
-                <div className={U.userInputContainer}>
-                    <input
-                        className={U.userInput}
-                        type={passView ? "password" : "text"}
-                        placeholder={"Новый пароль"}
-                    />
-                    <img
-                        src={showPass}
-                        height={"30px"}
-                        onClick={(e) => setPassView(!passView)}
-                    />
+                <div>
+                    <button className={U.userButton}>
+                        Изменить фотографию
+                    </button>
                 </div>
-                <button className={U.userButton}>Изменить пароль</button>
+                <p>Выйти из аккаунта</p>
             </div>
-            <div>
-                <button className={U.userButton}>Изменить фотографию</button>
-            </div>
-            <p>Выйти из аккаунта</p>
-        </div>
+        </div>,
+        document.getElementById("portal")
     );
 }
 

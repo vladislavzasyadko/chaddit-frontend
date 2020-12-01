@@ -22,9 +22,27 @@
     grid-area: 'utils';
     text-align: center;
     justify-content: space-around;
+    align-items: center;
 }
 
 .search {
     grid-area: 'search';
     justify-content: center;
+}
+
+.userImage {
+    cursor: pointer;
+    height: 80px;
+    width: 80px;
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: darkblue;
+    transition: ease .6s;
+}
+
+.userImage:hover {
+    background-color: red;
 }

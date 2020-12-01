@@ -1,16 +1,55 @@
 .settings {
+    font-size: 14pt;
     position: fixed;
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 20%;
+    top: 0;
+    left: 0;
+    bottom: 0;
     min-width: 300px;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     padding: 20px;
-    z-index: 2;
     justify-content: space-around;
     align-items: stretch;
     text-align: center;
+}
+
+.settingsHidden {
+    composes: settings;
+    visibility: hidden;
+}
+
+.darkBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0, .7);
+}
+
+.darkBackgroundHidden {
+    composes: darkBackground;
+    visibility: hidden;
+}
+
+@keyframes fadein {
+    from { 
+        opacity: 0;
+    }
+    to { 
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from { 
+        opacity: 1;
+    }
+    to { 
+        opacity: 0;
+    }
 }
 
 .userWidget {
@@ -24,19 +63,21 @@
 }
 .userInputContainer {
     composes: userWidget;
-    display:flex;
+    display: flex;
     align-items: center;
     background-color: white;
 }
 
 .userInput {
+    font-size: 15pt;
     outline: none;
     border: none;
     width: 100%;
 }
 
 .userButton {
+    font-size: 12pt;
     composes: userWidget;
-    background-color: #1DA1F2;
+    background-color: #1da1f2;
     cursor: pointer;
 }
