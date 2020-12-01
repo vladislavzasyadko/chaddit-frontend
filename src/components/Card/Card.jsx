@@ -1,9 +1,11 @@
 import React from "react";
 import C from "./Card.module.css";
 import cat from "../../icons/cat.png";
+import {formatDate} from "../../utils/formatters";
 
 function Card(props) {
-    const { color, name, text, info } = props;
+    const {topicTitle, authorId, createdAt, color} = props;
+
     return (
         <div
             style={{
@@ -21,10 +23,11 @@ function Card(props) {
                     width: "100%",
                     borderRadius: "5px",
                 }}
-            ></div>
-            <h2>{name}</h2>
-            <span className={C.cardTextPreview}>{text}</span>
-            <div>{info}</div>
+            />
+            <h2>{topicTitle}</h2>
+            <span className={C.cardTextPreview}>{'sample description'}</span>
+            <div>AUTHOR: {authorId}</div>
+            <div>Created at: {formatDate(createdAt)}</div>
         </div>
     );
 }

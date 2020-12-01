@@ -1,29 +1,37 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../Card/Card";
 import F from "./Feed.module.css";
 import { cardColors } from "../../commons/colors";
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {fetchTopicsThunkCreator} from "../../redux/reducers/topicsReducer";
 
-function Feed() {
-    const cardProps = Array.from({ length: 40 }, () => ({
-        color: cardColors[Math.floor(Math.random() * cardColors.length)],
-        name: 'Cat',
-        text: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
-        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
-        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
-        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? 
-        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, 
-        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
-        info: new Date().toString(),
-    }));
+const Feed = () => {
+    const dispatch = useDispatch()
+    const topics = useSelector(state => state.topics);
+
+    useEffect(() => {
+        dispatch(fetchTopicsThunkCreator())
+    },[])
+
+    console.log(topics);
     return (
         <div className={F.feed}>
-            {cardProps.map((card, i) => (
-                <Card key={`card${i}`} {...card} />
-            ))}
+            {topics.map((card, i) => {
+                const cardProps = {
+                    color: cardColors[Math.floor(Math.random() * cardColors.length)],
+                    topicTitle: card.topic_title,
+                    authorId: card.author_id,
+                    createdAt: card.created_at,
+                }
+                return <Card key={`card${i}`} {...cardProps} />
+            })}
         </div>
     );
 }
 
-export default Feed;
+const mapStateToProps = (state) => {
+    console.log(state)
+    return state
+}
+
+export default connect(mapStateToProps)(Feed);
