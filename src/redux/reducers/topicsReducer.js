@@ -25,11 +25,9 @@ export const topicsReducer = (state = initialState, action) => {
 
 }
 
-export const fetchTopicsThunkCreator = () => {
-    return dispatch => {
-        topicAPI.getTopics()
+export const fetchTopicsThunkCreator = () => (dispatch) => {
+    return topicAPI.getTopics()
         .then(topics => dispatch({type: FETCH_TOPICS, topics: topics}))
-    }
 }
 
 export const fetchTopicThunkCreator = (topicId) => {

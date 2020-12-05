@@ -1,0 +1,47 @@
+.loginRegisterContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chooseType{
+    display:flex;
+    padding: 5px;
+    font-size: 30px;
+}
+
+.typeOption {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    min-width: 300px;
+}
+
+.inputField {
+    margin: 5px;
+    font-size:22px;
+    display:block;
+    width:100%;
+    height:100%;
+    padding:5px 10px;
+    border:1px solid gray;
+    border-radius:0;
+    transition:border-color .25s ease, box-shadow .25s ease;
+}
+
+.buttonForm {
+    margin: 5px;
+    font-size:22px;
+    padding: 5px;
+}
