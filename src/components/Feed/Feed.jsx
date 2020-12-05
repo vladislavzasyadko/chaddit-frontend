@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from "react";
 import Card from "../Card/Card";
 import F from "./Feed.module.css";
-import { cardColors } from "../../commons/colors";
+import {cardColors} from "../../commons/colors";
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {fetchTopicsThunkCreator} from "../../redux/reducers/topicsReducer";
 
-const Feed = () => {
+const Feed = (props) => {
     const dispatch = useDispatch()
-    const topics = useSelector(state => state.topics);
+    const topics = props.topics;
 
     useEffect(() => {
         dispatch(fetchTopicsThunkCreator())
-    },[])
+    }, [])
 
-    console.log(topics);
     return (
         <div className={F.feed}>
             {topics.map((card, i) => {
@@ -29,9 +28,9 @@ const Feed = () => {
     );
 }
 
-const mapStateToProps = (state) => {
-    console.log(state)
-    return state
-}
+const mapStateToProps = (state) => ({
+    topics: state.topicsData.topics,
+    isAuth: state.auth.loggedIn,
+})
 
 export default connect(mapStateToProps)(Feed);

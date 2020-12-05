@@ -2,7 +2,7 @@ import {loginAPI} from "../../api/api";
 import {FAILURE, LOGIN, LOGOUT, REGISTER} from "./types";
 
 let api_token = localStorage.getItem('api_token');
-const initialState = api_token ? {loggedIn: true, api_token, apiToken: api_token} : {};
+const initialState = api_token ? {loggedIn: true, apiToken: api_token} : {};
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -26,7 +26,7 @@ export const authReducer = (state = initialState, action) => {
                 apiToken: action.apiToken,
             }
         case LOGOUT:
-            localStorage.remove('api_token');
+            localStorage.removeItem('api_token');
             return {
                 ...state,
                 loggedIn: false,
@@ -62,5 +62,6 @@ export const registerActionCreator = (name, email, password) => (dispatch) => {
 }
 
 export const logoutActionCreator = () => (dispatch) => {
+    console.log('logging out')
     return dispatch({type: LOGOUT})
 }

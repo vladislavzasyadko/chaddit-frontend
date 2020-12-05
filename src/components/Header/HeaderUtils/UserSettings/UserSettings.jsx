@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import U from "./UserSettings.module.css";
 import showPass from "../../../../icons/showpass.png";
-import { waitFor } from "@testing-library/react";
+import {logoutActionCreator} from "../../../../redux/reducers/authReducer";
+import {useDispatch} from "react-redux";
 
 const useClickOutside = (handler) => {
     const domNode = useRef();
@@ -26,11 +27,17 @@ const useClickOutside = (handler) => {
 
 function UserSettings(props) {
     const [passView, setPassView] = useState(true);
+    const dispatch = useDispatch()
+
+    function logout(){
+        props.clickOutsideSettings();
+        dispatch(logoutActionCreator());
+    }
 
     let domNode = useClickOutside(() => {
         props.clickOutsideSettings();
     });
-    console.log(props)
+
     return ReactDOM.createPortal(
         <div
             className={props.settingsActive ? U.darkBackground : U.darkBackgroundHidden}
@@ -79,7 +86,7 @@ function UserSettings(props) {
                         Изменить фотографию
                     </button>
                 </div>
-                <p>Выйти из аккаунта</p>
+                <button onClick={e => logout()}>Выйти из аккаунта</button>
             </div>
         </div>,
         document.getElementById("portal")
