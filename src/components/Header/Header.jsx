@@ -3,6 +3,7 @@ import H from "./Header.module.css";
 import Logo from "./Logo";
 import Search from "./Search/Search";
 import UserSettings from "./HeaderUtils/UserSettings/UserSettings";
+import {connect} from "react-redux";
 
 function Header(props) {
     const [settingsActive, setSettingsStatus] = useState(false);
@@ -11,14 +12,15 @@ function Header(props) {
         setSettingsStatus(true);
     };
 
+
     const clickOutsideSettings = () => {
         setSettingsStatus(false);
     };
     return (
         <div className={H.header}>
             <div className={H.utils}>
-                <div className={H.userImage} onClick={clickSettings}></div>
-                <div>Здравствуйте, Данила</div>
+                <div className={H.userImage} onClick={clickSettings}/>
+                <div>Здравствуйте, {props.userName}</div>
                 <div>Chats Icon</div>
                 <div>Add Topic</div>
             </div>
@@ -36,4 +38,9 @@ function Header(props) {
     );
 }
 
-export default Header;
+const mapStateToProps = state => ({
+    userName: state.user.userName,
+})
+
+
+export default connect(mapStateToProps)(Header);

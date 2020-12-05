@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {Redirect, Route} from "react-router-dom";
 
 const PrivateRoute = props => {
-    console.log(props)
     const {isAuth} = props;
     return !isAuth
         ? <Redirect to="/login"/>

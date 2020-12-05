@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import U from "./UserSettings.module.css";
 import showPass from "../../../../icons/showpass.png";
 import {logoutActionCreator} from "../../../../redux/reducers/authReducer";
-import {useDispatch} from "react-redux";
+import {connect, useDispatch} from "react-redux";
+import {getUser} from "../../../../redux/reducers/userReducer";
 
 const useClickOutside = (handler) => {
     const domNode = useRef();
@@ -26,7 +27,13 @@ const useClickOutside = (handler) => {
 };
 
 function UserSettings(props) {
-    const [passView, setPassView] = useState(true);
+    const [passView, setPassView] = useState(true)
+    useEffect(() => {
+        dispatch(getUser());
+    }, [])
+
+    const [name, setName] = useState(props.userName)
+    const [password, setPass] = useState('')
     const dispatch = useDispatch()
 
     function logout(){
@@ -38,18 +45,21 @@ function UserSettings(props) {
         props.clickOutsideSettings();
     });
 
+
+
     return ReactDOM.createPortal(
         <div
             className={props.settingsActive ? U.darkBackground : U.darkBackgroundHidden}
         >
             <div ref={domNode} className={props.settingsActive ? U.settings : U.settingsHidden}>
-                <div style={{ marginTop: "100px" }}>Почта</div>
+                <div style={{ marginTop: "100px" }}>Почта {props.userEmail}</div>
                 <div>
                     <div className={U.userInputContainer}>
                         <input
                             className={U.userInput}
                             type={"text"}
-                            placeholder={"danila#228"}
+                            placeholder={`${props.userName}#${props.userTag}`}
+                            value={`${name}`}
                         />
                     </div>
                     <button className={U.userButton}> Изменить имя </button>
@@ -93,4 +103,11 @@ function UserSettings(props) {
     );
 }
 
-export default UserSettings;
+const mapStateToProps = state => ({
+    userName: state.user.userName,
+    userEmail: state.user.userEmail,
+    userTag: state.user.userTag,
+    userPass: state.user.userPass,
+})
+
+export default connect(mapStateToProps)(UserSettings);

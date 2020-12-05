@@ -38,11 +38,27 @@ export const loginAPI = {
 }
 
 export const userAPI = {
-    getUser(apiToken){
-        return axios.get(BASE_URL, {
+    getUser(){
+        return axios.get(BASE_URL + 'chaddit/c/user', {
             headers: {
-                'api_token': apiToken,
+                'api_token': localStorage.getItem('api_token'),
             }
+        });
+    },
+    updateName(name){
+        return axios.patch(`${BASE_URL}chaddit/c/user`, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            },
+            data:{user_name: name}
+        });
+    },
+    updatePass(password){
+        return axios.get(BASE_URL  + 'chaddit/c/user', {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            },
+            data: {user_pass: password}
         });
     }
 }
