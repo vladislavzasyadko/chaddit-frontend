@@ -34,6 +34,7 @@ function Header(props) {
                 closeSettings={closeSettings}
                 settingsActive={settingsActive}
             />}
+            {props.isAuth && <></>}
         </div>
     );
 }

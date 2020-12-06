@@ -3,22 +3,38 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 10px;
 }
 
 .chooseType{
     display:flex;
     padding: 5px;
-    font-size: 30px;
+    font-size: 26px;
 }
 
 .typeOption {
-    padding: 5px;
+    padding: 10px 20px;
     margin: 5px;
-    border: 1px solid black;
     cursor: pointer;
+    transition: ease .5s;
+    border: none;
+    color: white;
+    background-color: var(--secondary-color-light);
+}
+
+.typeOption:hover {
+    background-color: rgba(76, 175, 80, 0.4);
 }
 
 
+.activeOption {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: ease .3s;
+    color: white;
+    background-color: rgba(76, 175, 80, 0.6);
+}
 
 .loginForm {
     display: flex;
@@ -26,6 +42,9 @@
     align-items: center;
     width: 30%;
     min-width: 300px;
+    background-color: var(--main-bg-color-light);
+    padding: 10px;
+    font-family: 'Roboto Thin';
 }
 
 .inputField {
@@ -35,13 +54,29 @@
     width:100%;
     height:100%;
     padding:5px 10px;
-    border:1px solid gray;
-    border-radius:0;
+    border:none;
     transition:border-color .25s ease, box-shadow .25s ease;
+    background-color: var(--secondary-color-light-2);
+    font-family: 'Roboto Thin';
 }
 
 .buttonForm {
-    margin: 5px;
+    margin-top: 15px;
     font-size:22px;
-    padding: 5px;
+    padding: 10px;
+    border: none;
+    color: white;
+    background-color: rgba(76, 175, 80, 0.6);
+    cursor: pointer;
+    font-family: 'Roboto Thin';
+}
+
+.buttonForm:focus {
+    outline: none;
+    background-color: rgba(63, 146, 66, 0.6);
+}
+
+.inputField:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.6);
 }

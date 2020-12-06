@@ -1,8 +1,10 @@
+@import '../../commons/colors.css';
+
 .header {
     display: grid;
     grid-template-areas: 'utils logo search' ;
     grid-template-columns: 30% 40% 30%;
-    background-color: #e5e5e5;
+    background-color: var(--main-bg-color-light);
     padding: 10px;
     justify-content: space-around;
     align-items: center;

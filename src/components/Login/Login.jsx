@@ -13,7 +13,7 @@ const Login = (props) => {
 
     const dispatch = useDispatch()
 
-    if(props.isAuth){
+    if (props.isAuth) {
         return <Redirect to={'/feed'}/>
     }
 
@@ -21,44 +21,52 @@ const Login = (props) => {
         setType(type)
     }
 
-    function login(){
+    function login() {
         dispatch(loginActionCreator(email, password))
     }
 
-    function register(){
-        if(checkRegisterData()){
+    function register() {
+        if (checkRegisterData()) {
             dispatch(registerActionCreator(name, email, password))
         }
     }
 
-    function checkRegisterData(){
+    function checkRegisterData() {
         return password === approvingPassword && name && email;
     }
 
 
     return (
         <div className={L.loginRegisterContainer}>
-            <div className={L.chooseType}>
-                <div className={L.typeOption} onClick={e => changeType('Login')}>
-                    Login
+            <div className={L.loginForm}>
+                <div className={L.chooseType}>
+                    <div className={type === 'Login' ? L.activeOption : L.typeOption} onClick={e => changeType('Login')}>
+                        Login
+                    </div>
+                    <div className={type === 'Register' ? L.activeOption : L.typeOption} onClick={e => changeType('Register')}>
+                        Register
+                    </div>
                 </div>
-                <div className={L.typeOption} onClick={e => changeType('Register')}>
-                    Register
-                </div>
-            </div>
-            {type === 'Login' && <div className={L.loginForm}>
-                <input className={L.inputField} type={'text'} placeholder={'Input email'} onChange={e => setEmail(e.target.value)}/>
-                <input className={L.inputField} type={'password'} placeholder={'Input password'} onChange={e => setPassword(e.target.value)}/>
-                <button className={L.buttonForm} type={'submit'} onClick={login}>Login</button>
-            </div>}
+                {type === 'Login' && <div className={L.loginForm}>
+                    <input className={L.inputField} type={'text'} placeholder={'Input email'}
+                           onChange={e => setEmail(e.target.value)}/>
+                    <input className={L.inputField} type={'password'} placeholder={'Input password'}
+                           onChange={e => setPassword(e.target.value)}/>
+                    <button className={L.buttonForm} type={'submit'} onClick={login}>Login</button>
+                </div>}
 
-            {type === 'Register' && <div className={L.loginForm}>
-                <input className={L.inputField} type={'text'} placeholder={'Input name'} onChange={e => setName(e.target.value)}/>
-                <input className={L.inputField} type={'email'} placeholder={'Input email'} onChange={e => setEmail(e.target.value)}/>
-                <input className={L.inputField} type={'password'} placeholder={'Input password'} onChange={e => setApprPassword(e.target.value)}/>
-                <input className={L.inputField} type={'password'} placeholder={'Repeat password'} onChange={e => setPassword(e.target.value)}/>
-                <button className={L.buttonForm} type={'submit'} onClick={register}>Register</button>
-            </div>}
+                {type === 'Register' && <div className={L.loginForm}>
+                    <input className={L.inputField} type={'text'} placeholder={'Input name'}
+                           onChange={e => setName(e.target.value)}/>
+                    <input className={L.inputField} type={'email'} placeholder={'Input email'}
+                           onChange={e => setEmail(e.target.value)}/>
+                    <input className={L.inputField} type={'password'} placeholder={'Input password'}
+                           onChange={e => setApprPassword(e.target.value)}/>
+                    <input className={L.inputField} type={'password'} placeholder={'Repeat password'}
+                           onChange={e => setPassword(e.target.value)}/>
+                    <button className={L.buttonForm} type={'submit'} onClick={register}>Register</button>
+                </div>}
+            </div>
         </div>
     );
 }
