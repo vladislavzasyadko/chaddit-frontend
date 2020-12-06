@@ -58,6 +58,4 @@
 
 .userImage:hover {
     background-color: var(--blue-color-focus);
-    width: 85px;
-    height: 85px;
 }

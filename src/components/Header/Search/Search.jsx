@@ -8,7 +8,7 @@ function Search(props) {
             <input
                 className={S.searchInput}
                 type="text"
-                placeholder="What can I help you with today?"
+                placeholder="Что я могу для Вас найти?"
             />
 
             <button type="submit" class={S.searchButton}>

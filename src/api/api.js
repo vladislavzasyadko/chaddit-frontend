@@ -5,15 +5,23 @@ let instance = axios.create({
     baseURL: BASE_URL,
 })
 
-export const topicAPI = {
-    getTopics() {
-        return instance.get(`chaddit/c/topics`).then(response => response.data);
+export const threadAPI = {
+    getThreads() {
+        return instance.get(`chaddit/c/threads`,{
+        headers: {
+            topic_id: 6
+        }}).then(response => response.data);
     },
-    getTopic(topicId){
-        return instance.get(`chaddit/c/topic/${topicId}`).then(response => response.data);
+    getThread(threadId){
+        return instance.get(`chaddit/c/thread/${threadId}`).then(response => response.data);
     },
-    createTopic(){
-        return instance.post(`chaddit/c/topic`).then(response => response.data);
+    createThread(topicId, data){
+        return instance.post(`chaddit/c/thread`, data, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+                'topic_id': topicId,
+            }
+        }).then(response => response.data);
     }
 }
 

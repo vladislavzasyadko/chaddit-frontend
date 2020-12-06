@@ -1,6 +1,6 @@
-export const FETCH_TOPICS = 'FETCH_TOPICS';
-export const FETCH_TOPIC = 'FETCH_TOPIC';
-export const CREATE_TOPIC = 'CREATE_TOPIC';
+export const FETCH_THREADS = 'FETCH_THREAD';
+export const FETCH_THREAD = 'FETCH_THREAD';
+export const CREATE_THREAD = 'CREATE_THREAD';
 
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';

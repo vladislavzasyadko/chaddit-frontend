@@ -3,22 +3,22 @@ import Card from "../Card/Card";
 import F from "./Feed.module.css";
 import {cardColors} from "../../commons/colors";
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {fetchTopicsThunkCreator} from "../../redux/reducers/topicsReducer";
+import {fetchThreads} from "../../redux/reducers/threadReducer";
 
 const Feed = (props) => {
     const dispatch = useDispatch()
-    const topics = props.topics;
+    const threads = props.threads;
 
     useEffect(() => {
-        dispatch(fetchTopicsThunkCreator())
+        dispatch(fetchThreads())
     }, [])
 
     return (
         <div className={F.feed}>
-            {topics.map((card, i) => {
+            {threads.map((card, i) => {
                 const cardProps = {
                     color: cardColors[Math.floor(Math.random() * cardColors.length)],
-                    topicTitle: card.topic_title,
+                    topicTitle: card.thread_title,
                     authorId: card.author_id,
                     createdAt: card.created_at,
                 }
@@ -29,7 +29,7 @@ const Feed = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    topics: state.topicsData.topics,
+    threads: state.threadData.threads,
     isAuth: state.auth.loggedIn,
 })
 

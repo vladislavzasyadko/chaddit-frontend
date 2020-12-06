@@ -25,6 +25,8 @@
 }
 
 .searchButton {
+    outline: none;
+    cursor: pointer;
     border: none;
     background: none;
 }

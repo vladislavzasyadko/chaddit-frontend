@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import Search from "./Search/Search";
 import UserSettings from "./HeaderUtils/UserSettings/UserSettings";
 import {connect} from "react-redux";
-import CreateTopicWidget from "./HeaderUtils/CreateTopicWidget/CreateTopicWidget";
+import CreateThreadWidget from "./HeaderUtils/CreateThreadWidget/CreateThreadWidget";
 
 function Header(props) {
     const [settingsActive, setSettingsStatus] = useState(false);
@@ -44,7 +44,7 @@ function Header(props) {
                 closeSettings={closeSettings}
                 settingsActive={settingsActive}
             />}
-            {props.isAuth && <CreateTopicWidget
+            {props.isAuth && <CreateThreadWidget
                 creatorActive={creatorActive}
                 closeCreator={closeCreator}/>}
         </div>
