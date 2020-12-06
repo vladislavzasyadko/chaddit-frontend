@@ -59,7 +59,7 @@
     margin: 5px;
     border-radius: 10px;
     outline: none;
-    border: 2px solid black;
+    border: none;
 }
 .userInputContainer {
     composes: userWidget;
@@ -79,11 +79,13 @@
     font-size: 12pt;
     composes: userWidget;
     background-color: var(--blue-color);
+    color: var(--text-light-color);
+    font-weight: bold;
     cursor: pointer;
 }
 
 .exitButton {
     composes: userButton;
-    color: #e5e5e5;
+    color: var(--text-light-color);
     background-color: var(--red-color);
 }

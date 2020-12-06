@@ -41,30 +41,30 @@ const Login = (props) => {
             <div className={L.loginForm}>
                 <div className={L.chooseType}>
                     <div className={type === 'Login' ? L.activeOption : L.typeOption} onClick={e => changeType('Login')}>
-                        Login
+                        {'Вход'}
                     </div>
                     <div className={type === 'Register' ? L.activeOption : L.typeOption} onClick={e => changeType('Register')}>
-                        Register
+                        {'Регистрация'}
                     </div>
                 </div>
                 {type === 'Login' && <div className={L.loginForm}>
-                    <input className={L.inputField} type={'text'} placeholder={'Input email'}
+                    <input className={L.inputField} type={'text'} placeholder={'Введите адрес эл. почты'}
                            onChange={e => setEmail(e.target.value)}/>
-                    <input className={L.inputField} type={'password'} placeholder={'Input password'}
+                    <input className={L.inputField} type={'password'} placeholder={'Введите пароль'}
                            onChange={e => setPassword(e.target.value)}/>
-                    <button className={L.buttonForm} type={'submit'} onClick={login}>Login</button>
+                    <button className={L.buttonForm} type={'submit'} onClick={login}>{'Войти'}</button>
                 </div>}
 
                 {type === 'Register' && <div className={L.loginForm}>
-                    <input className={L.inputField} type={'text'} placeholder={'Input name'}
+                    <input className={L.inputField} type={'text'} placeholder={'Введите имя'}
                            onChange={e => setName(e.target.value)}/>
-                    <input className={L.inputField} type={'email'} placeholder={'Input email'}
+                    <input className={L.inputField} type={'email'} placeholder={'Введите адрес эл. почты'}
                            onChange={e => setEmail(e.target.value)}/>
-                    <input className={L.inputField} type={'password'} placeholder={'Input password'}
+                    <input className={L.inputField} type={'password'} placeholder={'Введите пароль'}
                            onChange={e => setApprPassword(e.target.value)}/>
-                    <input className={L.inputField} type={'password'} placeholder={'Repeat password'}
+                    <input className={L.inputField} type={'password'} placeholder={'Повторите пароль'}
                            onChange={e => setPassword(e.target.value)}/>
-                    <button className={L.buttonForm} type={'submit'} onClick={register}>Register</button>
+                    <button className={L.buttonForm} type={'submit'} onClick={register}>{'Регистрация'}</button>
                 </div>}
             </div>
         </div>

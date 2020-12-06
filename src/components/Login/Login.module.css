@@ -23,7 +23,7 @@
 }
 
 .typeOption:hover {
-    background-color: rgba(76, 175, 80, 0.4);
+    background-color: var(--blue-color-hover);
 }
 
 
@@ -33,7 +33,7 @@
     cursor: pointer;
     transition: ease .3s;
     color: white;
-    background-color: rgba(76, 175, 80, 0.6);
+    background-color: var(--blue-color);
 }
 
 .loginForm {
@@ -44,7 +44,7 @@
     min-width: 300px;
     background-color: var(--main-bg-color-light);
     padding: 10px;
-    font-family: 'Roboto Thin';
+    font-weight: bold;
 }
 
 .inputField {
@@ -57,26 +57,32 @@
     border:none;
     transition:border-color .25s ease, box-shadow .25s ease;
     background-color: var(--secondary-color-light-2);
-    font-family: 'Roboto Thin';
 }
 
 .buttonForm {
     margin-top: 15px;
     font-size:22px;
-    padding: 10px;
     border: none;
     color: white;
-    background-color: rgba(76, 175, 80, 0.6);
+    background-color: var(--blue-color);
+    font-weight: bold;
     cursor: pointer;
-    font-family: 'Roboto Thin';
+    border-radius: 10px;
+    padding: 10px 15px;
+    transition: ease .5s;
 }
 
 .buttonForm:focus {
     outline: none;
-    background-color: rgba(63, 146, 66, 0.6);
+    background-color: var(--blue-color-focus);
+}
+
+.buttonForm:hover {
+    outline: none;
+    background-color: var(--blue-color-button-hover);
 }
 
 .inputField:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.6);
+    box-shadow: 0 0 0 3px var(--blue-color);
 }

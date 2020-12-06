@@ -27,19 +27,19 @@ function Header(props) {
     };
 
     return (
-        <div className={H.header}>
-            <div className={H.utils}>
+        <div className={props.isAuth ? H.header : H.headerGuest}>
+            {props.isAuth && <div className={H.utils}>
                 <div className={H.userImage} onClick={props.isAuth ? openSettings : null}/>
-                <div>{`Здравствуйте, ${props.isAuth ? props.userName : 'гость'}`}</div>
-                <div>Chats Icon</div>
-                <div onClick={props.isAuth ? openCreator : null}>Add Topic</div>
-            </div>
+                <div>{`Здравствуйте, ${props.isAuth ? props.userName : ' гость'}`}</div>
+                <div>Чаты</div>
+                <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>Добавить тред</div>
+            </div>}
             <div className={H.logo}>
                 <Logo />
             </div>
-            <div className={H.search}>
-                <Search />
-            </div>
+            {props.isAuth && <div className={H.search}>
+                <Search/>
+            </div>}
             {props.isAuth && <UserSettings
                 closeSettings={closeSettings}
                 settingsActive={settingsActive}

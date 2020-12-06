@@ -2,7 +2,7 @@
 
 .header {
     display: grid;
-    grid-template-areas: 'utils logo search' ;
+    grid-template-areas: 'utils logo search';
     grid-template-columns: 30% 40% 30%;
     background-color: var(--main-bg-color-light);
     padding: 10px;
@@ -11,7 +11,14 @@
     z-index:1;
 }
 
-
+.headerGuest {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color-light);
+    padding: 10px;
+    z-index:1;
+}
 
 .logo {
     grid-area: 'logo';
@@ -41,10 +48,16 @@
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    background-color: darkblue;
+    background-color: var(--blue-color);
     transition: ease .6s;
 }
 
+.userTopicCreator{
+    cursor: pointer;
+}
+
 .userImage:hover {
-    background-color: red;
+    background-color: var(--blue-color-focus);
+    width: 85px;
+    height: 85px;
 }
