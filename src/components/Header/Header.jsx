@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import H from "./Header.module.css";
 import Logo from "./Logo";
 import Search from "./Search/Search";
@@ -8,19 +8,19 @@ import {connect} from "react-redux";
 function Header(props) {
     const [settingsActive, setSettingsStatus] = useState(false);
 
-    const clickSettings = () => {
+    const openSettings = () => {
         setSettingsStatus(true);
     };
 
-
-    const clickOutsideSettings = () => {
+    const closeSettings = () => {
         setSettingsStatus(false);
     };
+
     return (
         <div className={H.header}>
             <div className={H.utils}>
-                <div className={H.userImage} onClick={clickSettings}/>
-                <div>Здравствуйте, {props.userName}</div>
+                <div className={H.userImage} onClick={props.isAuth ? openSettings : null}/>
+                <div>{`Здравствуйте, ${props.isAuth ? props.userName : 'гость'}`}</div>
                 <div>Chats Icon</div>
                 <div>Add Topic</div>
             </div>
@@ -30,16 +30,17 @@ function Header(props) {
             <div className={H.search}>
                 <Search />
             </div>
-            <UserSettings
-                clickOutsideSettings={clickOutsideSettings}
+            {props.isAuth && <UserSettings
+                closeSettings={closeSettings}
                 settingsActive={settingsActive}
-            />
+            />}
         </div>
     );
 }
 
 const mapStateToProps = state => ({
     userName: state.user.userName,
+    isAuth: state.auth.loggedIn,
 })
 
 

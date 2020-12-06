@@ -30,19 +30,19 @@ function UserSettings(props) {
     const [passView, setPassView] = useState(true)
     useEffect(() => {
         dispatch(getUser());
-    }, [])
+    })
 
     const [name, setName] = useState(props.userName)
     const [password, setPass] = useState('')
     const dispatch = useDispatch()
 
     function logout(){
-        props.clickOutsideSettings();
+        props.closeSettings();
         dispatch(logoutActionCreator());
     }
 
     let domNode = useClickOutside(() => {
-        props.clickOutsideSettings();
+        props.closeSettings();
     });
 
 
