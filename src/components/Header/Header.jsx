@@ -4,9 +4,11 @@ import Logo from "./Logo";
 import Search from "./Search/Search";
 import UserSettings from "./HeaderUtils/UserSettings/UserSettings";
 import {connect} from "react-redux";
+import CreateTopicWidget from "./HeaderUtils/CreateTopicWidget/CreateTopicWidget";
 
 function Header(props) {
     const [settingsActive, setSettingsStatus] = useState(false);
+    const [creatorActive, setCreatorStatus] = useState(false);
 
     const openSettings = () => {
         setSettingsStatus(true);
@@ -16,13 +18,21 @@ function Header(props) {
         setSettingsStatus(false);
     };
 
+    const openCreator = () => {
+        setCreatorStatus(true);
+    };
+
+    const closeCreator = () => {
+        setCreatorStatus(false);
+    };
+
     return (
         <div className={H.header}>
             <div className={H.utils}>
                 <div className={H.userImage} onClick={props.isAuth ? openSettings : null}/>
                 <div>{`Здравствуйте, ${props.isAuth ? props.userName : 'гость'}`}</div>
                 <div>Chats Icon</div>
-                <div>Add Topic</div>
+                <div onClick={props.isAuth ? openCreator : null}>Add Topic</div>
             </div>
             <div className={H.logo}>
                 <Logo />
@@ -34,7 +44,9 @@ function Header(props) {
                 closeSettings={closeSettings}
                 settingsActive={settingsActive}
             />}
-            {props.isAuth && <></>}
+            {props.isAuth && <CreateTopicWidget
+                creatorActive={creatorActive}
+                closeCreator={closeCreator}/>}
         </div>
     );
 }

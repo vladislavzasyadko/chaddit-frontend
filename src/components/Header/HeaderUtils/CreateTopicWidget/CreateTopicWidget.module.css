@@ -1,0 +1,54 @@
+.darkBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0, .7);
+    display: flex;
+}
+
+.darkBackgroundHidden {
+    composes: darkBackground;
+    visibility: hidden;
+}
+
+.creatorContainer {
+    margin-top: 120px;
+    margin-left: 20px;
+    height: 600px;
+    width: 600px;
+    background-color: var(--main-bg-color-light);
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputCreator {
+    border-radius: 5px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+    height: 5%;
+    font-size: 16px;
+}
+
+.textareaCreator {
+    composes: inputCreator;
+    resize: none;
+    width: 100%;
+    height: 70%;
+    box-sizing: border-box;
+}
+
+.buttonCreator {
+    background-color: var(--blue-color);
+    margin: 10px 0px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    align-self: flex-end;
+    font-size: 16px;
+}
+

@@ -5,26 +5,7 @@ import showPass from "../../../../icons/showpass.png";
 import {logoutActionCreator} from "../../../../redux/reducers/authReducer";
 import {connect, useDispatch} from "react-redux";
 import {getUser, updateUserName} from "../../../../redux/reducers/userReducer";
-
-const useClickOutside = (handler) => {
-    const domNode = useRef();
-
-    useEffect(() => {
-        const handleEvent = (event) => {
-            if (domNode && !domNode.current.contains(event.target)) {
-                handler();
-            }
-        };
-
-        document.addEventListener("mousedown", handleEvent);
-
-        return () => {
-            document.removeEventListener("mousedown", handleEvent);
-        };
-    });
-
-    return domNode;
-};
+import useClickOutside from "../utils";
 
 function UserSettings(props) {
     const [passView, setPassView] = useState(true)

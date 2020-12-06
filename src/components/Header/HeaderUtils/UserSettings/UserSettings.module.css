@@ -78,12 +78,12 @@
 .userButton {
     font-size: 12pt;
     composes: userWidget;
-    background-color: #1da1f2;
+    background-color: var(--blue-color);
     cursor: pointer;
 }
 
 .exitButton {
     composes: userButton;
     color: #e5e5e5;
-    background-color: #bd0110;
+    background-color: var(--red-color);
 }
