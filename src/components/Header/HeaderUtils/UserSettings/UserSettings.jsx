@@ -4,7 +4,7 @@ import U from "./UserSettings.module.css";
 import showPass from "../../../../icons/showpass.png";
 import {logoutActionCreator} from "../../../../redux/reducers/authReducer";
 import {connect, useDispatch} from "react-redux";
-import {getUser} from "../../../../redux/reducers/userReducer";
+import {getUser, updateUserName} from "../../../../redux/reducers/userReducer";
 
 const useClickOutside = (handler) => {
     const domNode = useRef();
@@ -28,11 +28,16 @@ const useClickOutside = (handler) => {
 
 function UserSettings(props) {
     const [passView, setPassView] = useState(true)
-    useEffect(() => {
-        dispatch(getUser());
-    })
 
-    const [name, setName] = useState(props.userName)
+    useEffect(
+        () => {
+            dispatch(getUser());
+        },
+        [props.isAuth],
+    );
+
+    const [name, setName] = useState('')
+    const [input, setInput] = useState('')
     const [password, setPass] = useState('')
     const dispatch = useDispatch()
 
@@ -41,11 +46,16 @@ function UserSettings(props) {
         dispatch(logoutActionCreator());
     }
 
+    function setNewUserName(){
+        dispatch(updateUserName(name));
+        setName('')
+    }
+
     let domNode = useClickOutside(() => {
         props.closeSettings();
+        setName('');
+        setPass('')
     });
-
-
 
     return ReactDOM.createPortal(
         <div
@@ -59,10 +69,11 @@ function UserSettings(props) {
                             className={U.userInput}
                             type={"text"}
                             placeholder={`${props.userName}#${props.userTag}`}
-                            value={`${name}`}
+                            value={name}
+                            onChange={e => setName(e.target.value)}
                         />
                     </div>
-                    <button className={U.userButton}> Изменить имя </button>
+                    <button className={U.userButton} onClick={setNewUserName}> Изменить имя </button>
                 </div>
                 <div>
                     <div className={U.userInputContainer}>
@@ -96,7 +107,7 @@ function UserSettings(props) {
                         Изменить фотографию
                     </button>
                 </div>
-                <button onClick={e => logout()}>Выйти из аккаунта</button>
+                <button className={U.exitButton} onClick={e => logout()}>Выйти из аккаунта</button>
             </div>
         </div>,
         document.getElementById("portal")
@@ -108,6 +119,7 @@ const mapStateToProps = state => ({
     userEmail: state.user.userEmail,
     userTag: state.user.userTag,
     userPass: state.user.userPass,
+    isAuth: state.auth.loggedIn,
 })
 
 export default connect(mapStateToProps)(UserSettings);

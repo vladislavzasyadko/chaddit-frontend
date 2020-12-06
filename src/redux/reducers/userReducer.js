@@ -1,5 +1,5 @@
 import {userAPI} from "../../api/api";
-import {SET_USER, UPDATE_USER_NAME, UPDATE_USER_PASS} from "./types";
+import {SET_USER, SET_USER_NAME, UPDATE_USER_NAME, UPDATE_USER_PASS} from "./types";
 
 const initialState = {userName: '', userEmail: '', userPass: ''}
 
@@ -9,11 +9,22 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userName: action.name,
+                userTempName: action.name,
                 userPass: action.pass,
                 userId: action.id,
                 userEmail: action.email,
                 userTag: action.tag,
             }
+        case SET_USER_NAME:
+            return {
+                ...state,
+                userTempName: action.name,
+            }
+        // case SET_USER_PASS:
+        //     return {
+        //         ...state,
+        //         userTempPass: action.pass,
+        //     }
         case UPDATE_USER_NAME:
             return {
                 ...state,
@@ -63,4 +74,8 @@ export const updateUserPass = password => dispatch => {
         }, (error) => {
             console.log(error)
         });
+}
+
+export const setUserName = name => dispatch => {
+    return dispatch({type: SET_USER_NAME, name})
 }

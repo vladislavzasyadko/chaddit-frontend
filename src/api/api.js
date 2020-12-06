@@ -45,15 +45,18 @@ export const userAPI = {
             }
         });
     },
-    updateName(name){
-        return axios.patch(`${BASE_URL}chaddit/c/user`, {
-            headers: {
-                'api_token': localStorage.getItem('api_token'),
-            },
-            data:{user_name: name}
-        });
+    updateName(name) {
+        console.log('api key', localStorage.getItem('api_token'));
+        return axios.patch(`${BASE_URL}chaddit/c/user`,
+            {user_name: name},
+            {
+                headers: {
+                    'api_token': localStorage.getItem('api_token'),
+                }
+            });
     },
     updatePass(password){
+        console.log(localStorage.getItem('api_token'));
         return axios.get(BASE_URL  + 'chaddit/c/user', {
             headers: {
                 'api_token': localStorage.getItem('api_token'),

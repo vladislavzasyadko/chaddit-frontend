@@ -81,3 +81,9 @@
     background-color: #1da1f2;
     cursor: pointer;
 }
+
+.exitButton {
+    composes: userButton;
+    color: #e5e5e5;
+    background-color: #bd0110;
+}
