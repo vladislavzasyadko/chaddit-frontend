@@ -25,6 +25,20 @@ export const threadAPI = {
     }
 }
 
+export const topicAPI = {
+    getTopics() {
+        return instance.get(`chaddit/c/topics`).then(response => response.data);
+    },
+    createTopic(title){
+        return axios.post(BASE_URL + `chaddit/c/topic`, {topic_title: title, tags: []}, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            }
+        })
+            .then(response => response.data)
+    }
+}
+
 export const chatAPI = {
     getChats(userId) {
         return instance.get(`chaddit/c/chats/${userId}`).then(response => response.data);

@@ -2,6 +2,9 @@ export const FETCH_THREADS = 'FETCH_THREAD';
 export const FETCH_THREAD = 'FETCH_THREAD';
 export const CREATE_THREAD = 'CREATE_THREAD';
 
+export const FETCH_TOPICS = 'FETCH_TOPICS';
+export const CREATE_TOPIC = 'CREATE_TOPIC';
+
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
 export const FAILURE = 'FAILURE';
