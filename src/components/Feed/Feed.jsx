@@ -18,7 +18,7 @@ const Feed = (props) => {
             {threads.map((card, i) => {
                 const cardProps = {
                     color: cardColors[Math.floor(Math.random() * cardColors.length)],
-                    topicTitle: card.thread_title,
+                    threadTitle: card.thread_title,
                     authorId: card.author_id,
                     createdAt: card.created_at,
                 }

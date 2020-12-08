@@ -12,7 +12,6 @@ function CreateThreadWidget(props) {
     const [threadName, setThreadName] = useState('')
     const [threadText, setThreadText] = useState('')
     const [topicTitle, setTopicTitle] = useState('')
-    const [newThreadTopicId, setNewId] = useState('');
 
     const topics = props.topics.map( topic => ({title: topic.topic_title, id: topic.topic_id}))
 
@@ -43,6 +42,7 @@ function CreateThreadWidget(props) {
         }))
         setThreadName('');
         setThreadText('');
+        setTopicTitle('');
         dispatch(fetchThreads());
         props.closeCreator();
     }, [props.newTopicId])
@@ -54,16 +54,6 @@ function CreateThreadWidget(props) {
         } else {
             dispatch(createTopicId(topicTitle));
         }
-        // dispatch(createThread(newThreadTopicId, {
-        //     thread_title: threadName,
-        //     posts: [{
-        //         body: threadText,
-        //     }],
-        // }))
-        // setThreadName('');
-        // setThreadText('');
-        // dispatch(fetchThreads());
-        // props.closeCreator();
     }
 
     return ReactDOM.createPortal(
@@ -72,12 +62,16 @@ function CreateThreadWidget(props) {
         >
             <div ref={domNode} className={C.creatorContainer}>
                 <h1>{`Создать новый тред в теме: ${topic}`}</h1>
-                <input list={'topiclist'} onChange={e => setTopicTitle(e.target.value)}/>
+                <input className={C.dataList}
+                       placeholder={'Выберите тему треда'}
+                       list={'topiclist'}
+                       value={topicTitle}
+                       onChange={e => setTopicTitle(e.target.value)}/>
                     <datalist id={'topiclist'}>
                         {topics.map(topic => <option value={topic.title}/>)}
                     </datalist>
-                <input className={C.inputCreator } placeholder={'Название треда'} onChange={ e=> updateThreadName(e.target.value)}/>
-                <textarea className={C.textareaCreator } placeholder={'Сообщение'} onChange={ e=> updateThreadText(e.target.value)}/>
+                <input className={C.inputCreator } placeholder={'Название треда'} value={threadName} onChange={ e=> updateThreadName(e.target.value)}/>
+                <textarea className={C.textareaCreator } placeholder={'Сообщение'} value={threadText} onChange={ e=> updateThreadText(e.target.value)}/>
                 <button className={C.buttonCreator} onClick={postThread}>{'Отправить'}</button>
             </div>
         </div>,

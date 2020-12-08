@@ -1,0 +1,17 @@
+.buttonChad {
+    cursor: pointer;
+    outline: none;
+    background-color: var(--blue-color);
+    margin: 10px 0;
+    padding: 10px 15px;
+    border: none;
+    font-weight: bold;
+    color: var(--text-light-color);
+    border-radius: 10px;
+    align-self: flex-end;
+    font-size: 16px;
+}
+
+.buttonChad:hover {
+    background-color: var(--blue-color-button-hover);
+}

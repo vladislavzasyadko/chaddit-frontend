@@ -26,12 +26,17 @@
 }
 
 .inputCreator {
+    width: 50%;
     border-radius: 5px;
     margin-top: 10px;
     border: none;
     outline: none;
     height: 5%;
     font-size: 16px;
+}
+
+.dataList {
+    composes: inputCreator;
 }
 
 .textareaCreator {
@@ -43,6 +48,7 @@
 }
 
 .buttonCreator {
+    cursor: pointer;
     background-color: var(--blue-color);
     margin: 10px 0;
     padding: 10px 15px;
@@ -52,5 +58,9 @@
     border-radius: 10px;
     align-self: flex-end;
     font-size: 16px;
+}
+
+.buttonCreator:hover {
+    background-color: var(--blue-color-button-hover);
 }
 

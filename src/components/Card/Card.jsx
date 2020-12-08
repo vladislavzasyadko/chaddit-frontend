@@ -4,7 +4,7 @@ import cat from "../../icons/cat.png";
 import {formatDate} from "../../utils/formatters";
 
 function Card(props) {
-    const {topicTitle, authorId, createdAt, color} = props;
+    const {threadTitle, authorId, createdAt, color} = props;
 
     return (
         <div
@@ -24,10 +24,10 @@ function Card(props) {
                     borderRadius: "5px",
                 }}
             />
-            <h2>{topicTitle}</h2>
-            <span className={C.cardTextPreview}>{'sample description'}</span>
-            <div>AUTHOR: {authorId}</div>
-            <div>Created at: {formatDate(createdAt)}</div>
+            <h2 className={C.cardTitle}>{threadTitle}</h2>
+            {/*<span className={C.cardTextPreview}>{'sample description'}</span>*/}
+            <div>Автор: {authorId}</div>
+            <div className={C.cardDate}>{formatDate(createdAt)}</div>
         </div>
     );
 }

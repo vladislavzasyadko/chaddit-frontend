@@ -5,6 +5,9 @@ import Search from "./Search/Search";
 import UserSettings from "./HeaderUtils/UserSettings/UserSettings";
 import {connect} from "react-redux";
 import CreateThreadWidget from "./HeaderUtils/CreateThreadWidget/CreateThreadWidget";
+import common from '../../commons/elements.module.css';
+import User from '../../icons/user.svg';
+
 
 function Header(props) {
     const [settingsActive, setSettingsStatus] = useState(false);
@@ -32,7 +35,10 @@ function Header(props) {
                 <div className={H.userImage} onClick={props.isAuth ? openSettings : null}/>
                 <div>{`Здравствуйте, ${props.isAuth ? props.userName : ' гость'}`}</div>
                 <div>Чаты</div>
-                <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>Добавить тред</div>
+                <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>
+                    <button className={common.buttonChad}> Добавить тред </button>
+
+                </div>
             </div>}
             <div className={H.logo}>
                 <Logo />

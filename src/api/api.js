@@ -9,7 +9,7 @@ export const threadAPI = {
     getThreads() {
         return instance.get(`chaddit/c/threads`,{
         headers: {
-            topic_id: 6
+            topic_id: 15
         }}).then(response => response.data);
     },
     getThread(threadId){
