@@ -68,7 +68,6 @@ export const userAPI = {
         });
     },
     updateName(name) {
-        console.log('api key', localStorage.getItem('api_token'));
         return axios.patch(`${BASE_URL}chaddit/c/user`,
             {user_name: name},
             {
@@ -78,7 +77,6 @@ export const userAPI = {
             });
     },
     updatePass(password){
-        console.log(localStorage.getItem('api_token'));
         return axios.get(BASE_URL  + 'chaddit/c/user', {
             headers: {
                 'api_token': localStorage.getItem('api_token'),

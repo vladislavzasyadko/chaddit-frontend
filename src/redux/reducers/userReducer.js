@@ -54,7 +54,7 @@ export const getUser = () => (dispatch) => {
                 tag: user_tag
             })
         }, (error) => {
-            console.log(error)
+            // console.log(error)
         });
 }
 
@@ -63,7 +63,7 @@ export const updateUserName = name => dispatch => {
         .then((response) => {
             dispatch({type: UPDATE_USER_NAME, newName: name})
         }, (error) => {
-            console.log(error)
+            // console.log(error)
         });
 }
 
@@ -72,7 +72,7 @@ export const updateUserPass = password => dispatch => {
         .then((response) => {
             dispatch({type: UPDATE_USER_NAME, newPass: password})
         }, (error) => {
-            console.log(error)
+            // console.log(error)
         });
 }
 
