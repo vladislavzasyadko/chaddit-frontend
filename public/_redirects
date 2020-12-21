@@ -1,3 +1,3 @@
 /api/* http://chaddit-on-heroku.herokuapp.com/:splat 200!
 /feed / 200!
-/login /200!
+/login / 200!
