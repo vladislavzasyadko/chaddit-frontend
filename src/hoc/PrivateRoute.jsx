@@ -1,9 +1,15 @@
 import React from "react";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {Redirect, Route} from "react-router-dom";
+import {getUser} from "../redux/reducers/userReducer";
 
 const PrivateRoute = props => {
+    const dispatch = useDispatch()
     const {isAuth} = props;
+    if(isAuth){
+        dispatch(getUser())
+    }
+
     return !isAuth
         ? <Redirect to="/login"/>
         : <Route {...props} />

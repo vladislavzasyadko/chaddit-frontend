@@ -3,15 +3,25 @@ import H from "./Header.module.css";
 import Logo from "./Logo";
 import Search from "./Search/Search";
 import UserSettings from "./HeaderUtils/UserSettings/UserSettings";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import CreateThreadWidget from "./HeaderUtils/CreateThreadWidget/CreateThreadWidget";
 import common from '../../commons/elements.module.css';
 import User from '../../icons/user.svg';
+import {getUser} from "../../redux/reducers/userReducer";
 
 
 function Header(props) {
+    const dispatch = useDispatch()
+
     const [settingsActive, setSettingsStatus] = useState(false);
     const [creatorActive, setCreatorStatus] = useState(false);
+
+    useEffect(
+        () => {
+            dispatch(getUser());
+        },
+        [props.isAuth],
+    );
 
     const openSettings = () => {
         setSettingsStatus(true);
@@ -33,7 +43,7 @@ function Header(props) {
         <div className={props.isAuth ? H.header : H.headerGuest}>
             {props.isAuth && <div className={H.utils}>
                 <div className={H.userImage} onClick={props.isAuth ? openSettings : null}/>
-                <div>{`Здравствуйте, ${props.isAuth ? props.userName : ' гость'}`}</div>
+                <div>{`${props.isAuth ? `Здравствуйте,  ${props.userName}` : ''}`}</div>
                 <div>Чаты</div>
                 <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>
                     <button className={common.buttonChad}> Добавить тред </button>
