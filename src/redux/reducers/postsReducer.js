@@ -20,7 +20,6 @@ function updateCommentRating(posts, postId, reply) {
         }
 
     })(temp);
-    console.log('updated posts', temp)
     return temp;
 }
 

@@ -29,7 +29,6 @@ function ActiveCard(props) {
     function handleClick(event, postId, body){
         if(event && event.stopPropagation){
             event.stopPropagation()
-            console.log(postId)
             chooseCommentId(postId)
             setCurrentReplyComment(body)
         }
@@ -51,7 +50,6 @@ function ActiveCard(props) {
 
     useEffect(() => {
         if(posts){
-            console.log('updated')
             setActivePosts([...props.posts])
         }
 
@@ -60,7 +58,6 @@ function ActiveCard(props) {
 
 
     const chooseCommentId = id => {
-        console.log('set reply id to', id)
         setReplyId(id)
     }
 
@@ -80,21 +77,6 @@ function ActiveCard(props) {
 
         dispatch(sendPost(newPost, replyId));
     }
-
-    // const search = (tree, target) => {
-    //     if (tree.post_id === target) {
-    //         return tree;
-    //     }
-    //
-    //     for (const response of tree.responses) {
-    //         const res = search(response, target);
-    //
-    //         if (res) {
-    //             return res;
-    //         }
-    //     }
-    // };
-
 
     return ReactDOM.createPortal(
         <div className={props.cardId ? C.darkBackground : C.darkBackgroundHidden}
