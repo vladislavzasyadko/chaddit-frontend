@@ -1,4 +1,4 @@
-import {CREATE_THREAD, FETCH_THREAD, FETCH_THREADS} from './types.js'
+import {CREATE_THREAD, FETCH_THREAD, FETCH_THREADS, CLEAR_THREAD} from './types.js'
 import {threadAPI} from "../../api/api";
 
 const initialState = {
@@ -15,7 +15,12 @@ export const threadReducer = (state = initialState, action) => {
         case FETCH_THREAD:
             return {
                 ...state,
-                threads: [state.threads, action.threads]
+                thread: action.thread,
+            }
+        case CLEAR_THREAD:
+            return {
+                ...state,
+                thread: action.thread,
             }
 
         default:
@@ -26,7 +31,7 @@ export const threadReducer = (state = initialState, action) => {
 
 export const fetchThreads = () => (dispatch) => {
     return threadAPI.getThreads()
-        .then(threads => dispatch({type: FETCH_THREAD, threads: threads})) //dispatch({type: FETCH_THREAD, threads: threads}
+        .then(threads => dispatch({type: FETCH_THREADS, threads: threads})) //dispatch({type: FETCH_THREAD, threads: threads}
 }
 
 export const fetchThread = (threadId) => {
@@ -34,6 +39,10 @@ export const fetchThread = (threadId) => {
         threadAPI.getThread(threadId)
             .then(thread => dispatch({type: FETCH_THREAD, thread: thread}))
     }
+}
+
+export const clearThread = () => (dispatch) => {
+    return dispatch({type: CLEAR_THREAD, threads: ''})
 }
 
 export const createThread = (topicId, thread) => {

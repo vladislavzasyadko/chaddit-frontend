@@ -25,6 +25,11 @@
     flex-direction: column;
 }
 
+.creatorForm {
+    display: flex;
+    flex-direction: column;
+}
+
 .inputCreator {
     width: 50%;
     border-radius: 5px;

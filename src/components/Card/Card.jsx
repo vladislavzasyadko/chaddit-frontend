@@ -4,7 +4,11 @@ import cat from "../../icons/cat.png";
 import {formatDate} from "../../utils/formatters";
 
 function Card(props) {
-    const {threadTitle, authorId, createdAt, color} = props;
+    const {threadTitle, authorId, createdAt, color, threadId, preview} = props;
+
+    const handleClick = () => {
+        props.openCard(threadId);
+    }
 
     return (
         <div
@@ -14,6 +18,7 @@ function Card(props) {
                 backgroundColor: color,
             }}
             className={C.card}
+            onClick={handleClick}
         >
             <div
                 style={{
@@ -25,7 +30,7 @@ function Card(props) {
                 }}
             />
             <h2 className={C.cardTitle}>{threadTitle}</h2>
-            {/*<span className={C.cardTextPreview}>{'sample description'}</span>*/}
+            <span className={C.cardTextPreview}>{preview}</span>
             <div>Автор: {authorId}</div>
             <div className={C.cardDate}>{formatDate(createdAt)}</div>
         </div>

@@ -85,3 +85,16 @@ export const userAPI = {
         });
     }
 }
+
+export const postAPI = {
+    sendPost(newPost){
+        return axios.post(BASE_URL + `chaddit/c/post`, {body: newPost.body }, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+                'thread_id': newPost.threadId,
+                'post_id': newPost.rootPostId,
+            }
+        })
+            .then(response => response.data)
+    }
+}

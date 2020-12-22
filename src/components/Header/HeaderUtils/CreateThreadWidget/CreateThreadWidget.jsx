@@ -4,7 +4,7 @@ import C from "./CreateThreadWidget.module.css";
 import {connect, useDispatch} from "react-redux";
 import useClickOutside from "../utils";
 import {createThread, fetchThreads} from "../../../../redux/reducers/threadReducer";
-import {createTopic, createTopicId, fetchTopics, setTopicId} from "../../../../redux/reducers/topicReducer";
+import {createTopicId, fetchTopics, setTopicId} from "../../../../redux/reducers/topicReducer";
 
 function CreateThreadWidget(props) {
     const dispatch = useDispatch()
@@ -34,17 +34,19 @@ function CreateThreadWidget(props) {
     }
 
     useEffect(() => {
-        dispatch(createThread(props.newTopicId, {
-            thread_title: threadName,
-            posts: [{
-                body: threadText,
-            }],
-        }))
-        setThreadName('');
-        setThreadText('');
-        setTopicTitle('');
-        dispatch(fetchThreads());
-        props.closeCreator();
+        if(threadName && threadText && props.newTopicId){
+            dispatch(createThread(props.newTopicId, {
+                thread_title: threadName,
+                posts: [{
+                    body: threadText,
+                }],
+            }))
+            setThreadName('');
+            setThreadText('');
+            setTopicTitle('');
+            dispatch(fetchThreads());
+            props.closeCreator();
+        }
     }, [props.newTopicId])
 
     function postThread(){
@@ -54,6 +56,11 @@ function CreateThreadWidget(props) {
         } else {
             dispatch(createTopicId(topicTitle));
         }
+    }
+
+    const handleSubmit = event => {
+        postThread();
+        event.preventDefault()
     }
 
     return ReactDOM.createPortal(
@@ -68,9 +75,10 @@ function CreateThreadWidget(props) {
                        value={topicTitle}
                        onChange={e => setTopicTitle(e.target.value)}/>
                     <datalist id={'topiclist'}>
-                        {topics.map(topic => <option value={topic.title}/>)}
+                        {topics.map((topic, i) => <option key={`topic_item_${i}`} value={topic.title}/>)}
                     </datalist>
                 <input className={C.inputCreator } placeholder={'Название треда'} value={threadName} onChange={ e=> updateThreadName(e.target.value)}/>
+                {/*<input type={'file'}/>*/}
                 <textarea className={C.textareaCreator } placeholder={'Сообщение'} value={threadText} onChange={ e=> updateThreadText(e.target.value)}/>
                 <button className={C.buttonCreator} onClick={postThread}>{'Отправить'}</button>
             </div>

@@ -1,0 +1,127 @@
+@import '../../commons/colors.css';
+
+.darkBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0, .7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.darkBackgroundHidden {
+    composes: darkBackground;
+    visibility: hidden;
+}
+
+.creatorContainer {
+    height: 70%;
+    width: 60%;
+    background-color: var(--main-bg-color-light);
+    border-radius: 10px;
+    padding: 10px 20px;
+    overflow: hidden;
+}
+
+.creatorGrid {
+    height: 100%;
+    display: grid;
+    grid-template-areas:
+    "title"
+    "comments"
+    "form";
+    grid-template-rows: 20% 60% 20%;
+    grid-template-columns: 100%;
+    grid-gap: 5px;
+}
+
+
+
+.activeCard_header {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
+.activeCard_title {
+    grid-area: title;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.commentSection {
+    grid-area: comments;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.activeCard_comment {
+    transition: ease .3s;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: var(--main-bg-color-white);
+    margin: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+.activeCard_activeComment {
+    composes: activeCard_comment;
+    background-color: var(--blue-color-active);
+}
+
+
+.activeCardForm {
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.activeCard_createComment {
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.activeCard_button {
+    outline: none;
+    cursor: pointer;
+    background-color: var(--blue-color);
+    margin: 10px 0;
+    padding: 10px 15px;
+    border: none;
+    font-weight: bold;
+    color: var(--main-bg-color-white);
+    border-radius: 10px;
+    align-self: flex-end;
+    font-size: 16px;
+}
+
+.activeCard_button:hover {
+    background-color: var(--blue-color-button-hover);
+}
+
+.responseButton {
+    composes: activeCard_button;
+    margin: 5px 5px;
+    padding: 5px 10px;
+    align-self: flex-end;
+    font-size: 10px;
+}
+
+
+
+
+

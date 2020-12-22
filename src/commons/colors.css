@@ -1,5 +1,6 @@
 :root {
     --main-bg-color-light: #e5e5e5;
+    --main-bg-color-white: white;
     --main-bg-color: rgba(0, 0, 0, 0.83);
     --secondary-color-light: #b4b4b4;
     --secondary-color-light-2: #d0d0d0;
@@ -7,6 +8,7 @@
     --blue-color: #1da1f2;
     --blue-color-button-hover: #0489d9;
     --blue-color-hover: rgba(46, 169, 241, 0.5);
+    --blue-color-active: rgba(60, 191, 255, 0.5);
     --blue-color-focus: #1889cd;
     --red-color: #bd0110;
 
