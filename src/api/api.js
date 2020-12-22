@@ -7,10 +7,7 @@ let instance = axios.create({
 
 export const threadAPI = {
     getThreads() {
-        return instance.get(`chaddit/c/threads`,{
-        headers: {
-            topic_id: 15
-        }}).then(response => response.data);
+        return instance.get(`chaddit/c/search/threads`).then(response => response.data);
     },
     getThread(threadId){
         return instance.get(`chaddit/c/thread/${threadId}`).then(response => response.data);

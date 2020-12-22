@@ -44,7 +44,7 @@ function CreateThreadWidget(props) {
             setThreadName('');
             setThreadText('');
             setTopicTitle('');
-            dispatch(fetchThreads());
+            // dispatch(fetchThreads());
             props.closeCreator();
         }
     }, [props.newTopicId])

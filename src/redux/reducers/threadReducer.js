@@ -22,6 +22,12 @@ export const threadReducer = (state = initialState, action) => {
                 ...state,
                 thread: action.thread,
             }
+        case CREATE_THREAD:
+            return {
+                ...state,
+                threads: [action.thread, ...state.threads]
+            }
+
 
         default:
             return state;

@@ -8,11 +8,16 @@ import ActiveCard from "../ActiveCard/ActiveCard";
 
 const Feed = (props) => {
     const dispatch = useDispatch()
-    const threads = props.threads;
+    const [threads, updateThreads] = useState(props.threads);
 
     useEffect(() => {
         dispatch(fetchThreads())
     }, [])
+
+    useEffect(()=> {
+
+        updateThreads(props.threads)
+    },[props.threads])
 
     const [activeCard, setCardStatus] = useState('');
 
