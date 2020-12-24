@@ -73,13 +73,15 @@ export const userAPI = {
                 }
             });
     },
-    updatePass(password){
-        return axios.get(BASE_URL  + 'chaddit/c/user', {
-            headers: {
-                'api_token': localStorage.getItem('api_token'),
-            },
-            data: {user_pass: password}
-        });
+    updatePass(oldPassword, newPassword) {
+        return axios.patch(BASE_URL + 'chaddit/c/user',
+            {user_pass: newPassword, old_user_pass: oldPassword},
+            {
+                headers: {
+                    'api_token': localStorage.getItem('api_token'),
+
+                }
+            });
     }
 }
 

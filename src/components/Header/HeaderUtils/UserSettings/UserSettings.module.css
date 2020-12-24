@@ -89,3 +89,22 @@
     color: var(--text-light-color);
     background-color: var(--red-color);
 }
+
+.passStatus {
+    cursor: pointer;
+}
+
+.userPassStatusOption {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+}
+
+.userPassStatusText {
+    margin: 0 10px;
+}
+
+.userPassStatusCheck {
+    border: 2px dashed blue;
+}

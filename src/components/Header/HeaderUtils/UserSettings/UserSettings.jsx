@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import U from "./UserSettings.module.css";
-import showPass from "../../../../icons/showpass.png";
 import {logoutActionCreator} from "../../../../redux/reducers/authReducer";
 import {connect, useDispatch} from "react-redux";
-import {getUser, updateUserName} from "../../../../redux/reducers/userReducer";
+import {getUser, updateUserName, updateUserPass} from "../../../../redux/reducers/userReducer";
 import useClickOutside from "../utils";
+import {SUCCESS} from "../../../../redux/reducers/types";
 
 function UserSettings(props) {
-    const [passView, setPassView] = useState(true)
+    const [passView, setPassView] = useState(false)
 
     useEffect(
         () => {
@@ -17,8 +17,17 @@ function UserSettings(props) {
         [props.isAuth],
     );
 
+    useEffect(() => {
+        let newStatus = 'Изменить пароль';
+        if(props.userPassStatus){
+            newStatus = props.userPassStatus === SUCCESS ? 'Пароль изменен!' : 'Попробуйте снова'
+        }
+        setStatus(newStatus)
+    }, [props.userPassStatus])
+
     const [name, setName] = useState('')
-    const [input, setInput] = useState('')
+    const [status, setStatus] = useState('')
+    const [oldPassword, setOldPass] = useState('')
     const [password, setPass] = useState('')
     const dispatch = useDispatch()
 
@@ -32,10 +41,22 @@ function UserSettings(props) {
         setName('')
     }
 
+    function updateUserPassword(){
+        if(oldPassword.trim() && password.trim()){
+        dispatch(updateUserPass(oldPassword.trim(), password.trim()))
+        setOldPass('')
+        setPass('')
+        setStatus('Проверяем...')
+        } else {
+            setStatus('Введите корректный пароль')
+        }
+    }
+
     let domNode = useClickOutside(() => {
         props.closeSettings();
         setName('');
-        setPass('')
+        setPass('');
+        setOldPass('');
     });
 
     return ReactDOM.createPortal(
@@ -60,28 +81,33 @@ function UserSettings(props) {
                     <div className={U.userInputContainer}>
                         <input
                             className={U.userInput}
-                            type={passView ? "password" : "text"}
+                            type={passView ? "text": "password"}
                             placeholder={"Старый пароль"}
-                        />
-                        <img
-                            src={showPass}
-                            height={"30px"}
-                            onClick={(e) => setPassView(!passView)}
+                            value={oldPassword}
+                            onChange={e => {
+                                setOldPass(e.target.value)
+                                setStatus('Изменить пароль')
+                            }}
                         />
                     </div>
                     <div className={U.userInputContainer}>
                         <input
                             className={U.userInput}
-                            type={passView ? "password" : "text"}
+                            type={passView ? "text": "password"}
                             placeholder={"Новый пароль"}
-                        />
-                        <img
-                            src={showPass}
-                            height={"30px"}
-                            onClick={(e) => setPassView(!passView)}
+                            value={password}
+                            onChange={e => {
+                                setPass(e.target.value)
+                                setStatus('Изменить пароль')
+                            }}
                         />
                     </div>
-                    <button className={U.userButton}>Изменить пароль</button>
+                    <div className={U.userPassStatusOption}>
+                        <input className={U.userPassStatusCheck} type="checkbox" checked={passView} onClick={e => setPassView(e.target.checked)}/>
+                        <p className={U.userPassStatusText}>{"Показать пароль"}</p>
+                    </div>
+
+                    <button className={U.userButton} onClick={updateUserPassword}>{status}</button>
                 </div>
                 <div>
                     <button className={U.userButton}>
@@ -97,6 +123,7 @@ function UserSettings(props) {
 
 const mapStateToProps = state => ({
     userName: state.user.userName,
+    userPassStatus: state.user.userPassStatus,
     userEmail: state.user.userEmail,
     userTag: state.user.userTag,
     userPass: state.user.userPass,

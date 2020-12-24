@@ -1,7 +1,7 @@
 import {userAPI} from "../../api/api";
-import {SET_USER, SET_USER_NAME, UPDATE_USER_NAME, UPDATE_USER_PASS} from "./types";
+import {FAILURE, FETCHING, SET_USER, SET_USER_NAME, SUCCESS, UPDATE_USER_NAME, UPDATE_USER_PASS} from "./types";
 
-const initialState = {userName: '', userEmail: '', userPass: ''}
+const initialState = {userName: '', userEmail: '', userPassStatus: ''}
 
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -20,11 +20,6 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 userTempName: action.name,
             }
-        // case SET_USER_PASS:
-        //     return {
-        //         ...state,
-        //         userTempPass: action.pass,
-        //     }
         case UPDATE_USER_NAME:
             return {
                 ...state,
@@ -33,7 +28,7 @@ export const userReducer = (state = initialState, action) => {
         case UPDATE_USER_PASS:
             return {
                 ...state,
-                userPass: action.newPass,
+                userPassStatus: action.userPassStatus,
             }
         default:
             return state;
@@ -67,12 +62,15 @@ export const updateUserName = name => dispatch => {
         });
 }
 
-export const updateUserPass = password => dispatch => {
-    return userAPI.updatePass(password)
+export const updateUserPass = (oldPassword, newPassword) => dispatch => {
+    dispatch({type: UPDATE_USER_PASS, userPassStatus: FETCHING})
+    return userAPI.updatePass(oldPassword, newPassword)
         .then((response) => {
-            dispatch({type: UPDATE_USER_NAME, newPass: password})
+            console.log(response)
+            dispatch({type: UPDATE_USER_PASS, userPassStatus: SUCCESS})
         }, (error) => {
-            // console.log(error)
+            console.log(error)
+            dispatch({type: UPDATE_USER_PASS, userPassStatus: FAILURE})
         });
 }
 
