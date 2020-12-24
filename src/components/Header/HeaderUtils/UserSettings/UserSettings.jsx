@@ -42,8 +42,8 @@ function UserSettings(props) {
     }
 
     function updateUserPassword(){
-        if(oldPassword.trim() && password.trim()){
-        dispatch(updateUserPass(oldPassword.trim(), password.trim()))
+        if(oldPassword && password){
+        dispatch(updateUserPass(oldPassword, password))
         setOldPass('')
         setPass('')
         setStatus('Проверяем...')
@@ -85,7 +85,7 @@ function UserSettings(props) {
                             placeholder={"Старый пароль"}
                             value={oldPassword}
                             onChange={e => {
-                                setOldPass(e.target.value)
+                                setOldPass(e.target.value.trim())
                                 setStatus('Изменить пароль')
                             }}
                         />
@@ -97,7 +97,7 @@ function UserSettings(props) {
                             placeholder={"Новый пароль"}
                             value={password}
                             onChange={e => {
-                                setPass(e.target.value)
+                                setPass(e.target.value.trim())
                                 setStatus('Изменить пароль')
                             }}
                         />
