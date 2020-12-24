@@ -1,13 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import C from "./Card.module.css";
 import cat from "../../icons/cat.png";
 import {formatDate} from "../../utils/formatters";
+import {useDispatch} from "react-redux";
 
 function Card(props) {
-    const {threadTitle, authorId, createdAt, color, threadId, preview} = props;
+    const {threadTitle, authorId, createdAt, color, threadId, preview, isColorLight, authorName} = props;
 
     const handleClick = () => {
         props.openCard(threadId);
+    }
+
+    const previewStyle = () => {
+        console.log(threadTitle, preview.length * 16 > 600)
+        return preview.length * 16 > 600 * 2
     }
 
     return (
@@ -16,6 +22,7 @@ function Card(props) {
                 height: "500px",
                 width: "600px",
                 backgroundColor: color,
+                color: isColorLight ? 'black' : '#d0d0d0',
             }}
             className={C.card}
             onClick={handleClick}
@@ -30,11 +37,18 @@ function Card(props) {
                 }}
             />
             <h2 className={C.cardTitle}>{threadTitle}</h2>
-            <span className={C.cardTextPreview}>{preview}</span>
-            <div>Автор: {authorId}</div>
+            <span className={ previewStyle() ?
+                (isColorLight ? C.cardTextPreviewGradientDark : C.cardTextPreviewGradientLight)
+                :
+                (isColorLight ? C.cardTextPreviewLight : C.cardTextPreview)} >{preview}</span>
+            <div className={C.cardFooter}>
+            <div>Автор: {authorName}</div>
             <div className={C.cardDate}>{formatDate(createdAt)}</div>
+            </div>
         </div>
     );
 }
+
+
 
 export default Card;

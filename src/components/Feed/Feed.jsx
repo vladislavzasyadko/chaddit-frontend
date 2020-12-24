@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import Card from "../Card/Card";
 import F from "./Feed.module.css";
-import {cardColors} from "../../commons/colors";
+import {cardColorsNum} from "../../commons/colors";
 import {connect, useDispatch} from 'react-redux';
 import {fetchThreads} from "../../redux/reducers/threadReducer";
 import ActiveCard from "../ActiveCard/ActiveCard";
+import {colorIsLight} from "../../utils/formatters";
 
 const Feed = (props) => {
     const dispatch = useDispatch()
@@ -32,8 +33,10 @@ const Feed = (props) => {
     return (
         <div className={F.feed}>
             {threads.map((card, i) => {
+                const color = cardColorsNum[(parseInt(card.thread_id )% (cardColorsNum.length - 1))]
                 const cardProps = {
-                    color: cardColors[Math.floor(Math.random() * cardColors.length)],
+                    color: `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`,
+                    isColorLight: colorIsLight(...color),
                     threadId: card.thread_id,
                     threadTitle: card.thread_title,
                     authorId: card.author_id,
@@ -42,6 +45,7 @@ const Feed = (props) => {
                     cardId: i.toString(),
                     openCard: openCard,
                     closeCard: closeCard,
+                    authorName: `${card.author.user_name}#${card.author.user_tag}`
                 }
                 return <Card key={`card${i}`} {...cardProps} />
             })}

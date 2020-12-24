@@ -19,8 +19,6 @@ function CreateThreadWidget(props) {
         dispatch(fetchTopics())
     },[])
 
-    const topic = 'Python';
-
     let domNode = useClickOutside(() => {
         props.closeCreator();
     });
@@ -68,7 +66,7 @@ function CreateThreadWidget(props) {
             className={props.creatorActive ? C.darkBackground : C.darkBackgroundHidden}
         >
             <div ref={domNode} className={C.creatorContainer}>
-                <h1>{`Создать новый тред в теме: ${topic}`}</h1>
+                <h1>{`Создать новый тред в теме:`}</h1>
                 <input className={C.dataList}
                        placeholder={'Выберите тему треда'}
                        list={'topiclist'}

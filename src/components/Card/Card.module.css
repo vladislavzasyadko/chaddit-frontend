@@ -27,11 +27,36 @@
     border-radius: '5px';
 }
 
-.cardTextPreview {
+.cardPreview{
+    color: black;
+    font-size: 16px;
     display: inline-block;
     position: relative;
     user-select: none;
+}
+
+.cardPreviewLight {
+    composes: cardPreview;
+    color: var(--main-bg-color-light);
+}
+
+.cardTextPreviewGradientDark {
+    composes: cardPreview;
     background: linear-gradient(to bottom, black 0%, transparent 80%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.cardTextPreviewGradientLight {
+    composes: cardPreviewLight;
+    color: var(--main-bg-color-light);
+    background: linear-gradient(to bottom, var(--main-bg-color-light) 0%, transparent 80%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

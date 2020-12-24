@@ -26,7 +26,9 @@ function UserSettings(props) {
     }, [props.userPassStatus])
 
     const [name, setName] = useState('')
+    const [nameStatus, setNameStatus] = useState('')
     const [status, setStatus] = useState('')
+
     const [oldPassword, setOldPass] = useState('')
     const [password, setPass] = useState('')
     const dispatch = useDispatch()
@@ -37,8 +39,13 @@ function UserSettings(props) {
     }
 
     function setNewUserName(){
-        dispatch(updateUserName(name));
-        setName('')
+        if(name){
+            dispatch(updateUserName(name));
+            setName('')
+        } else {
+            setNameStatus('Введите корректное имя')
+        }
+
     }
 
     function updateUserPassword(){
