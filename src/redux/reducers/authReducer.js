@@ -19,6 +19,7 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
             }
         case REGISTER:
+            localStorage.setItem('api_token', action.apiToken);
             return {
                 ...state,
                 loggedIn: true,
