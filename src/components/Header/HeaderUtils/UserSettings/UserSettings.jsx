@@ -26,7 +26,7 @@ function UserSettings(props) {
     }, [props.userPassStatus])
 
     const [name, setName] = useState('')
-    const [nameStatus, setNameStatus] = useState('')
+    const [nameStatus, setNameStatus] = useState('Изменить имя')
     const [status, setStatus] = useState('')
 
     const [oldPassword, setOldPass] = useState('')
@@ -39,13 +39,13 @@ function UserSettings(props) {
     }
 
     function setNewUserName(){
-        if(name){
+        if(name && !name.includes('#')){
             dispatch(updateUserName(name));
             setName('')
+            setNameStatus('Изменить имя')
         } else {
             setNameStatus('Введите корректное имя')
         }
-
     }
 
     function updateUserPassword(){
@@ -79,10 +79,13 @@ function UserSettings(props) {
                             type={"text"}
                             placeholder={`${props.userName}#${props.userTag}`}
                             value={name}
-                            onChange={e => setName(e.target.value)}
+                            onChange={e => {
+                                setName(e.target.value)
+                                setNameStatus('Изменить имя')
+                            }}
                         />
                     </div>
-                    <button className={U.userButton} onClick={setNewUserName}> Изменить имя </button>
+                    <button className={U.userButton} onClick={setNewUserName}>{nameStatus}</button>
                 </div>
                 <div>
                     <div className={U.userInputContainer}>
