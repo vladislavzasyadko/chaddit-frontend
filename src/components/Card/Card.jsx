@@ -93,7 +93,7 @@ function Card(props) {
                     borderRadius: "5px",
                 }}
             />
-            {image && <canvas ref={ref} id={`threadPic${threadId}`}> </canvas>}
+            {/*{image && <canvas ref={ref} id={`threadPic${threadId}`}> </canvas>}*/}
             <h2 className={C.cardTitle}>{threadTitle}</h2>
             <span className={ previewStyle() ?
                 (isColorLight ? C.cardTextPreviewGradientDark : C.cardTextPreviewGradientLight)
