@@ -33,6 +33,7 @@ const Feed = (props) => {
 
     return (
         <div className={F.feed}>
+            {threads.length === 0 && <h2 className={F.notFound}>Ничего не найдено :( </h2>}
             {/*<ReactPlayer*/}
             {/*    url="https://www.youtube.com/watch?v=YFJ3W54NEJo"*/}
             {/*    playing*/}
