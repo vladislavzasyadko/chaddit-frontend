@@ -9,7 +9,7 @@ export const formatDate = dateString => {
 }
 
 export const formatReplyString = (reply, len) => {
-    return reply.length > len ? `${reply.substring(0, len)}...` : reply;
+    return reply.length > len + 3 ? `${reply.substring(0, len)}...` : reply;
 }
 
 export const colorIsLight = (r, g, b) => {
