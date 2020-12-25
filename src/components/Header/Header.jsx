@@ -44,7 +44,7 @@ function Header(props) {
             {props.isAuth && <div className={H.utils}>
                 <div className={H.userImage} onClick={props.isAuth ? openSettings : null}/>
                 <div>{`${props.isAuth ? `Здравствуйте,  ${props.userName}` : ''}`}</div>
-                <div>Чаты</div>
+                {/*<div>Чаты</div>*/}
                 <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>
                     <button className={common.buttonChad}> Добавить тред </button>
 
