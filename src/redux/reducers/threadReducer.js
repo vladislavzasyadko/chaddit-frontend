@@ -52,6 +52,7 @@ export const clearThread = () => (dispatch) => {
 }
 
 export const createThread = (topicId, thread) => {
+    // console.log('reduce', thread.image)
     return dispatch => {
         threadAPI.createThread(topicId, thread)
             .then(thread => dispatch({type: CREATE_THREAD, thread: thread}))

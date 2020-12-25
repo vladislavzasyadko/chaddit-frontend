@@ -66,10 +66,10 @@ export const updateUserPass = (oldPassword, newPassword) => dispatch => {
     dispatch({type: UPDATE_USER_PASS, userPassStatus: FETCHING})
     return userAPI.updatePass(oldPassword, newPassword)
         .then((response) => {
-            console.log(response)
+            //console.log(response)
             dispatch({type: UPDATE_USER_PASS, userPassStatus: SUCCESS})
         }, (error) => {
-            console.log(error)
+            //console.log(error)
             dispatch({type: UPDATE_USER_PASS, userPassStatus: FAILURE})
         });
 }

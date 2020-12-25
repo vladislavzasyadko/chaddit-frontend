@@ -73,6 +73,7 @@ function ActiveCard(props) {
             userId: currentUserId,
             threadId: thread.thread_id,
             rootPostId: replyId,
+            userName: props.userName,
         }
 
         dispatch(sendPost(newPost, replyId));
@@ -97,6 +98,7 @@ function ActiveCard(props) {
                                 body={post.body}
                                 userId={post.author_id}
                                 postId={post.post_id}
+                                userName={`${post.author.user_name}#${post.author.user_tag}`}
                                 responsesStatus={true}
                                 handleClick={handleClick}/>)}
 
@@ -122,6 +124,7 @@ const mapStateToProps = (state) => ({
     thread: state.threadData.thread,
     posts: state.posts.posts,
     currentId: state.user.userId,
+    userName: `${state.user.userName}#${state.user.userTag}`
 })
 
 export default connect(mapStateToProps)(ActiveCard);

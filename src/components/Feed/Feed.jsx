@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import ReactPlayer from 'react-player';
 import Card from "../Card/Card";
 import F from "./Feed.module.css";
 import {cardColorsNum} from "../../commons/colors";
@@ -32,7 +33,13 @@ const Feed = (props) => {
 
     return (
         <div className={F.feed}>
+            {/*<ReactPlayer*/}
+            {/*    url="https://www.youtube.com/watch?v=YFJ3W54NEJo"*/}
+            {/*    playing*/}
+            {/*    autoplay*/}
+            {/*/>*/}
             {threads.map((card, i) => {
+                // console.log(card)
                 const color = cardColorsNum[(parseInt(card.thread_id )% (cardColorsNum.length - 1))]
                 const cardProps = {
                     color: `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`,
@@ -45,6 +52,7 @@ const Feed = (props) => {
                     cardId: i.toString(),
                     openCard: openCard,
                     closeCard: closeCard,
+                    image: card.image,
                     authorName: `${card.author.user_name}#${card.author.user_tag}`
                 }
                 return <Card key={`card${i}`} {...cardProps} />

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import C from "../ActiveCard.module.css"
 
 function Comment(props) {
-    const {body, userId, postId, handleClick} = props
+    const {body, userId, postId, handleClick, userName} = props
 
     const [responsesStatus, changeResponsesStatus] = useState(props.responsesStatus)
     const [responses, updateResponses] = useState(props.responses)
@@ -19,7 +19,10 @@ function Comment(props) {
                 onClick={e => handleClick(e, postId, body)}
     >
         <div className={responsesStatus ? C.activeCard_activeComment : C.activeCard_comment}>
-            {body}
+            <div className={C.commentText}>
+                <div className={C.commentUserName}>{userName}</div>
+                <div>{body}</div>
+            </div>
             {responses.length > 0 && <button className={C.responseButton}
                      onClick={toggleResponses}>{`${responsesStatus ? 'Спрятать' : 'Показать'} Ответы`}
             </button>}
@@ -29,6 +32,7 @@ function Comment(props) {
             responsesStatus={false}
             responses={post.responses}
             userId={post.author_id}
+            userName={`${post.author.user_name}#${post.author.user_tag}`}
             postId={post.post_id}
             handleClick={handleClick}/>)}
     </div>
