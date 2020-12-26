@@ -113,6 +113,12 @@
     background-color: var(--blue-color-button-hover);
 }
 
+.replyToPreview {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .responseButton {
     composes: activeCard_button;
     margin: 5px 5px;
