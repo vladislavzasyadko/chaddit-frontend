@@ -10,31 +10,51 @@ function CreateThreadWidget(props) {
     const dispatch = useDispatch()
 
     const [threadName, setThreadName] = useState('')
+    const [tags, setTags] = useState([])
     const [threadText, setThreadText] = useState('')
     const [topicTitle, setTopicTitle] = useState('')
+    const [filebyteArray, setFileByteArray] = useState('')
 
-    const topics = props.topics.map( topic => ({title: topic.topic_title, id: topic.topic_id}))
+    const topics = props.topics.map(topic => ({title: topic.topic_title, id: topic.topic_id}))
 
     useEffect(() => {
         dispatch(fetchTopics())
-    },[])
+    }, [])
 
     let domNode = useClickOutside(() => {
         props.closeCreator();
     });
 
-    function updateThreadText(text){
+    const addTag = () => {
+
+    }
+    const removeTag = (id) => {
+
+    }
+
+    function updateThreadText(text) {
         setThreadText(text);
     }
 
-    function updateThreadName(name){
+    function updateThreadName(name) {
         setThreadName(name);
     }
 
+    function encodeImageFileAsURL(element) {
+        console.log(element)
+        let file = element.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function() {
+            setFileByteArray(reader.result)
+        }
+        reader.readAsDataURL(file);
+    }
+
     useEffect(() => {
-        if(threadName && threadText && props.newTopicId){
+        if (threadName && threadText && props.newTopicId) {
             dispatch(createThread(props.newTopicId, {
                 thread_title: threadName,
+                image: filebyteArray,
                 posts: [{
                     body: threadText,
                 }],
@@ -42,14 +62,13 @@ function CreateThreadWidget(props) {
             setThreadName('');
             setThreadText('');
             setTopicTitle('');
-            // dispatch(fetchThreads());
             props.closeCreator();
         }
     }, [props.newTopicId])
 
-    function postThread(){
+    function postThread() {
         let obj = topics.find(o => o.title === topicTitle);
-        if(obj){
+        if (obj) {
             dispatch(setTopicId(obj.id));
         } else {
             dispatch(createTopicId(topicTitle));
@@ -72,12 +91,14 @@ function CreateThreadWidget(props) {
                        list={'topiclist'}
                        value={topicTitle}
                        onChange={e => setTopicTitle(e.target.value)}/>
-                    <datalist id={'topiclist'}>
-                        {topics.map((topic, i) => <option key={`topic_item_${i}`} value={topic.title}/>)}
-                    </datalist>
-                <input className={C.inputCreator } placeholder={'Название треда'} value={threadName} onChange={ e=> updateThreadName(e.target.value)}/>
-                {/*<input type={'file'}/>*/}
-                <textarea className={C.textareaCreator } placeholder={'Сообщение'} value={threadText} onChange={ e=> updateThreadText(e.target.value)}/>
+                <datalist id={'topiclist'}>
+                    {topics.map((topic, i) => <option key={`topic_item_${i}`} value={topic.title}/>)}
+                </datalist>
+                <input className={C.inputCreator} placeholder={'Название треда'} value={threadName}
+                       onChange={e => updateThreadName(e.target.value)}/>
+                <input type={'file'} onChange={e => encodeImageFileAsURL(e.target)}/>
+                <textarea className={C.textareaCreator} placeholder={'Сообщение'} value={threadText}
+                          onChange={e => updateThreadText(e.target.value)}/>
                 <button className={C.buttonCreator} onClick={postThread}>{'Отправить'}</button>
             </div>
         </div>,
