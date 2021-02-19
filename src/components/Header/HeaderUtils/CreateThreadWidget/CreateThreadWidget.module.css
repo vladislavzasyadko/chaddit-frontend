@@ -69,3 +69,16 @@
     background-color: var(--blue-color-button-hover);
 }
 
+.inputFile {
+    display: none;
+}
+
+.loadButton {
+    composes: buttonCreator;
+    align-self: flex-start;
+}
+.loadButtonDone {
+    composes: loadButton;
+    background-color: #6ccd56;
+}
+

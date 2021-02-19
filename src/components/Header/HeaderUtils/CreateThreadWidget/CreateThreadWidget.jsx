@@ -14,6 +14,7 @@ function CreateThreadWidget(props) {
     const [threadText, setThreadText] = useState('')
     const [topicTitle, setTopicTitle] = useState('')
     const [filebyteArray, setFileByteArray] = useState('')
+    const [loadStatus, setLoadStatus] = useState(false)
 
     const topics = props.topics.map(topic => ({title: topic.topic_title, id: topic.topic_id}))
 
@@ -22,6 +23,11 @@ function CreateThreadWidget(props) {
     }, [])
 
     let domNode = useClickOutside(() => {
+        setTopicTitle('')
+        setThreadText('')
+        setThreadName('')
+        setFileByteArray('');
+        setLoadStatus(false);
         props.closeCreator();
     });
 
@@ -46,6 +52,7 @@ function CreateThreadWidget(props) {
         let reader = new FileReader();
         reader.onloadend = function() {
             setFileByteArray(reader.result)
+            setLoadStatus(true)
         }
         reader.readAsDataURL(file);
     }
@@ -96,7 +103,8 @@ function CreateThreadWidget(props) {
                 </datalist>
                 <input className={C.inputCreator} placeholder={'Название треда'} value={threadName}
                        onChange={e => updateThreadName(e.target.value)}/>
-                <input type={'file'} onChange={e => encodeImageFileAsURL(e.target)}/>
+                <input id={'imageLoad'} className={C.inputFile} type={'file'} onChange={e => encodeImageFileAsURL(e.target)}/>
+                <label for={'imageLoad'} className={loadStatus ? C.loadButtonDone : C.loadButton}>{loadStatus ? 'Картинка загружена' : 'Загрузить картинку'}</label>
                 <textarea className={C.textareaCreator} placeholder={'Сообщение'} value={threadText}
                           onChange={e => updateThreadText(e.target.value)}/>
                 <button className={C.buttonCreator} onClick={postThread}>{'Отправить'}</button>
