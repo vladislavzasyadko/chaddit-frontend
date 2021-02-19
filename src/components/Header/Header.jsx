@@ -6,8 +6,8 @@ import UserSettings from "./HeaderUtils/UserSettings/UserSettings";
 import {connect, useDispatch} from "react-redux";
 import CreateThreadWidget from "./HeaderUtils/CreateThreadWidget/CreateThreadWidget";
 import common from '../../commons/elements.module.css';
-import User from '../../icons/user.svg';
 import {getUser} from "../../redux/reducers/userReducer";
+import userImage from '../../icons/chadnobg.png'
 
 
 function Header(props) {
@@ -42,7 +42,10 @@ function Header(props) {
     return (
         <div className={props.isAuth ? H.header : H.headerGuest}>
             {props.isAuth && <div className={H.utils}>
-                <div className={H.userImage} onClick={props.isAuth ? openSettings : null}/>
+                <div className={H.userImage} style={{
+                    backgroundImage: `url(${userImage})`,
+                    backgroundSize: "cover",
+                }} onClick={props.isAuth ? openSettings : null}/>
                 <div>{`${props.isAuth ? `Здравствуйте,  ${props.userName}` : ''}`}</div>
                 {/*<div>Чаты</div>*/}
                 <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>
