@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import C from "../../Card/Card.module.css";
 import {formatDate} from "../../../utils/formatters";
 import {Redirect} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {clearThreads} from "../../../redux/reducers/threadReducer";
 
 function Topic(props) {
-
+    const dispatch = useDispatch()
     const [chosenTopic, setChosenTopic] = useState(false)
     const {
         topicTitle,
@@ -18,6 +20,7 @@ function Topic(props) {
     } = props;
 
     const handleClick = () => {
+        dispatch(clearThreads())
         setChosenTopic(true)
     }
 

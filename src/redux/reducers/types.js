@@ -2,6 +2,7 @@ export const FETCH_THREADS = 'FETCH_THREADS';
 export const FETCH_THREAD = 'FETCH_THREAD';
 export const CREATE_THREAD = 'CREATE_THREAD';
 export const CLEAR_THREAD = 'CLEAR_THREAD';
+export const CLEAR_THREADS = 'CLEAR_THREADS';
 export const SEARCH_THREADS = 'SEARCH_THREADS';
 
 export const SEND_POST = 'SEND_POST';
