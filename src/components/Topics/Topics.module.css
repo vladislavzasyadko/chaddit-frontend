@@ -15,3 +15,34 @@
     align-self: center;
     color: var(--main-bg-color-light)
 }
+
+.searchDiv {
+    padding: 5px;
+    display: flex;
+}
+
+.deleteTagButton {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.deleteTagButton:hover {
+    background-color: #e5e5e5;
+}
+
+.searchCondition {
+    padding: 5px 10px;
+    color: var(--text-light-color);
+    transition: ease .3s;
+    opacity: 1;
+    cursor: text;
+
+}
+.searchConditionHidden {
+    composes: searchCondition;
+    cursor: default;
+    opacity: 0;
+}

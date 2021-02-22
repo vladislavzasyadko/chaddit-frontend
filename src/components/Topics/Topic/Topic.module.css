@@ -1,0 +1,12 @@
+.tag {
+    margin: 2px;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: var(--main-bg-color);
+}
+
+.tagList {
+    display: flex;
+    align-items: center;
+}

@@ -11,6 +11,7 @@ export const CLEAR_POSTS = 'CLEAR_POSTS';
 
 export const FETCH_TOPICS = 'FETCH_TOPICS';
 export const CREATE_TOPIC = 'CREATE_TOPIC';
+export const GET_TOPICS_BY_TAG = 'GET_TOPICS_BY_TAG';
 
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';

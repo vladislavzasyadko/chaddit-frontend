@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import C from "../../Card/Card.module.css";
+import sT from "./Topic.module.css";
 import {formatDate} from "../../../utils/formatters";
 import {Redirect} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -24,6 +25,12 @@ function Topic(props) {
         setChosenTopic(true)
     }
 
+    const handleTagClick = (e, tag) => {
+        console.log('click', tag)
+        props.getTopics(tag)
+        e.stopPropagation()
+    }
+
     return (
         <>
             {chosenTopic && <Redirect to={`/topics/${topicId}`}/>}
@@ -40,6 +47,11 @@ function Topic(props) {
                     onClick={handleClick}
                 >
                     <h2 className={C.cardTitle}>{topicTitle}</h2>
+                    <div className={sT.tagList}>{tags.length > 0 && 'Теги:'}{tags.map(tag =>
+                        <div className={sT.tag}
+                             onClick={(e) => handleTagClick(e, tag.tag)}>
+                            {tag.tag}</div>)}
+                    </div>
                     <div className={C.cardFooter}>
                         <div>Автор: {authorName}</div>
                         <div className={C.cardDate}>{formatDate(createdAt)}</div>
