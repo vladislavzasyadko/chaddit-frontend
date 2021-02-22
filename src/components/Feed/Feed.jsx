@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import ReactPlayer from 'react-player';
+
 import Card from "../Card/Card";
 import F from "./Feed.module.css";
 import {cardColorsNum} from "../../commons/colors";
@@ -13,11 +13,10 @@ const Feed = (props) => {
     const [threads, updateThreads] = useState(props.threads);
 
     useEffect(() => {
-        dispatch(fetchThreads())
+        dispatch(fetchThreads(props.match.params.id))
     }, [])
 
     useEffect(()=> {
-
         updateThreads(props.threads)
     },[props.threads])
 
@@ -34,13 +33,7 @@ const Feed = (props) => {
     return (
         <div className={F.feed}>
             {threads.length === 0 && <h2 className={F.notFound}>Ничего не найдено :( </h2>}
-            {/*<ReactPlayer*/}
-            {/*    url="https://www.youtube.com/watch?v=YFJ3W54NEJo"*/}
-            {/*    playing*/}
-            {/*    autoplay*/}
-            {/*/>*/}
             {threads.map((card, i) => {
-                // console.log(card)
                 const color = cardColorsNum[(parseInt(card.thread_id )% (cardColorsNum.length - 1))]
                 const cardProps = {
                     color: `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`,
@@ -66,6 +59,7 @@ const Feed = (props) => {
 
 const mapStateToProps = (state) => ({
     threads: state.threadData.threads,
+    topics: state.topics.topics,
     isAuth: state.auth.loggedIn,
 })
 

@@ -41,8 +41,8 @@ export const threadReducer = (state = initialState, action) => {
 
 }
 
-export const fetchThreads = () => (dispatch) => {
-    return threadAPI.getThreads()
+export const fetchThreads = (topicId) => (dispatch) => {
+    return threadAPI.getThreadByTopic(topicId)
         .then(threads => dispatch({type: FETCH_THREADS, threads: threads})) //dispatch({type: FETCH_THREAD, threads: threads}
 }
 

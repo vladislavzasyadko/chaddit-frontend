@@ -1,8 +1,6 @@
 import React, {createRef, useEffect} from "react";
 import C from "./Card.module.css";
-import cat from "../../icons/cat.png";
 import {formatDate} from "../../utils/formatters";
-import {useDispatch} from "react-redux";
 
 function Card(props) {
     const {

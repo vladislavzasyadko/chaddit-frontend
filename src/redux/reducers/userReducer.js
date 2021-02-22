@@ -14,6 +14,7 @@ export const userReducer = (state = initialState, action) => {
                 userId: action.id,
                 userEmail: action.email,
                 userTag: action.tag,
+                userRole: action.role,
             }
         case SET_USER_NAME:
             return {
@@ -39,14 +40,16 @@ export const userReducer = (state = initialState, action) => {
 export const getUser = () => (dispatch) => {
     return userAPI.getUser()
         .then((response) => {
-            const {user_name, user_pass, user_id, user_email, user_tag} = response.data;
+            const {user_name, user_pass, user_id, user_email, user_tag, role_id} = response.data;
+            console.log('user data', response.data)
             dispatch({
                 type: SET_USER,
                 name: user_name,
                 pass: user_pass,
                 email: user_email,
                 id: user_id,
-                tag: user_tag
+                tag: user_tag,
+                role: role_id,
             })
         }, (error) => {
             // console.log(error)

@@ -9,6 +9,12 @@ export const threadAPI = {
     getThreads() {
         return instance.get(`chaddit/c/search/threads`).then(response => response.data);
     },
+    getThreadByTopic(topicId){
+        return instance.get(`chaddit/c/threads`,{
+            headers: {
+                topic_id: topicId
+            }}).then(response => response.data);
+    },
     searchThread(name) {
         const params = name ? {query: '"' + `${name}` + '"'}: {}
         return instance.get(`chaddit/c/search/thread`, {params: params}).then(response => response.data);

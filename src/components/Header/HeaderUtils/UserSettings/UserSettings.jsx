@@ -119,11 +119,11 @@ function UserSettings(props) {
 
                     <button className={U.userButton} onClick={updateUserPassword}>{status}</button>
                 </div>
-                <div>
-                    <button className={U.userButton}>
-                        Изменить фотографию
-                    </button>
-                </div>
+                {/*<div>*/}
+                {/*    <button className={U.userButton}>*/}
+                {/*        Изменить фотографию*/}
+                {/*    </button>*/}
+                {/*</div>*/}
                 <button className={U.exitButton} onClick={e => logout()}>Выйти из аккаунта</button>
             </div>
         </div>,

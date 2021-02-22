@@ -5,6 +5,7 @@ import Login from './components/Login/Login'
 import {BrowserRouter, Route, Redirect } from "react-router-dom";
 import A from './App.css'
 import PrivateRoute from "./hoc/PrivateRoute";
+import Topics from "./components/Topics/Topics";
 
 function App() {
     return (
@@ -14,13 +15,12 @@ function App() {
                 <Route
                     exact
                     path="/"
-                    render={() => <Redirect to="/feed" />}
+                    render={() => <Redirect to="/topics" />}
                 />
-                <PrivateRoute path={'/feed'} component={Feed}/>
+                <PrivateRoute exact path={'/topics/:id'} component={Feed}/>
+                <PrivateRoute exact path={'/topics'} component={Topics}/>
                 <Route component={Login}
-                       path={'/login'}/>
-
-
+                       exact path={'/login'}/>
             </div>
         </BrowserRouter>
     );
