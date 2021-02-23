@@ -7,7 +7,7 @@ import {connect, useDispatch} from 'react-redux';
 import {fetchThreads} from "../../redux/reducers/threadReducer";
 import ActiveCard from "../ActiveCard/ActiveCard";
 import {colorIsLight} from "../../utils/formatters";
-import {setSearchField} from "../../redux/reducers/searchReducer";
+import {setSearchField, setSearchTopicId} from "../../redux/reducers/searchReducer";
 import {THREADS} from "../../redux/reducers/types";
 
 const Feed = (props) => {
@@ -16,6 +16,7 @@ const Feed = (props) => {
 
     useEffect(() => {
         dispatch(setSearchField(THREADS))
+        dispatch(setSearchTopicId(props.match.params.id))
         dispatch(fetchThreads(props.match.params.id))
     }, [])
 

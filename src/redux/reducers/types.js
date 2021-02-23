@@ -29,5 +29,6 @@ export const FAILURE = 'FAILURE';
 export const FETCHING = 'FETCHING';
 
 export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
+export const SET_TOPIC_ID = 'SET_TOPIC_ID';
 export const TOPICS = 'TOPICS';
 export const THREADS = 'THREADS';

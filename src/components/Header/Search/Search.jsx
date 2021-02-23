@@ -24,7 +24,7 @@ function Search(props) {
             if(props.field === TOPICS){
                 dispatch(fetchTopics())
             }else {
-                dispatch(fetchThreads())
+                dispatch(fetchThreads(props.topicId))
             }
         }
 
@@ -49,6 +49,7 @@ function Search(props) {
 
 const mapStateToProps = (state) => ({
     field: state.search.field,
+    topicId: state.search.topicId,
 })
 
 export default connect(mapStateToProps)(Search);
