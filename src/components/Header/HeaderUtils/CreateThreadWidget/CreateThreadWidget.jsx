@@ -11,10 +11,12 @@ function CreateThreadWidget(props) {
 
     const [threadName, setThreadName] = useState('')
     const [tags, setTags] = useState([])
+    const [tagField, setTagField] = useState('')
     const [threadText, setThreadText] = useState('')
     const [topicTitle, setTopicTitle] = useState('')
     const [filebyteArray, setFileByteArray] = useState('')
     const [loadStatus, setLoadStatus] = useState(false)
+
 
     const topics = props.topics.map(topic => ({title: topic.topic_title, id: topic.topic_id}))
 
@@ -26,13 +28,20 @@ function CreateThreadWidget(props) {
         setTopicTitle('')
         setThreadText('')
         setThreadName('')
+        setTagField('')
+        setTags([])
         setFileByteArray('');
         setLoadStatus(false);
         props.closeCreator();
     });
 
     const addTag = () => {
+        const tagName = tagField.trim()
+        if (tagName && !tagName.includes('#')) {
+            setTags(tags => [...tags, {tag: tagName}])
 
+        }
+        setTagField('')
     }
     const removeTag = (id) => {
 
@@ -50,7 +59,7 @@ function CreateThreadWidget(props) {
         console.log(element)
         let file = element.files[0];
         let reader = new FileReader();
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             setFileByteArray(reader.result)
             setLoadStatus(true)
         }
@@ -78,7 +87,8 @@ function CreateThreadWidget(props) {
         if (obj) {
             dispatch(setTopicId(obj.id));
         } else {
-            dispatch(createTopicId(topicTitle));
+            console.log('а че', tags)
+            dispatch(createTopicId(topicTitle, tags));
         }
     }
 
@@ -101,10 +111,22 @@ function CreateThreadWidget(props) {
                 <datalist id={'topiclist'}>
                     {topics.map((topic, i) => <option key={`topic_item_${i}`} value={topic.title}/>)}
                 </datalist>
+                {topicTitle && !topics.find(o => o.title === topicTitle) && <><input className={C.inputCreator}
+                                                                      placeholder={'Введите тег'} value={tagField}
+                                                                      onChange={e => setTagField(e.target.value)}/>
+                    <div className={C.tagFormContainer}>
+                        <button className={C.addTagButton} onClick={addTag}>{'Добавить'}</button>
+                        <div className={C.tagsContainer}>{tags.map(tag => <div
+                            className={C.tag}>{tag.tag}</div>)}
+                        </div>
+                    </div>
+                </>}
                 <input className={C.inputCreator} placeholder={'Название треда'} value={threadName}
                        onChange={e => updateThreadName(e.target.value)}/>
-                <input id={'imageLoad'} className={C.inputFile} type={'file'} onChange={e => encodeImageFileAsURL(e.target)}/>
-                <label for={'imageLoad'} className={loadStatus ? C.loadButtonDone : C.loadButton}>{loadStatus ? 'Картинка загружена' : 'Загрузить картинку'}</label>
+                <input id={'imageLoad'} className={C.inputFile} type={'file'}
+                       onChange={e => encodeImageFileAsURL(e.target)}/>
+                <label for={'imageLoad'}
+                       className={loadStatus ? C.loadButtonDone : C.loadButton}>{loadStatus ? 'Картинка загружена' : 'Загрузить картинку'}</label>
                 <textarea className={C.textareaCreator} placeholder={'Сообщение'} value={threadText}
                           onChange={e => updateThreadText(e.target.value)}/>
                 <button className={C.buttonCreator} onClick={postThread}>{'Отправить'}</button>

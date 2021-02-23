@@ -44,8 +44,9 @@ export const topicAPI = {
         const params = name ? {query: '"' + `${name}` + '"'}: {}
         return instance.get(`chaddit/c/search/topic`,{params: params}).then(response => response.data);
     },
-    createTopic(title){
-        return axios.post(BASE_URL + `chaddit/c/topic`, {topic_title: title, tags: []}, {
+    createTopic(title, tags){
+        console.log('post tags', tags)
+        return axios.post(BASE_URL + `chaddit/c/topic`, {topic_title: title, tags: tags}, {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
             }

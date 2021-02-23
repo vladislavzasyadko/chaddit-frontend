@@ -50,8 +50,9 @@ export const searchTopics = (name) => (dispatch) => {
         .then(topics => dispatch({type: SEARCH_TOPICS, topics}));
 }
 
-export const createTopicId = (title) => (dispatch) => {
-    return topicAPI.createTopic(title)
+export const createTopicId = (title, tags) => (dispatch) => {
+    console.log('ttaaggg', tags)
+    return topicAPI.createTopic(title, tags)
         .then(topic => dispatch({type: CREATE_TOPIC, id: topic.topic_id}))
 }
 
