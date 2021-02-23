@@ -16,6 +16,7 @@ export const GET_TOPICS_BY_TAG = 'GET_TOPICS_BY_TAG';
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
 export const LOGOUT = 'LOGOUT';
+export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
 
 export const SET_USER = 'SET_USER';
 export const UPDATE_USER_NAME = 'UPDATE_USER_NAME';

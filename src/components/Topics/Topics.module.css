@@ -7,7 +7,6 @@
     /*background-color: var(--main-bg-color);*/
     flex-flow: row wrap;
     align-content: flex-start;
-    justify-content: space-around;
 }
 
 .notFound {

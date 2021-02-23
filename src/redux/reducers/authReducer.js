@@ -1,5 +1,5 @@
-import {loginAPI} from "../../api/api";
-import {FAILURE, LOGIN, LOGOUT, REGISTER} from "./types";
+import {loginAPI, userAPI} from "../../api/api";
+import {FAILURE, LOGIN, LOGOUT, REGISTER, TOKEN_EXPIRED} from "./types";
 
 let api_token = localStorage.getItem('api_token');
 const initialState = api_token ? {loggedIn: true, apiToken: api_token} : {};
@@ -32,6 +32,13 @@ export const authReducer = (state = initialState, action) => {
                 loggedIn: false,
                 apiToken: '',
             };
+        case TOKEN_EXPIRED:
+            localStorage.removeItem('api_token');
+            return {
+                ...state,
+                loggedIn: false,
+                apiToken: '',
+            }
 
         default:
             return state;
@@ -59,4 +66,14 @@ export const registerActionCreator = (name, email, password) => (dispatch) => {
 
 export const logoutActionCreator = () => (dispatch) => {
     return dispatch({type: LOGOUT})
+}
+
+export const checkToken = () => (dispatch) => {
+    return userAPI.getUser().then(response => {
+        console.log('token ok')
+    }, error => {
+        console.log('token expired')
+
+        dispatch({type: TOKEN_EXPIRED})
+    })
 }

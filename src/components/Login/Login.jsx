@@ -14,7 +14,7 @@ const Login = (props) => {
     const dispatch = useDispatch()
 
     if (props.isAuth) {
-        return <Redirect to={'/feed'}/>
+        return <Redirect to={'/topics'}/>
     }
 
     const changeType = type => {
