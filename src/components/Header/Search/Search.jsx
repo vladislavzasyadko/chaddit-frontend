@@ -2,7 +2,9 @@ import React, {useState} from "react";
 import S from "./Search.module.css";
 import Icon from "../../../icons/search.png";
 import {fetchThreads, searchThreads} from "../../../redux/reducers/threadReducer";
-import {useDispatch} from "react-redux";
+import {connect, useDispatch} from "react-redux";
+import {TOPICS} from "../../../redux/reducers/types";
+import {fetchTopics, searchTopics} from "../../../redux/reducers/topicReducer";
 
 function Search(props) {
     const dispatch = useDispatch()
@@ -11,9 +13,19 @@ function Search(props) {
     const handleSubmit = event => {
         event.preventDefault()
         if(searchWord){
-            dispatch(searchThreads(searchWord))
+
+            if(props.field === TOPICS){
+                dispatch(searchTopics(searchWord))
+            }else {
+                dispatch(searchThreads(searchWord))
+            }
         } else {
             dispatch(fetchThreads())
+            if(props.field === TOPICS){
+                dispatch(fetchTopics())
+            }else {
+                dispatch(fetchThreads())
+            }
         }
 
     }
@@ -24,7 +36,7 @@ function Search(props) {
                 onChange={e => setSearchWord(e.target.value)}
                 className={S.searchInput}
                 type="text"
-                placeholder="Что я могу для Вас найти?"
+                placeholder={`Что я могу для Вас найти? ${props.field}`}
             />
 
             <button type="submit" class={S.searchButton}>
@@ -35,4 +47,8 @@ function Search(props) {
     );
 }
 
-export default Search;
+const mapStateToProps = (state) => ({
+    field: state.search.field,
+})
+
+export default connect(mapStateToProps)(Search);

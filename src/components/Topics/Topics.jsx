@@ -7,6 +7,8 @@ import ActiveCard from "../ActiveCard/ActiveCard";
 import {colorIsLight} from "../../utils/formatters";
 import {fetchTopics, getTopic} from "../../redux/reducers/topicReducer";
 import Topic from "../Topics/Topic/Topic";
+import {setSearchField} from "../../redux/reducers/searchReducer";
+import {TOPICS} from "../../redux/reducers/types";
 
 const Topics = (props) => {
     const dispatch = useDispatch()
@@ -14,6 +16,7 @@ const Topics = (props) => {
     const [tag, setTag] = useState('')
 
     useEffect(() => {
+        dispatch(setSearchField(TOPICS))
         props.history.push('/topics')
         if(!tag) {
             dispatch(fetchTopics())

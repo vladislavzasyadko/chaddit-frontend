@@ -5,6 +5,7 @@ import thunk from 'redux-thunk'
 import {userReducer} from "./reducers/userReducer";
 import {topicReducer} from "./reducers/topicReducer";
 import {postReducer} from "./reducers/postsReducer";
+import {searchReducer} from "./reducers/searchReducer";
 
 let reducers = combineReducers({
     threadData: threadReducer,
@@ -12,6 +13,7 @@ let reducers = combineReducers({
     user:userReducer,
     topics: topicReducer,
     posts: postReducer,
+    search: searchReducer,
 });
 
 export const store = createStore(reducers, compose(applyMiddleware(thunk)));

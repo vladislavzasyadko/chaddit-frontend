@@ -38,7 +38,10 @@ export const topicAPI = {
     },
     getTopicByTag(tag) {
         const params = tag ? {query: '"' + `#${tag}` + '"'}: {}
-        console.log(params)
+        return instance.get(`chaddit/c/search/topic`,{params: params}).then(response => response.data);
+    },
+    searchTopics(name) {
+        const params = name ? {query: '"' + `${name}` + '"'}: {}
         return instance.get(`chaddit/c/search/topic`,{params: params}).then(response => response.data);
     },
     createTopic(title){

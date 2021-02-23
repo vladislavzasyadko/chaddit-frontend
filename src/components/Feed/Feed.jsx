@@ -7,12 +7,15 @@ import {connect, useDispatch} from 'react-redux';
 import {fetchThreads} from "../../redux/reducers/threadReducer";
 import ActiveCard from "../ActiveCard/ActiveCard";
 import {colorIsLight} from "../../utils/formatters";
+import {setSearchField} from "../../redux/reducers/searchReducer";
+import {THREADS} from "../../redux/reducers/types";
 
 const Feed = (props) => {
     const dispatch = useDispatch()
     const [threads, updateThreads] = useState(props.threads);
 
     useEffect(() => {
+        dispatch(setSearchField(THREADS))
         dispatch(fetchThreads(props.match.params.id))
     }, [])
 
@@ -33,7 +36,9 @@ const Feed = (props) => {
     return (
         <div className={F.feed}>
             {threads.length === 0 && <h2 className={F.notFound}>Ничего не найдено :( </h2>}
-            {threads.map((card, i) => {
+            {console.log(threads)}
+            {threads.filter(card => card.topic_id === parseInt(props.match.params.id)).map((card, i) => {
+
                 const color = cardColorsNum[(parseInt(card.thread_id )% (cardColorsNum.length - 1))]
                 const cardProps = {
                     color: `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`,

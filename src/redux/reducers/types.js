@@ -12,6 +12,7 @@ export const CLEAR_POSTS = 'CLEAR_POSTS';
 export const FETCH_TOPICS = 'FETCH_TOPICS';
 export const CREATE_TOPIC = 'CREATE_TOPIC';
 export const GET_TOPICS_BY_TAG = 'GET_TOPICS_BY_TAG';
+export const SEARCH_TOPICS = 'SEARCH_TOPICS';
 
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
@@ -26,3 +27,7 @@ export const SET_USER_NAME = 'SET_USER_NAME';
 export const SUCCESS = 'SUCCESS';
 export const FAILURE = 'FAILURE';
 export const FETCHING = 'FETCHING';
+
+export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
+export const TOPICS = 'TOPICS';
+export const THREADS = 'THREADS';

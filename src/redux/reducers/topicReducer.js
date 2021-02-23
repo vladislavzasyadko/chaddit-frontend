@@ -1,6 +1,6 @@
 import {FETCH_TOPICS} from './types.js'
 import {topicAPI} from "../../api/api";
-import {CREATE_TOPIC, GET_TOPICS_BY_TAG} from "./types";
+import {CREATE_TOPIC, GET_TOPICS_BY_TAG, SEARCH_TOPICS} from "./types";
 
 const initialState = {
     topics: []
@@ -14,6 +14,11 @@ export const topicReducer = (state = initialState, action) => {
                 topics: action.topics,
             }
         case GET_TOPICS_BY_TAG:
+            return {
+                ...state,
+                topics: action.topics,
+            }
+        case SEARCH_TOPICS:
             return {
                 ...state,
                 topics: action.topics,
@@ -38,6 +43,11 @@ export const fetchTopics = () => (dispatch) => {
 export const getTopic = (tag) => (dispatch) => {
     return topicAPI.getTopicByTag(tag)
         .then(topics => dispatch({type: FETCH_TOPICS, topics}));
+}
+
+export const searchTopics = (name) => (dispatch) => {
+    return topicAPI.searchTopics(name)
+        .then(topics => dispatch({type: SEARCH_TOPICS, topics}));
 }
 
 export const createTopicId = (title) => (dispatch) => {
