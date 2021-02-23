@@ -6,6 +6,11 @@
     background-color: var(--main-bg-color);
 }
 
+.tagLight {
+    composes: tag;
+    background-color: var(--main-bg-color-light);
+}
+
 .tagList {
     display: flex;
     align-items: center;

@@ -48,7 +48,7 @@ function Topic(props) {
                 >
                     <h2 className={C.cardTitle}>{topicTitle}</h2>
                     <div className={sT.tagList}>{tags.length > 0 && 'Теги:'}{tags.map(tag =>
-                        <div className={sT.tag}
+                        <div className={isColorLight ? sT.tagLight : sT.tag}
                              onClick={(e) => handleTagClick(e, tag.tag)}>
                             {tag.tag}</div>)}
                     </div>

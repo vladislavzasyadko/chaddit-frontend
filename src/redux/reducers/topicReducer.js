@@ -27,6 +27,7 @@ export const topicReducer = (state = initialState, action) => {
             return {
                 ...state,
                 sendTopicId: action.id,
+                topics: [action.topic, ...state.topics],
             }
 
         default:
@@ -53,7 +54,7 @@ export const searchTopics = (name) => (dispatch) => {
 export const createTopicId = (title, tags) => (dispatch) => {
     console.log('ttaaggg', tags)
     return topicAPI.createTopic(title, tags)
-        .then(topic => dispatch({type: CREATE_TOPIC, id: topic.topic_id}))
+        .then(topic => dispatch({type: CREATE_TOPIC, id: topic.topic_id, topic:topic}))
 }
 
 export const setTopicId = (id) => (dispatch) => {
