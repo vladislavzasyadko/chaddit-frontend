@@ -8,16 +8,22 @@ import {BASE_URL} from "../../../CONSTANTS/API_CONSTANTS";
 
 function Chat(props) {
 
-    const socketRef = useRef()
-    socketRef.current = io(BASE_URL);
+    const [socket, setSocket] = useState()
+
+    useEffect(() => {
+        const newSocket = io(BASE_URL);
+        console.log(newSocket)
+        setSocket(newSocket)
+    }, [])
 
     useEffect( () => {
 
-
-        socketRef.current.on('new message', message => {
-            setMessages([...messages, message])
-        })
-    },[])
+        if(socket){
+            socket.on('new message', message => {
+                setMessages([...messages, message])
+            })
+        }
+    })
 
     const dispatch = useDispatch()
     const currentId = props.currentId;
