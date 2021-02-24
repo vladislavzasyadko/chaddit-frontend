@@ -1,13 +1,24 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    display: grid;
+    grid-template-areas:
+    "image"
+    "text";
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 100%;
+    grid-gap: 5px;
     border: none;
     margin: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     overflow: hidden;
     cursor: pointer;
+}
+
+.cardText {
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .cardTitle {
@@ -15,19 +26,26 @@
 }
 
 .cardDate {
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px;
     align-self: flex-end;
+}
 
+.authorName {
+    composes: cardDate;
+    align-self: auto;
 }
 
 
 .cardImage {
+    grid-area: image;
     background-size: 'cover';
-    height: '50%'; 
-    width: '100%';
-    border-radius: '5px';
+    height: 100%;
+    width: 100%;
 }
 
-.cardPreview{
+.cardPreview {
     color: black;
     font-size: 16px;
     display: inline-block;

@@ -52,10 +52,10 @@ function Topic(props) {
                              onClick={(e) => handleTagClick(e, tag.tag)}>
                             {tag.tag}</div>)}
                     </div>
-                    <div className={C.cardFooter}>
-                        <div>Автор: {authorName}</div>
-                        <div className={C.cardDate}>{formatDate(createdAt)}</div>
-                    </div>
+                    {/*<div className={C.cardFooter}>*/}
+                    {/*    <div>Автор: {authorName}</div>*/}
+                    {/*    <div className={C.cardDate}>{formatDate(createdAt)}</div>*/}
+                    {/*</div>*/}
                 </div>
             </>}
         </>
