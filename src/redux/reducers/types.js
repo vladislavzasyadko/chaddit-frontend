@@ -32,3 +32,9 @@ export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const SET_TOPIC_ID = 'SET_TOPIC_ID';
 export const TOPICS = 'TOPICS';
 export const THREADS = 'THREADS';
+
+export const CREATE_CHAT = 'CREATE_CHAT';
+export const GET_CHATS = 'GET_CHATS';
+export const GET_MESSAGES = 'GET_MESSAGES';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';

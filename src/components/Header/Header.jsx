@@ -8,6 +8,7 @@ import CreateThreadWidget from "./HeaderUtils/CreateThreadWidget/CreateThreadWid
 import common from '../../commons/elements.module.css';
 import {getUser} from "../../redux/reducers/userReducer";
 import userImage from '../../icons/chadnobg.png'
+import Chats from "../Chats/Chats";
 
 
 function Header(props) {
@@ -15,6 +16,7 @@ function Header(props) {
 
     const [settingsActive, setSettingsStatus] = useState(false);
     const [creatorActive, setCreatorStatus] = useState(false);
+    const [chatsActive, setChatsActive] = useState(false)
 
     useEffect(
         () => {
@@ -39,6 +41,14 @@ function Header(props) {
         setCreatorStatus(false);
     };
 
+    const openChats = () => {
+        setChatsActive(true)
+    }
+
+    const closeChats = () => {
+        setChatsActive(false)
+    }
+
     return (
         <div className={props.isAuth ? H.header : H.headerGuest}>
             {props.isAuth && <div className={H.utils}>
@@ -50,6 +60,11 @@ function Header(props) {
                 {/*<div>Чаты</div>*/}
                 <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>
                     <button className={common.buttonChad}> Добавить тред </button>
+
+                </div>
+
+                <div className={H.userTopicCreator} onClick={props.isAuth ? openChats : null}>
+                    <button className={common.buttonChad}> Чаты </button>
 
                 </div>
             </div>}
@@ -66,6 +81,7 @@ function Header(props) {
             {props.isAuth && <CreateThreadWidget
                 creatorActive={creatorActive}
                 closeCreator={closeCreator}/>}
+            {props.isAuth && <Chats chatsActive={chatsActive} closeChats={closeChats}/>}
         </div>
     );
 }
