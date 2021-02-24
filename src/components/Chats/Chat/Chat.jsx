@@ -10,20 +10,24 @@ function Chat(props) {
 
     const [socket, setSocket] = useState()
 
+    // useEffect(() => {
+    //     const newSocket = io(BASE_URL);
+    //     console.log('new socket', newSocket)
+    //     setSocket(newSocket)
+    // }, [])
+    //
+    // useEffect( () => {
+    //
+    //     if(socket){
+    //         socket.on('new message', message => {
+    //             setMessages([...messages, message])
+    //         })
+    //     }
+    // },[socket])
     useEffect(() => {
-        const newSocket = io(BASE_URL);
-        console.log(newSocket)
-        setSocket(newSocket)
-    }, [])
-
-    useEffect( () => {
-
-        if(socket){
-            socket.on('new message', message => {
-                setMessages([...messages, message])
-            })
-        }
+        dispatch(getMessages(props.chatId))
     })
+
 
     const dispatch = useDispatch()
     const currentId = props.currentId;
@@ -32,6 +36,7 @@ function Chat(props) {
     const [messages, setMessages] = useState(props.messages)
 
     const handleChatCLose = () => {
+        setSocket(null)
         dispatch(clearMessages())
         props.closeChat()
     }

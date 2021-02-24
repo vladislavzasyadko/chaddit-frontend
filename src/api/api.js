@@ -84,7 +84,10 @@ export const chatAPI = {
         return instance.get(`chaddit/c/messages/${chatId}`, {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
-            }
+            },
+            params: {
+            limit: -1
+        }
         }).then(response => {
             console.log('message response', response)
             return response.data

@@ -26,7 +26,8 @@ export const chatReducer = (state = initialState, action) => {
         case GET_MESSAGES:
             return {
                 ...state,
-                messages: action.messages,
+
+                messages: state.messages.length !== action.messages.length ? action.messages : state.messages,
             }
         case SEND_MESSAGE:
             return {
