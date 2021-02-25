@@ -5,6 +5,7 @@ import {connect, useDispatch} from "react-redux";
 import CH from './Chats.module.css'
 import Chat from "./Chat/Chat";
 import {createChat, getChats} from "../../redux/reducers/chatReducer";
+import {setUserName} from "../../redux/reducers/userReducer";
 
 const const_chats = [{id: 1, name: 'kek', topic: 'kok'}, {id: 2, name: 'tinkoff', topic: 'сотку верни'},
     {
@@ -26,6 +27,8 @@ function Chats(props) {
 
     const [chatOpen, setChatOpen] = useState('')
 
+    const [userNames, setUserNames] = useState([])
+
 
     const deleteChat = (id) => {
         console.log(id)
@@ -34,8 +37,9 @@ function Chats(props) {
         }))
     }
 
-    const openChat = (id) => {
+    const openChat = (id, names) => {
         setChatOpen(id)
+        setUserNames(names)
     }
 
     const closeChat = () => {
@@ -68,11 +72,13 @@ function Chats(props) {
                         <button className={CH.sendButton} onClick={handleCreateChat}> Создать чат </button>
                     </div>
                     <div className={CH.chats}>
-                    {chats.map(chat => <ChatElement name={chat.name} id={chat.chat_id} topic={chat.topic}
+                    {chats.map(chat => <ChatElement
+                        name={chat.participants
+                            .map(user => user.user_name)} id={chat.chat_id} topic={chat.topic}
                                                     deleteChat={deleteChat} openChat={openChat}/>)}
                     </div>
                 </div>}
-                {chatOpen && <Chat closeChat={closeChat} chatId={chatOpen}/>}
+                {chatOpen && <Chat closeChat={closeChat} chatId={chatOpen} names={userNames}/>}
             </div>
 
 
@@ -88,16 +94,15 @@ const ChatElement = (props) => {
     }
 
     const handleOpenChat = () => {
-        props.openChat(props.id)
+        props.openChat(props.id, props.name.reduce((acc, curr) => acc ? acc + ' и ' + curr : acc + curr, ''))
     }
 
     return (
         <div className={CH.chatElement} onClick={handleOpenChat}>
             <div>
-
-                <h3>{props.id}</h3>
-                <h3>{props.name}</h3>
-                <h2>{props.topic}</h2>
+                {console.log(props)}
+                <h3>Комната {props.id}</h3>
+                <h3>{props.name.reduce((acc, curr) => acc ? acc + ' и ' + curr : acc + curr, '')}</h3>
             </div>
             <button className={CH.closeButton} onClick={handleDeleteClick}>Delete</button>
         </div>)

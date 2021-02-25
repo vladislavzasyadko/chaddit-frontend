@@ -42,7 +42,7 @@ export const topicAPI = {
         return instance.get(`chaddit/c/search/topic`, {params: params}).then(response => response.data);
     },
     searchTopics(name) {
-        const params = name ? {query: '"'+ name+ '"'} : {}
+        const params = name ? {query: '"' + name + '"'} : {}
         return instance.get(`chaddit/c/search/topic`, {params: params}).then(response => {
             console.log(response.data)
             return response.data
@@ -77,7 +77,6 @@ export const chatAPI = {
                 'api_token': localStorage.getItem('api_token'),
             }
         }).then(response => {
-            console.log(response)
             return response.data
         });
     },
@@ -100,15 +99,15 @@ export const chatAPI = {
                 'api_token': localStorage.getItem('api_token'),
             },
             params: {
-            limit: -1
-        }
+                limit: -1
+            }
         }).then(response => {
             console.log('message response', response)
             return response.data
         });
     },
-    createMessage(chatId, body){
-        return instance.post('chaddit/c/message', {body: body},{
+    createMessage(chatId, body) {
+        return instance.post('chaddit/c/message', {body: body}, {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
                 'chat_id': chatId,
@@ -181,13 +180,19 @@ export const adminAPI = {
         return instance.get('chaddit/c/users', {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
-            }}).then(response => {
-                console.log(response.data)
+            }
+        }).then(response => {
+            console.log(response.data)
             return response.data
         })
     },
-    deleteUser(userId) {
-        return instance.patch(`chaddit/c/user/${userId}`, {active: false}).then(response => response.data)
+    updateUser(userId, user) {
+        return instance.patch(`chaddit/c/user/${userId}`, user, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            }
+        }).then(response => response.data)
     }
+
 
 }

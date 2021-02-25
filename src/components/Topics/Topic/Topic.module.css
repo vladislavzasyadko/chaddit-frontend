@@ -85,3 +85,21 @@
     padding: 10px;
 }
 
+.adminUser {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputCreator {
+    padding: 10px;
+    border: none;
+    margin: 10px;
+    width: border-box;
+    border-radius: 10px;
+}
+
+.userLabel {
+    padding: 5px;
+    font-weight: bold;
+}
+

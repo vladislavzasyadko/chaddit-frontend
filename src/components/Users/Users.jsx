@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import useClickOutside from "../Header/HeaderUtils/utils";
 import {connect, useDispatch} from "react-redux";
 import CH from '../Chats/Chats.module.css'
-import {getUsers} from "../../redux/reducers/adminReducer";
+import {getUsers, updateUser} from "../../redux/reducers/adminReducer";
+import User from "./User/User";
 
 function Users(props) {
 
@@ -13,14 +14,22 @@ function Users(props) {
 
     const [userOpen, setUserOpen] = useState('')
 
+    const [currName, setCurrName] = useState('')
+    const [currMail, setCurrMail] = useState('')
+    const [currId, setCurrId] = useState('')
+
 
     const deleteUser = (id) => {
         console.log(id)
-        setUsers(chats => chats.filter(chat => chat.id !== id))
+        dispatch(updateUser(id, {active: false}))
+        setUsers(user => user.filter(chat => chat.user_id !== id))
     }
 
-    const openUser = (id) => {
+    const openUser = (id, name, mail) => {
         setUserOpen(id)
+        setCurrName(name)
+        setCurrMail(mail)
+        setCurrId(id)
     }
 
     const closeUser = () => {
@@ -50,11 +59,11 @@ function Users(props) {
                         <h1>Пользователи для {props.userRole}</h1>
                     </div>
                     <div className={CH.chats}>
-                        {users.map(user => <UserElement name={user.user_name} mail={user.user_email}
+                        {users.map(user => <UserElement id={user.user_id} name={user.user_name} mail={user.user_email}
                                                         deleteUser={deleteUser} openUser={openUser}/>)}
                     </div>
                 </div>}
-                {/*{chatOpen && <User closeUser={closeUser} chatId={chatOpen}/>}*/}
+                {userOpen && <User closeUser={closeUser} chatId={userOpen} name={currName} mail={currMail} uid={currId}/>}
             </div>
 
 
@@ -70,7 +79,7 @@ const UserElement = (props) => {
     }
 
     const handleOpenUser = () => {
-        props.openUser(props.id)
+        props.openUser(props.id, props.name, props.mail)
     }
 
     return (

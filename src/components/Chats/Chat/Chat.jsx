@@ -90,7 +90,7 @@ function Chat(props) {
         <div className={CH.chat}>
             <div className={CH.chatHeader}>
                 <button className={CH.backButton} onClick={handleChatCLose}>Back</button>
-                <h2>{props.chatId}{props.currentId}</h2>
+                <h2>Комната {props.names}</h2>
             </div>
             <div className={CH.messageList}>
                 {messages.map((message, index) => {
