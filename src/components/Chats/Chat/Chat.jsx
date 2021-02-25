@@ -3,30 +3,36 @@ import ReactDOM from "react-dom";
 import {connect, useDispatch} from "react-redux";
 import CH from '../Chats.module.css'
 import {clearMessages, createMessage, getMessages} from "../../../redux/reducers/chatReducer";
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 import {BASE_URL} from "../../../CONSTANTS/API_CONSTANTS";
 
 function Chat(props) {
 
     const [socket, setSocket] = useState()
 
-    // useEffect(() => {
-    //     const newSocket = io(BASE_URL);
-    //     console.log('new socket', newSocket)
-    //     setSocket(newSocket)
-    // }, [])
-    //
-    // useEffect( () => {
-    //
-    //     if(socket){
-    //         socket.on('new message', message => {
-    //             setMessages([...messages, message])
-    //         })
-    //     }
-    // },[socket])
     useEffect(() => {
-        dispatch(getMessages(props.chatId))
-    })
+        handleSocket();
+    });
+
+    const handleSocket = () => {
+        const lobby = io(BASE_URL);
+        lobby.on('connect', function (socket){
+            console.log('connected to backend');
+
+            lobby.on('disconnect', function(){
+                console.log('disconnected: ', socket);
+            });
+
+        });
+        lobby.on('new message', function(msg){
+            console.log('message: ', msg);
+        });
+
+    };
+
+    // useEffect(() => {
+    //     dispatch(getMessages(props.chatId))
+    // })
 
 
     const dispatch = useDispatch()
