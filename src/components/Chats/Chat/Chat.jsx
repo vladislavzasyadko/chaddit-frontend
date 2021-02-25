@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
 import {connect, useDispatch} from "react-redux";
 import CH from '../Chats.module.css'
-import {clearMessages, createMessage, getMessages} from "../../../redux/reducers/chatReducer";
+import {clearMessages, createMessage, getMessages, receiveMessage} from "../../../redux/reducers/chatReducer";
 import io from 'socket.io-client';
 import {BASE_URL} from "../../../CONSTANTS/API_CONSTANTS";
 
@@ -12,34 +12,35 @@ function Chat(props) {
 
     useEffect(() => {
         handleSocket();
-    });
+    }, []);
 
     const handleSocket = () => {
         const lobby = io(BASE_URL);
-        lobby.on('connect', function (socket){
-            console.log('connected to backend');
-
-            lobby.on('disconnect', function(){
-                console.log('disconnected: ', socket);
-            });
-
-        });
+        // lobby.on('connect', function (socket){
+        //     console.log('connected to backend');
+        //
+        //     lobby.on('disconnect', function(){
+        //         console.log('disconnected: ', socket);
+        //     });
+        //
+        // });
         lobby.on('new message', function(msg){
-            console.log('message: ', msg);
+            // setMessages(messages => [...messages, msg])
+            console.log('new message', msg)
+            console.log('before new message', messages)
+            if(messages.length === 0 || (messages.length > 0 && msg.message_id !== messages[messages.length-1].message_id)){
+                dispatch(receiveMessage(msg));
+            }
         });
 
     };
-
-    // useEffect(() => {
-    //     dispatch(getMessages(props.chatId))
-    // })
 
 
     const dispatch = useDispatch()
     const currentId = props.currentId;
 
     const [inputValue, setInputValue] = useState('')
-    const [messages, setMessages] = useState(props.messages)
+    const [messages, setMessages] = useState([])
 
     const handleChatCLose = () => {
         setSocket(null)
@@ -57,6 +58,7 @@ function Chat(props) {
     }, [messages])
 
     useEffect( () => {
+        console.log('prev messages', props.messages)
         setMessages(props.messages)
     }, [props.messages])
 
@@ -65,7 +67,7 @@ function Chat(props) {
         const messageText = inputValue.trim();
         if (messageText) {
             dispatch(createMessage(props.chatId, messageText))
-            setMessages(messages => [...messages, {author_id: currentId, body: messageText}])
+            // setMessages(messages => [...messages, {author_id: currentId, body: messageText}])
             setInputValue('')
         }
     }

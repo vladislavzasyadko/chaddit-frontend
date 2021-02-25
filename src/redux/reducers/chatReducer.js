@@ -1,4 +1,4 @@
-import {CLEAR_MESSAGES, CREATE_CHAT, GET_CHATS, GET_MESSAGES, SEND_MESSAGE} from "./types";
+import {CLEAR_MESSAGES, CREATE_CHAT, GET_CHATS, GET_MESSAGES, RECEIVE_MESSAGE, SEND_MESSAGE} from "./types";
 import {chatAPI} from "../../api/api";
 
 const initialState = {
@@ -32,12 +32,18 @@ export const chatReducer = (state = initialState, action) => {
         case SEND_MESSAGE:
             return {
                 ...state,
-                messages: [...state.messages, action.message]
+                messages: state.messages.filter(msg => msg.message_id === action.message.message_id).length > 0
+                    ? [...state.messages] : [...state.messages, action.message ]
             }
         case CLEAR_MESSAGES:
             return {
                 ...state,
                 messages: [],
+            }
+        case RECEIVE_MESSAGE:
+            return {
+                ...state,
+                messages: [...state.messages, action.message]
             }
 
         default:
@@ -68,4 +74,8 @@ export const createMessage = (chatId, body) => (dispatch) => {
 }
 export const clearMessages = () => (dispatch) => {
     return dispatch({type: CLEAR_MESSAGES})
+}
+
+export const receiveMessage = (message) => (dispatch) => {
+    return dispatch({type:RECEIVE_MESSAGE, message: message})
 }
