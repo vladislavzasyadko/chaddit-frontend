@@ -59,6 +59,7 @@ function Chats(props) {
     }, [props.chats])
 
     let domNode = useClickOutside(() => {
+        dispatch(getChats())
         props.closeChats();
     });
 
@@ -104,7 +105,7 @@ const ChatElement = (props) => {
                 <h3>Комната {props.id}</h3>
                 <h3>{props.name.reduce((acc, curr) => acc ? acc + ' и ' + curr : acc + curr, '')}</h3>
             </div>
-            <button className={CH.closeButton} onClick={handleDeleteClick}>Delete</button>
+            {/*<button className={CH.closeButton} onClick={handleDeleteClick}>Delete</button>*/}
         </div>)
 }
 
