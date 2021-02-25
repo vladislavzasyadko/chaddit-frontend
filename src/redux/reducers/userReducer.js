@@ -6,6 +6,7 @@ const initialState = {userName: '', userEmail: '', userPassStatus: ''}
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER:
+            console.log(action.role)
             return {
                 ...state,
                 userName: action.name,
@@ -40,7 +41,7 @@ export const userReducer = (state = initialState, action) => {
 export const getUser = () => (dispatch) => {
     return userAPI.getUser()
         .then((response) => {
-            const {user_name, user_pass, user_id, user_email, user_tag, role_id} = response.data;
+            const {user_name, user_pass, user_id, user_email, user_tag, role} = response.data;
             console.log('user data', response.data)
             dispatch({
                 type: SET_USER,
@@ -49,7 +50,7 @@ export const getUser = () => (dispatch) => {
                 email: user_email,
                 id: user_id,
                 tag: user_tag,
-                role: role_id,
+                role: role.role_name,
             })
         }, (error) => {
             // console.log(error)

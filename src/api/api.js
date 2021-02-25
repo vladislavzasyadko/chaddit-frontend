@@ -56,7 +56,18 @@ export const topicAPI = {
             }
         })
             .then(response => response.data)
-    }
+    },
+    deleteTopic(topicId) {
+        return instance.patch(`chaddit/c/topic/${topicId}`, {active: false}).then(response => response.data)
+    },
+    updateTopic(topicId, topic) {
+        return instance.patch(`chaddit/c/topic/${topicId}`, topic, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            }
+        }).then(response => response.data)
+    },
+
 }
 
 export const chatAPI = {
@@ -163,4 +174,20 @@ export const postAPI = {
         })
             .then(response => response.data)
     }
+}
+
+export const adminAPI = {
+    getUsers() {
+        return instance.get('chaddit/c/users', {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            }}).then(response => {
+                console.log(response.data)
+            return response.data
+        })
+    },
+    deleteUser(userId) {
+        return instance.patch(`chaddit/c/user/${userId}`, {active: false}).then(response => response.data)
+    }
+
 }

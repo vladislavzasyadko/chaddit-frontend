@@ -20,7 +20,6 @@ function Search(props) {
                 dispatch(searchThreads(searchWord))
             }
         } else {
-            dispatch(fetchThreads())
             if(props.field === TOPICS){
                 dispatch(fetchTopics())
             }else {

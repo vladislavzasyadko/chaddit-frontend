@@ -7,6 +7,7 @@ import {topicReducer} from "./reducers/topicReducer";
 import {postReducer} from "./reducers/postsReducer";
 import {searchReducer} from "./reducers/searchReducer";
 import {chatReducer} from "./reducers/chatReducer";
+import {adminReducer} from "./reducers/adminReducer";
 
 let reducers = combineReducers({
     threadData: threadReducer,
@@ -16,6 +17,7 @@ let reducers = combineReducers({
     posts: postReducer,
     search: searchReducer,
     chats: chatReducer,
+    admin: adminReducer,
 });
 
 export const store = createStore(reducers, compose(applyMiddleware(thunk)));

@@ -39,6 +39,7 @@
 .chatsHeader {
     grid-area: header;
     display: flex;
+    justify-content: space-between;
 }
 .chats {
     grid-area: chats;
@@ -156,6 +157,7 @@
 }
 
 .sendButton {
+    cursor: pointer;
     border: none;
     width: fit-content;
     padding: 10px;

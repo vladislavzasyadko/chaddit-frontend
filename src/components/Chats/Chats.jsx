@@ -29,7 +29,9 @@ function Chats(props) {
 
     const deleteChat = (id) => {
         console.log(id)
-        setChats(chats => chats.filter(chat => chat.id !== id))
+        setChats(chats => chats.filter(chat => {
+            return chat.chat_id !== id
+        }))
     }
 
     const openChat = (id) => {
@@ -49,7 +51,6 @@ function Chats(props) {
     }, [])
 
     useEffect( () => {
-        console.log(chats)
         setChats(props.chats)
     }, [props.chats])
 
@@ -64,7 +65,7 @@ function Chats(props) {
                 {!chatOpen && <div className={CH.chatGrid}>
                     <div className={CH.chatsHeader}>
                         <h1>Чаты мои чаты</h1>
-                        <button onClick={handleCreateChat}> Создать чат </button>
+                        <button className={CH.sendButton} onClick={handleCreateChat}> Создать чат </button>
                     </div>
                     <div className={CH.chats}>
                     {chats.map(chat => <ChatElement name={chat.name} id={chat.chat_id} topic={chat.topic}

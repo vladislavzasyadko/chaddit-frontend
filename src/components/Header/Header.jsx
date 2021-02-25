@@ -9,6 +9,7 @@ import common from '../../commons/elements.module.css';
 import {getUser} from "../../redux/reducers/userReducer";
 import userImage from '../../icons/chadnobg.png'
 import Chats from "../Chats/Chats";
+import Users from "../Users/Users";
 
 
 function Header(props) {
@@ -16,7 +17,8 @@ function Header(props) {
 
     const [settingsActive, setSettingsStatus] = useState(false);
     const [creatorActive, setCreatorStatus] = useState(false);
-    const [chatsActive, setChatsActive] = useState(false)
+    const [chatsActive, setChatsActive] = useState(false);
+    const [usersActive, setUsersActive] = useState(false);
 
     useEffect(
         () => {
@@ -49,6 +51,14 @@ function Header(props) {
         setChatsActive(false)
     }
 
+    const openUsers = () => {
+        setUsersActive(true)
+    }
+
+    const closeUsers = () => {
+        setUsersActive(false)
+    }
+
     return (
         <div className={props.isAuth ? H.header : H.headerGuest}>
             {props.isAuth && <div className={H.utils}>
@@ -66,6 +76,11 @@ function Header(props) {
                     <button className={common.buttonChad}> Чаты </button>
 
                 </div>
+
+                    {props.userRole === 'ADMIN' && <div className={H.userTopicCreator} onClick={props.isAuth ? openUsers : null}>
+                        <button className={common.buttonChad}> USERS</button>
+
+                    </div>}
                 </div>
             </div>}
             <div className={H.logo}>
@@ -82,6 +97,7 @@ function Header(props) {
                 creatorActive={creatorActive}
                 closeCreator={closeCreator}/>}
             {props.isAuth && <Chats chatsActive={chatsActive} closeChats={closeChats}/>}
+            {props.isAuth && <Users usersActive={usersActive} closeUsers={closeUsers}/>}
         </div>
     );
 }
@@ -89,6 +105,7 @@ function Header(props) {
 const mapStateToProps = state => ({
     userName: state.user.userName,
     isAuth: state.auth.loggedIn,
+    userRole: state.user.userRole,
 })
 
 

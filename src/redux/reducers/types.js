@@ -30,6 +30,7 @@ export const FETCHING = 'FETCHING';
 
 export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const SET_TOPIC_ID = 'SET_TOPIC_ID';
+export const UPDATE_TOPIC = 'UPDATE_TOPIC';
 export const TOPICS = 'TOPICS';
 export const THREADS = 'THREADS';
 
@@ -39,3 +40,10 @@ export const GET_MESSAGES = 'GET_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+
+
+export const DELETE_USER = 'DELETE_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const SET_USERS = 'SET_USERS';
+
+
