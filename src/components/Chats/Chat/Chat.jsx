@@ -28,7 +28,7 @@ function Chat(props) {
             // setMessages(messages => [...messages, msg])
             console.log('new message', msg)
             console.log('before new message', messages)
-            if(messages.length === 0 || (messages.length > 0 && msg.message_id !== messages[messages.length-1].message_id)){
+            if(messages.filter(message => message.message_id === msg.message_id).length === 0){
                 dispatch(receiveMessage(msg));
             }
         });
@@ -59,7 +59,12 @@ function Chat(props) {
 
     useEffect( () => {
         console.log('prev messages', props.messages)
-        setMessages(props.messages)
+        const uniqueArray = props.messages.filter((msg,index) => {
+            return index === props.messages.findIndex(obj => {
+                return JSON.stringify(obj) === JSON.stringify(msg);
+            });
+        });
+        setMessages(uniqueArray)
     }, [props.messages])
 
     const sendMessage = (event) => {

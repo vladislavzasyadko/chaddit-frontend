@@ -93,6 +93,8 @@ const ChatElement = (props) => {
     return (
         <div className={CH.chatElement} onClick={handleOpenChat}>
             <div>
+
+                <h3>{props.id}</h3>
                 <h3>{props.name}</h3>
                 <h2>{props.topic}</h2>
             </div>
