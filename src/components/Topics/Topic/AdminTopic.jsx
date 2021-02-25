@@ -48,10 +48,16 @@ function AdminTopic(props) {
         }))
     }
 
+    const deleteTag = (id) => {
+        const newTags = topicTags.map(tag => tag.tag_id === id ? {tag_id: id, tag: ''}: tag)
+        setTopicTags(newTags)
+    }
+
 
     return ReactDOM.createPortal(
         <div className={props.active ? CH.darkBackground : CH.darkBackgroundHidden}
         >
+            {console.log('TAGS', topicTags)}
             <div className={AT.adminTopic} ref={domNode}>
                 <div className={AT.adminHeader}><h1>topic info</h1>
                     <div>
@@ -68,8 +74,7 @@ function AdminTopic(props) {
                     <button  disabled={deletePress} className={C.addTagButton} onClick={addTag}>{'Добавить'}</button>
 
                 </div>
-                <div className={AT.tagsContainer}>{topicTags.map(tag => <div
-                    className={C.tag}>{tag.tag}</div>)}
+                <div className={AT.tagsContainer}>{topicTags.map(tag => <Tag tag={tag} deleteTag={deleteTag}/>)}
                 </div>
 
 
@@ -79,6 +84,14 @@ function AdminTopic(props) {
         </div>,
         document.getElementById("portal")
     )
+}
+
+const Tag = (props) => {
+    const handleClick = () => {
+        props.deleteTag(props.tag.tag_id)
+    }
+    return <div
+        className={C.tag} onClick={handleClick}>{props.tag.tag}</div>
 }
 
 const mapStateToProps = (state) => ({
