@@ -34,6 +34,28 @@
     align-items: center;
 }
 
+.buttons {
+    composes: utils;
+    justify-content: space-between;
+}
+
+
+@media screen and (max-width:1575px){
+    .buttons {
+        flex-direction: column;
+    }
+
+}
+
+@media screen and (max-width:996px){
+    .logo {
+        visibility: hidden;
+    }
+
+}
+
+
+
 .search {
     grid-area: 'search';
     justify-content: center;

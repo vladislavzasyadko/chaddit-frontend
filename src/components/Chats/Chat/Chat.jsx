@@ -61,9 +61,9 @@ function Chat(props) {
         console.log('prev messages', props.messages)
         const uniqueArray = props.messages.filter((msg,index) => {
             return index === props.messages.findIndex(obj => {
-                return JSON.stringify(obj) === JSON.stringify(msg);
+                return obj.message_id === msg.message_id;
             });
-        });
+        }).sort((a,b) => a.message_id - b.message_id);
         setMessages(uniqueArray)
     }, [props.messages])
 
@@ -75,7 +75,16 @@ function Chat(props) {
             // setMessages(messages => [...messages, {author_id: currentId, body: messageText}])
             setInputValue('')
         }
+
     }
+    const lastMessageRef = useRef()
+
+    useEffect(() => {
+        if(lastMessageRef.current){
+            lastMessageRef.current.scrollIntoView({smooth: true})
+        }
+
+    }, [lastMessageRef.current])
 
     return (
         <div className={CH.chat}>
@@ -84,8 +93,11 @@ function Chat(props) {
                 <h2>{props.chatId}{props.currentId}</h2>
             </div>
             <div className={CH.messageList}>
-                {messages.map(message => <div
-                    className={message.author_id === currentId ? CH.myMessage : CH.personMessage}>{message.body}</div>)}
+                {messages.map((message, index) => {
+                    const lastMessage = messages.length - 1 === index
+                    return <div ref={lastMessage ? lastMessageRef : null}
+                                className={message.author_id === currentId ? CH.myMessage : CH.personMessage}>{message.body}</div>
+                })}
             </div>
 
             <form onSubmit={e => sendMessage(e)} className={CH.inputSpace}>

@@ -71,6 +71,7 @@ function UserSettings(props) {
             className={props.settingsActive ? U.darkBackground : U.darkBackgroundHidden}
         >
             <div ref={domNode} className={props.settingsActive ? U.settings : U.settingsHidden}>
+                <div>{`${props.isAuth ? `Здравствуйте,  ${props.userName}` : ''}`}</div>
                 <div style={{ marginTop: "100px" }}>Почта {props.userEmail}</div>
                 <div>
                     <div className={U.userInputContainer}>
