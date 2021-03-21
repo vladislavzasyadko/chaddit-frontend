@@ -13,6 +13,7 @@ export const FETCH_TOPICS = 'FETCH_TOPICS';
 export const CREATE_TOPIC = 'CREATE_TOPIC';
 export const GET_TOPICS_BY_TAG = 'GET_TOPICS_BY_TAG';
 export const SEARCH_TOPICS = 'SEARCH_TOPICS';
+export const SET_SEND_TOPIC_ID = 'SET_SEND_TOPIC_ID'
 
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';

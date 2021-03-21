@@ -14,6 +14,7 @@ function Card(props) {
         isColorLight,
         authorName,
         image,
+        views,
     } = props;
 
     const handleClick = () => {
@@ -22,6 +23,10 @@ function Card(props) {
 
     const previewStyle = () => {
         return preview.length * 16 > 600 * 2
+    }
+
+    const formatViews = () => {
+        return views ?? 0
     }
 
     return (
@@ -57,6 +62,10 @@ function Card(props) {
                         backgroundColor: isColorLight ? 'black' : 'white',
                         color: isColorLight ? 'white' : 'black'
                     }}>{formatDate(createdAt)}</div>
+                    <div className={C.cardDate} style={{
+                        backgroundColor: isColorLight ? 'black' : 'white',
+                        color: isColorLight ? 'white' : 'black'
+                    }}>{'views: ' + formatViews()}</div>
                 </div>
             </div>
         </div>

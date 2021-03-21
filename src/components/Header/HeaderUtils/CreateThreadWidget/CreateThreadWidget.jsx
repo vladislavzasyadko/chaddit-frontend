@@ -17,7 +17,6 @@ function CreateThreadWidget(props) {
     const [filebyteArray, setFileByteArray] = useState('')
     const [loadStatus, setLoadStatus] = useState(false)
 
-
     const topics = props.topics.map(topic => ({title: topic.topic_title, id: topic.topic_id}))
 
     useEffect(() => {
@@ -90,11 +89,6 @@ function CreateThreadWidget(props) {
             console.log('а че', tags)
             dispatch(createTopicId(topicTitle, tags));
         }
-    }
-
-    const handleSubmit = event => {
-        postThread();
-        event.preventDefault()
     }
 
     return ReactDOM.createPortal(
