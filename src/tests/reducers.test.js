@@ -22,24 +22,42 @@ import {
     SET_POSTS,
     SEND_POST,
     CLEAR_POSTS,
-    SET_SEARCH_FIELD, SET_TOPIC_ID, FETCH_THREADS, FETCH_THREAD, CLEAR_THREAD
+    SET_SEARCH_FIELD,
+    SET_TOPIC_ID,
+    FETCH_THREADS,
+    FETCH_THREAD,
+    CLEAR_THREAD,
+    CLEAR_THREADS,
+    CREATE_THREAD,
+    SEARCH_THREADS
 } from "../redux/reducers/types";
 
 describe('adminReducer testing', () => {
 
-    const users = [{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}]
+    const users = [{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {
+        username: 'misha',
+        user_id: 3
+    }, {username: 'vlad', user_id: 4}]
 
     test('adminReducer initial state test', () => {
         expect(adminReducer(undefined, {})).toEqual({users: []})
     })
 
     test('adminReducer SET_USERS action test', () => {
-        expect(adminReducer(undefined, {type: SET_USERS, users: users})).toEqual({users : users})
+        expect(adminReducer(undefined, {type: SET_USERS, users: users})).toEqual({users: users})
     })
 
     test('adminReducer DELETE_USERS action test', () => {
         const deleted_id = 1
-        expect(adminReducer({users : users}, {type: DELETE_USER, user_id: deleted_id})).toEqual({users: [{username: 'nikita', user_id: 2}, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}] })
+        expect(adminReducer({users: users}, {
+            type: DELETE_USER,
+            user_id: deleted_id
+        })).toEqual({
+            users: [{username: 'nikita', user_id: 2}, {username: 'misha', user_id: 3}, {
+                username: 'vlad',
+                user_id: 4
+            }]
+        })
     })
 
 
@@ -47,7 +65,10 @@ describe('adminReducer testing', () => {
 
 describe('authReducer testing', () => {
 
-    const initialState = {apiToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA', loggedIn: true}
+    const initialState = {
+        apiToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA',
+        loggedIn: true
+    }
 
     test('authReducer initial state test without api token', () => {
         let initialStateTest = undefined
@@ -93,16 +114,32 @@ describe('chatReducer testing', () => {
     })
 
     test('chatReducer GET_CHATS action test', () => {
-        const response = [{chat_id: 1, participants: [1, 2]}, {chat_id: 2, participants: [2, 3]}, {chat_id: 3, participants: [3, 4]}]
-        expect(chatReducer(undefined, {type: GET_CHATS, chats: response})).toEqual({chats: [{chat_id: 1, participants: [1, 2]}, {chat_id: 2, participants: [2, 3]}, {chat_id: 3, participants: [3, 4]}], activeChat: '', messages: []})
+        const response = [{chat_id: 1, participants: [1, 2]}, {chat_id: 2, participants: [2, 3]}, {
+            chat_id: 3,
+            participants: [3, 4]
+        }]
+        expect(chatReducer(undefined, {type: GET_CHATS, chats: response})).toEqual({
+            chats: [{
+                chat_id: 1,
+                participants: [1, 2]
+            }, {chat_id: 2, participants: [2, 3]}, {chat_id: 3, participants: [3, 4]}], activeChat: '', messages: []
+        })
     })
 
     test('chatReducer GET_MESSAGES action test', () => {
-        const response = [{message_id: 1, chat_id: 1, body: 'test1'}, {message_id: 2, chat_id: 1, body: 'test2'}, {message_id: 3, chat_id: 2, body: 'test3'}]
+        const response = [{message_id: 1, chat_id: 1, body: 'test1'}, {
+            message_id: 2,
+            chat_id: 1,
+            body: 'test2'
+        }, {message_id: 3, chat_id: 2, body: 'test3'}]
         expect(chatReducer(undefined, {type: GET_MESSAGES, messages: response})).toEqual({
             chats: [],
             activeChat: '',
-            messages: [{message_id: 1, chat_id: 1, body: 'test1'}, {message_id: 2, chat_id: 1, body: 'test2'}, {message_id: 3, chat_id: 2, body: 'test3'}],
+            messages: [{message_id: 1, chat_id: 1, body: 'test1'}, {
+                message_id: 2,
+                chat_id: 1,
+                body: 'test2'
+            }, {message_id: 3, chat_id: 2, body: 'test3'}],
         })
     })
 
@@ -122,12 +159,22 @@ describe('chatReducer testing', () => {
 
     test('chatReducer CLEAR_MESSAGES action test', () => {
         const initialState = {
-            chats: [{chat_id: 1, participants: [1, 2]}, {chat_id: 2, participants: [2, 3]}, {chat_id: 3, participants: [3, 4]}],
+            chats: [{chat_id: 1, participants: [1, 2]}, {chat_id: 2, participants: [2, 3]}, {
+                chat_id: 3,
+                participants: [3, 4]
+            }],
             activeChat: '',
-            messages: [{message_id: 1, chat_id: 1, body: 'test1'}, {message_id: 2, chat_id: 1, body: 'test2'}, {message_id: 3, chat_id: 2, body: 'test3'}],
+            messages: [{message_id: 1, chat_id: 1, body: 'test1'}, {
+                message_id: 2,
+                chat_id: 1,
+                body: 'test2'
+            }, {message_id: 3, chat_id: 2, body: 'test3'}],
         }
         expect(chatReducer(initialState, {type: CLEAR_MESSAGES})).toEqual({
-            chats: [{chat_id: 1, participants: [1, 2]}, {chat_id: 2, participants: [2, 3]}, {chat_id: 3, participants: [3, 4]}],
+            chats: [{chat_id: 1, participants: [1, 2]}, {chat_id: 2, participants: [2, 3]}, {
+                chat_id: 3,
+                participants: [3, 4]
+            }],
             activeChat: '',
             messages: [],
         })
@@ -140,10 +187,14 @@ describe('chatReducer testing', () => {
             activeChat: '',
             messages: [{message_id: 1, chat_id: 1, body: 'test1'}, {message_id: 3, chat_id: 2, body: 'test3'}],
         }
-        expect(chatReducer(initialState, {type:RECEIVE_MESSAGE, message: message})).toEqual({
+        expect(chatReducer(initialState, {type: RECEIVE_MESSAGE, message: message})).toEqual({
             chats: [],
             activeChat: '',
-            messages: [{message_id: 1, chat_id: 1, body: 'test1'}, {message_id: 3, chat_id: 2, body: 'test3'}, {message_id: 2, chat_id: 1, body: 'test2'}],
+            messages: [{message_id: 1, chat_id: 1, body: 'test1'}, {
+                message_id: 3,
+                chat_id: 2,
+                body: 'test3'
+            }, {message_id: 2, chat_id: 1, body: 'test2'}],
         })
     })
 
@@ -163,17 +214,31 @@ describe('postsReducer testing', () => {
     })
 
     test('postReducer SEND_POST action test', () => {
-        const initialState = {posts: [{post_id: 1, responses: [], body: 'test1'}, {post_id: 2, responses: [], body: 'test2'}, {post_id: 3, responses: [], body: 'test3'}]}
+        const initialState = {
+            posts: [{post_id: 1, responses: [], body: 'test1'}, {
+                post_id: 2,
+                responses: [],
+                body: 'test2'
+            }, {post_id: 3, responses: [], body: 'test3'}]
+        }
         const post = {post_id: 4, responses: [], body: 'test4'}
         const parentId = 1
-        expect(postReducer(initialState, {type: SEND_POST, post: post, parentId: parentId})).toEqual({posts: [
+        expect(postReducer(initialState, {type: SEND_POST, post: post, parentId: parentId})).toEqual({
+            posts: [
                 {post_id: 1, responses: [{post_id: 4, responses: [], body: 'test4'}], body: 'test1'},
                 {post_id: 2, responses: [], body: 'test2'},
-                {post_id: 3, responses: [], body: 'test3'}]})
+                {post_id: 3, responses: [], body: 'test3'}]
+        })
     })
 
     test('postReducer CLEAR_POSTS action test', () => {
-        const initialState = {posts: [{post_id: 1, responses: [], body: 'test1'}, {post_id: 2, responses: [], body: 'test2'}, {post_id: 3, responses: [], body: 'test3'}]}
+        const initialState = {
+            posts: [{post_id: 1, responses: [], body: 'test1'}, {
+                post_id: 2,
+                responses: [],
+                body: 'test2'
+            }, {post_id: 3, responses: [], body: 'test3'}]
+        }
         expect(postReducer(initialState, {type: CLEAR_POSTS})).toEqual({posts: []})
     })
 })
@@ -187,7 +252,7 @@ describe('searchReducer testing', () => {
         })
     })
 
-    test('searchReducer SET_SEARCH_FIELD action test',  () => {
+    test('searchReducer SET_SEARCH_FIELD action test', () => {
         const field = 'search field'
         expect(searchReducer(undefined, {type: SET_SEARCH_FIELD, field: field})).toEqual({
             field: 'search field',
@@ -208,36 +273,81 @@ describe('threadReducer testing', () => {
 
     test('threadReducer initial state test', () => {
         expect(threadReducer(undefined, {})).toEqual({
-            threads: []
+            threads: [],
+            thread: null,
         })
     })
 
     test('threadReducer FETCH_THREADS action test', () => {
         const threads = [{thread_id: 1, body: 'test1'}, {thread_id: 2, body: 'test2'}, {thread_id: 3, body: 'test3'}]
-        expect(threadReducer(undefined, {type: FETCH_THREADS, threads: threads})).toEqual({threads: [{thread_id: 1, body: 'test1'},
+        expect(threadReducer(undefined, {type: FETCH_THREADS, threads: threads})).toEqual({
+            thread: null, threads: [{thread_id: 1, body: 'test1'},
                 {thread_id: 2, body: 'test2'},
-                {thread_id: 3, body: 'test3'}]})
+                {thread_id: 3, body: 'test3'}]
+        })
     })
 
     test('threadReducer FETCH_THREAD action test', () => {
         const thread = {thread_id: 1, body: 'test1'}
-        expect(threadReducer(undefined, {type: FETCH_THREAD, thread: thread})).toEqual({threads: [], thread: {thread_id: 1, body: 'test1'}})
+        expect(threadReducer(undefined, {type: FETCH_THREAD, thread: thread})).toEqual({
+            threads: [],
+            thread: {thread_id: 1, body: 'test1'}
+        })
     })
 
     test('threadReducer CLEAR_THREAD action test', () => {
-        const initialState = {threads: [{thread_id: 1, body: 'test1'}, {thread_id: 2, body: 'test2'}, {thread_id: 3, body: 'test3'}]}
-        expect(threadReducer(initialState, {type: CLEAR_THREAD, threads: ''})).toEqual({threads: ''})
+        const initialState = {
+            thread: {thread_id: 4, body: 'test4'},
+            threads: [{thread_id: 1, body: 'test1'}, {thread_id: 2, body: 'test2'}, {thread_id: 3, body: 'test3'}]
+        }
+        expect(threadReducer(initialState, {type: CLEAR_THREAD, thread: null})).toEqual({
+            thread: null,
+            threads: [{thread_id: 1, body: 'test1'}, {thread_id: 2, body: 'test2'}, {thread_id: 3, body: 'test3'}]
+        })
     })
 
+    test('threadReducer CLEAR_THREADS action test', () => {
+        const initialState = {
+            thread: {thread_id: 4, body: 'test4'},
+            threads: [{thread_id: 1, body: 'test1'}, {thread_id: 2, body: 'test2'}, {thread_id: 3, body: 'test3'}]
+        }
+        expect(threadReducer(initialState, {type: CLEAR_THREADS})).toEqual({
+            thread: {thread_id: 4, body: 'test4'},
+            threads: []
+        })
+    })
+
+    test('threadReducer CREATE_THREAD action test', () => {
+        const thread = {thread_id: 1, body: 'test1'}
+        expect(threadReducer(undefined, {type: CREATE_THREAD, thread: thread})).toEqual({
+            threads: [{thread_id: 1, body: 'test1'}],
+            thread: null,
+        })
+    })
+
+    test('threadReducer SEARCH_THREADS action test', () => {
+        const threads = [{thread_id: 1, body: 'test1'}, {thread_id: 2, body: 'test2'}, {thread_id: 3, body: 'test3'}]
+        expect(threadReducer(undefined, {type: SEARCH_THREADS, threads: threads})).toEqual({
+            threads: [{thread_id: 1, body: 'test1'}, {thread_id: 2, body: 'test2'}, {thread_id: 3, body: 'test3'}],
+            thread: null,
+        })
+    })
+})
+
+describe('topicReducer testing', () => {
+
+    test('topicReducer initial state', () => {
+        expect(topicReducer(undefined, {})).toEqual({
+            topics: []
+        })
+    })
+
+    test('topicReducer GET_TOPICS_BY_TAG action test', () => {
+
+    })
 
 })
 
-
-test('topicReducer initial state', () => {
-    expect(topicReducer(undefined, {})).toEqual({
-        topics: []
-    })
-})
 
 test('userReducer initial state', () => {
     expect(userReducer(undefined, {})).toEqual({userName: '', userEmail: '', userPassStatus: ''})
