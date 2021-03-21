@@ -7,11 +7,6 @@ const initialState = {
 export const adminReducer = (state=initialState, action) => {
     switch (action.type) {
 
-        case DELETE_USER:
-            return {
-                ...state,
-
-            }
         case UPDATE_USER:
             return {
                 ...state,
