@@ -341,11 +341,6 @@ describe('topicReducer testing', () => {
             topics: []
         })
     })
-
-    test('topicReducer GET_TOPICS_BY_TAG action test', () => {
-
-    })
-
 })
 
 
