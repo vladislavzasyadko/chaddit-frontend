@@ -5,7 +5,7 @@ import {BASE_URL} from "../CONSTANTS/API_CONSTANTS";
 let instance = axios.create({
     baseURL: BASE_URL,
 })
-const api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTY0MTMyNTEsImlhdCI6MTYxNjMyNjg1MSwic3ViIjozfQ.YmemEzASkW-dDb-1FL4KeGpBFu10zH3-5_uz8VyGpWo'
+const api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'
 let chat_id_for_test
 
 test('getThreads() request/response test', () =>{
