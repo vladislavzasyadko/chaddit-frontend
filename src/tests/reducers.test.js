@@ -29,7 +29,7 @@ import {
     CLEAR_THREAD,
     CLEAR_THREADS,
     CREATE_THREAD,
-    SEARCH_THREADS
+    SEARCH_THREADS, SET_USER, SET_USER_NAME, UPDATE_USER_NAME, UPDATE_USER_PASS, FETCHING, SUCCESS, FAILURE
 } from "../redux/reducers/types";
 
 describe('adminReducer testing', () => {
@@ -343,7 +343,40 @@ describe('topicReducer testing', () => {
     })
 })
 
+describe('userReducer testing', () => {
 
-test('userReducer initial state', () => {
-    expect(userReducer(undefined, {})).toEqual({userName: '', userEmail: '', userPassStatus: ''})
+    test('userReducer initial state', () => {
+        expect(userReducer(undefined, {})).toEqual({userName: '', userEmail: '', userPassStatus: ''})
+    })
+
+    test('userReducer SET_USER action test', () => {
+        const mockResponse = {name: 'vlad', pass: '12345', email: 'vlad@gmail.com', user_id: 1, user_tag: '6789', role: 'user'}
+        expect(userReducer(undefined, {
+            type: SET_USER,
+            name: mockResponse.name,
+            pass: mockResponse.pass,
+            email: mockResponse.email,
+            id: mockResponse.user_id,
+            tag: mockResponse.user_tag,
+            role: mockResponse.role,
+        })).toEqual({userName: 'vlad', userTempName: 'vlad', userPass: '12345', userId: 1, userEmail: 'vlad@gmail.com', userTag: '6789', userRole: 'user', userPassStatus: ''})
+    })
+
+    test('userReducer SET_USER_NAME action test', () => {
+        const name = 'vlad'
+        expect(userReducer(undefined, {type: SET_USER_NAME, name})).toEqual({userName: '', userEmail: '', userPassStatus: '', userTempName: 'vlad'})
+    })
+
+    test('userReducer UPDATE_USER_NAME action test', () => {
+        const name = 'vlad'
+        expect(userReducer(undefined, {type: UPDATE_USER_NAME, newName: name})).toEqual({userName: 'vlad', userEmail: '', userPassStatus: ''})
+    })
+
+    test('userReducer UPDATE_USER_PASS action test', () => {
+        let mockUserPassStatus = SUCCESS
+        expect(userReducer(undefined, {type: UPDATE_USER_PASS, userPassStatus: mockUserPassStatus})).toEqual({userName: '', userEmail: '', userPassStatus: SUCCESS})
+        mockUserPassStatus = FAILURE
+        expect(userReducer(undefined, {type: UPDATE_USER_PASS, userPassStatus: mockUserPassStatus})).toEqual({userName: '', userEmail: '', userPassStatus: FAILURE})
+
+    })
 })
