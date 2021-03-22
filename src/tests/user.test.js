@@ -1,44 +1,39 @@
-import {unmountComponentAtNode, render} from "react-dom";
+import {render, unmountComponentAtNode} from "react-dom";
 import User from "../components/Users/User/User";
 import React from "react";
 import {Provider} from "react-redux";
 import {act} from "@testing-library/react";
-import configureStore from 'redux-mock-store'
+import {updateUser} from "../redux/reducers/adminReducer";
+import {adminAPI} from "../api/api";
+import {combineReducers, createStore} from "redux";
+import {userReducer} from "../redux/reducers/userReducer";
+import {chatReducer} from "../redux/reducers/chatReducer";
 
-const storeConfig = configureStore([])
 
-function nodeToString ( node ) {
-    let tmpNode = document.createElement( "div" );
-    tmpNode.appendChild( node.cloneNode( true ) );
-    let str = tmpNode.innerHTML;
-    tmpNode = node = null; // prevent memory leaks in IE
-    return str;
+export function createTestStore() {
+    return createStore(
+        combineReducers({
+            user: userReducer,
+            chats: chatReducer,
+        })
+    );
 }
+
 
 describe('User component testing ', () => {
 
     let container = null;
     let mockStore
+    const mockProps = {
+        name: 'Vlad',
+        mail: 'vlad@gmail.com',
+        uid: '11'
+    }
 
     beforeEach(() => {
         container = document.createElement("div");
         document.body.appendChild(container);
-        mockStore = storeConfig({
-            user: {
-                userName: '',
-                userTempName: '',
-                userPass: '',
-                userId: '',
-                userEmail: '',
-                userTag: '',
-                userRole: ''
-            },
-            chats: {
-                chats: [],
-                activeChat: '',
-                messages: [],
-            }
-        })
+        mockStore = createTestStore()
     })
 
     afterEach(() => {
@@ -49,13 +44,8 @@ describe('User component testing ', () => {
 
     test('User component rendering testing', () => {
 
-        const mockUser = {
-            name: 'Vlad',
-            mail: 'vlad@gmail.com'
-        }
-
         act(() => {
-            render(<Provider store={mockStore}><User name={mockUser.name} mail={mockUser.mail}/></Provider>, container)
+            render(<Provider store={mockStore}><User name={mockProps.name} mail={mockProps.mail}/></Provider>, container)
         })
 
         const inputCreators = container.querySelectorAll('.inputCreator')
@@ -64,13 +54,31 @@ describe('User component testing ', () => {
 
         expect(container.querySelector('.adminHeader h1').textContent).toBe(textContent[0])
         expect(userLabels[0].textContent).toBe(textContent[1])
-        expect(inputCreators[0].value).toBe(mockUser.name)
+        expect(inputCreators[0].value).toBe(mockProps.name)
         expect(userLabels[1].textContent).toBe(textContent[2])
-        expect(inputCreators[1].value).toBe(mockUser.mail)
+        expect(inputCreators[1].value).toBe(mockProps.mail)
         expect(userLabels[2].textContent).toBe(textContent[3])
-        expect(inputCreators[2].value).toBe(mockStore.getState().user.userPass)
+        expect(inputCreators[2].value).toBe('')
         expect(container.querySelector('.saveButton').textContent).toBe(textContent[4])
         expect(container.querySelector('.deleteTopicButton').textContent).toBe(textContent[5])
+    })
 
+    test('User component event testing', () => {
+
+        act(() => {
+            render(<Provider store={mockStore}><User name={mockProps.name} mail={mockProps.mail}/></Provider>, container)
+        })
+
+        const saveButton = document.querySelector('.saveButton')
+        const backButton = document.querySelector('.deleteTopicButton')
+
+        let mockAdminUpdateUser = jest.spyOn(adminAPI, 'updateUser').mockImplementationOnce((id, user) => {
+            Promise.resolve({data: 'doesnt matter'})
+        })
+
+        act(() => {
+            saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+        })
+        expect(mockAdminUpdateUser).toHaveBeenCalled()
     })
 });
