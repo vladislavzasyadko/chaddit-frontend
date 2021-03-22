@@ -16,18 +16,7 @@ function Chat(props) {
 
     const handleSocket = () => {
         const lobby = io(BASE_URL);
-        // lobby.on('connect', function (socket){
-        //     console.log('connected to backend');
-        //
-        //     lobby.on('disconnect', function(){
-        //         console.log('disconnected: ', socket);
-        //     });
-        //
-        // });
         lobby.on('new message', function(msg){
-            // setMessages(messages => [...messages, msg])
-            console.log('new message', msg)
-            console.log('before new message', messages)
             if(messages.filter(message => message.message_id === msg.message_id).length === 0){
                 dispatch(receiveMessage(msg));
             }
@@ -49,16 +38,10 @@ function Chat(props) {
     }
 
     useEffect( () => {
-        console.log('sending get msg')
         dispatch(getMessages(props.chatId))
     }, [])
 
     useEffect( () => {
-        console.log(messages)
-    }, [messages])
-
-    useEffect( () => {
-        console.log('prev messages', props.messages)
         const uniqueArray = props.messages.filter((msg,index) => {
             return index === props.messages.findIndex(obj => {
                 return obj.message_id === msg.message_id;

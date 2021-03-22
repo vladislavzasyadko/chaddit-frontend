@@ -45,12 +45,10 @@ export const topicAPI = {
     searchTopics(name) {
         const params = name ? {query: '"' + name + '"'} : {}
         return instance.get(`chaddit/c/search/topic`, {params: params}).then(response => {
-            console.log(response.data)
             return response.data
         });
     },
     createTopic(title, tags) {
-        console.log('post tags', tags)
         return axios.post(BASE_URL + `chaddit/c/topic`, {topic_title: title, tags: tags}, {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
@@ -90,7 +88,6 @@ export const chatAPI = {
                 'api_token': localStorage.getItem('api_token'),
             }
         }).then(response => {
-            console.log(response)
             return response.data
         })
     },
@@ -100,10 +97,9 @@ export const chatAPI = {
                 'api_token': localStorage.getItem('api_token'),
             },
             params: {
-                limit: -1
+                limit: 0
             }
         }).then(response => {
-            console.log('message response', response)
             return response.data
         });
     },
@@ -114,7 +110,6 @@ export const chatAPI = {
                 'chat_id': chatId,
             }
         }).then(response => {
-            console.log(response)
             return response.data
         })
 
@@ -183,7 +178,6 @@ export const adminAPI = {
                 'api_token': localStorage.getItem('api_token'),
             }
         }).then(response => {
-            console.log(response.data)
             return response.data
         })
     },

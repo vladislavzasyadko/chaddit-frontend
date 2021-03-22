@@ -31,7 +31,6 @@ function Chats(props) {
 
 
     const deleteChat = (id) => {
-        console.log(id)
         setChats(chats => chats.filter(chat => {
             return chat.chat_id !== id
         }))

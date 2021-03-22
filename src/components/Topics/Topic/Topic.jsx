@@ -28,7 +28,6 @@ function Topic(props) {
     }
 
     const handleTagClick = (e, tag) => {
-        console.log('click', tag)
         props.getTopics(tag)
         e.stopPropagation()
     }

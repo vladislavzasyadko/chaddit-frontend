@@ -55,7 +55,6 @@ function CreateThreadWidget(props) {
     }
 
     function encodeImageFileAsURL(element) {
-        console.log(element)
         let file = element.files[0];
         let reader = new FileReader();
         reader.onloadend = function () {
@@ -86,7 +85,6 @@ function CreateThreadWidget(props) {
         if (obj) {
             dispatch(setTopicId(obj.id));
         } else {
-            console.log('а че', tags)
             dispatch(createTopicId(topicTitle, tags));
         }
     }
