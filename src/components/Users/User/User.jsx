@@ -16,10 +16,6 @@ function User(props) {
         setUserMail(props.mail);
     }, [props])
 
-    const handleUserDelete = () => {
-
-    }
-
     const saveUserData = () => {
         let user = {}
         if(userName){
@@ -40,7 +36,6 @@ function User(props) {
         dispatch(getUsers())
         props.closeUser()
     }
-
 
     return (
         <div className={AT.adminUser}>

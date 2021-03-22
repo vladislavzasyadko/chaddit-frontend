@@ -34,8 +34,9 @@ export const threadAPI = {
 }
 
 export const topicAPI = {
-    getTopics() {
-        return instance.get(`chaddit/c/topics`).then(response => response.data);
+    getTopics(desc, order) {
+        const params = desc ? {orderbydesc: order} : {orderby: order};
+        return instance.get(`chaddit/c/topics`, {params: params}).then(response => response.data);
     },
     getTopicByTag(tag) {
         const params = tag ? {query: '"' + `#${tag}` + '"'} : {}

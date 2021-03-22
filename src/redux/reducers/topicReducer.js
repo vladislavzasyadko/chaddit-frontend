@@ -45,8 +45,8 @@ export const topicReducer = (state = initialState, action) => {
 
 }
 
-export const fetchTopics = () => (dispatch) => {
-    return topicAPI.getTopics()
+export const fetchTopics = (desc, order) => (dispatch) => {
+    return topicAPI.getTopics(desc, order)
         .then(topics => dispatch({type: FETCH_TOPICS, topics}));
 }
 

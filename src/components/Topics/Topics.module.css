@@ -45,3 +45,25 @@
     cursor: default;
     opacity: 0;
 }
+
+.sortContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.sortSelect {
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 10px;
+    border: none;
+    outline: none;
+    height: 5%;
+    font-size: 16px;
+    background-color: #e5e5e5;
+}
+
+.sortButton {
+    composes: sortSelect;
+}
