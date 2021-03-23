@@ -43,7 +43,7 @@ describe('User component testing ', () => {
 
         const inputCreators = container.querySelectorAll('.inputCreator')
         const userLabels = container.querySelectorAll('.userLabel')
-        const textContent = ['Информация пользователя', 'Имя пользователя', 'Email пользователя', 'Пароль пользователя', ' Сохранить', ' Назад ']
+        const textContent = ['Информация пользователя', 'Имя пользователя', 'Email пользователя', 'Пароль пользователя', 'Сохранить', 'Назад']
 
         expect(container.querySelector('.adminHeader h1').textContent).toBe(textContent[0])
         expect(userLabels[0].textContent).toBe(textContent[1])
