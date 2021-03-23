@@ -16,10 +16,6 @@ function User(props) {
         setUserMail(props.mail);
     }, [props])
 
-    const handleUserDelete = () => {
-
-    }
-
     const saveUserData = () => {
         let user = {}
         if(userName){
@@ -41,13 +37,12 @@ function User(props) {
         props.closeUser()
     }
 
-
     return (
         <div className={AT.adminUser}>
             <div className={AT.adminHeader}><h1>Информация пользователя</h1>
                 <div>
-                    <button className={AT.saveButton} onClick={saveUserData}> Сохранить</button>
-                    <button className={AT.deleteTopicButton} onClick={handleCloseUser}> Назад </button>
+                    <button className={AT.saveButton} onClick={saveUserData}>{'Сохранить'}</button>
+                    <button className={AT.deleteTopicButton} onClick={handleCloseUser}>{'Назад'}</button>
                 </div>
             </div>
 

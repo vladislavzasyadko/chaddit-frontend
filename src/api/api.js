@@ -34,8 +34,9 @@ export const threadAPI = {
 }
 
 export const topicAPI = {
-    getTopics() {
-        return instance.get(`chaddit/c/topics`).then(response => response.data);
+    getTopics(desc, order) {
+        const params = desc ? {orderbydesc: order} : {orderby: order};
+        return instance.get(`chaddit/c/topics`, {params: params}).then(response => response.data);
     },
     getTopicByTag(tag) {
         const params = tag ? {query: '"' + `#${tag}` + '"'} : {}
@@ -44,12 +45,10 @@ export const topicAPI = {
     searchTopics(name) {
         const params = name ? {query: '"' + name + '"'} : {}
         return instance.get(`chaddit/c/search/topic`, {params: params}).then(response => {
-            console.log(response.data)
             return response.data
         });
     },
     createTopic(title, tags) {
-        console.log('post tags', tags)
         return axios.post(BASE_URL + `chaddit/c/topic`, {topic_title: title, tags: tags}, {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
@@ -83,13 +82,12 @@ export const chatAPI = {
     getChat(chatId) {
         return instance.get(`chaddit/c/chat/${chatId}`).then(response => response.data);
     },
-    createChat() {
-        return instance.post('chaddit/c/chat', {}, {
+    createChat(topicId) {
+        return instance.post('chaddit/c/chat', {topic_id: topicId}, {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
             }
         }).then(response => {
-            console.log(response)
             return response.data
         })
     },
@@ -99,10 +97,9 @@ export const chatAPI = {
                 'api_token': localStorage.getItem('api_token'),
             },
             params: {
-                limit: -1
+                limit: 0
             }
         }).then(response => {
-            console.log('message response', response)
             return response.data
         });
     },
@@ -113,7 +110,6 @@ export const chatAPI = {
                 'chat_id': chatId,
             }
         }).then(response => {
-            console.log(response)
             return response.data
         })
 
@@ -182,7 +178,6 @@ export const adminAPI = {
                 'api_token': localStorage.getItem('api_token'),
             }
         }).then(response => {
-            console.log(response.data)
             return response.data
         })
     },

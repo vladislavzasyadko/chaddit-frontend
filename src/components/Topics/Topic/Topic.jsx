@@ -28,7 +28,6 @@ function Topic(props) {
     }
 
     const handleTagClick = (e, tag) => {
-        console.log('click', tag)
         props.getTopics(tag)
         e.stopPropagation()
     }
@@ -63,7 +62,7 @@ function Topic(props) {
                         <h2 className={C.cardTitle}>{topicTitle}</h2>
                         {(props.userRole === 'ADMIN' || props.userRole === 'MOD') &&
                         <button className={sT.deleteTopicButton}
-                                 onClick={e => handleChangeTopic(e)}> Изменить</button>}
+                                 onClick={e => handleChangeTopic(e)}>{'Изменить'}</button>}
                     </div>
                     <div className={sT.tagList}>{tags.length > 0 && 'Теги:'}{tags.map(tag =>
                         <div className={isColorLight ? sT.tagLight : sT.tag}

@@ -45,8 +45,8 @@ export const topicReducer = (state = initialState, action) => {
 
 }
 
-export const fetchTopics = () => (dispatch) => {
-    return topicAPI.getTopics()
+export const fetchTopics = (desc, order) => (dispatch) => {
+    return topicAPI.getTopics(desc, order)
         .then(topics => dispatch({type: FETCH_TOPICS, topics}));
 }
 
@@ -61,7 +61,6 @@ export const searchTopics = (name) => (dispatch) => {
 }
 
 export const createTopicId = (title, tags) => (dispatch) => {
-    console.log('ttaaggg', tags)
     return topicAPI.createTopic(title, tags)
         .then(topic => dispatch({type: CREATE_TOPIC, id: topic.topic_id, topic:topic}))
 }

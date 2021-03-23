@@ -49,13 +49,12 @@ export const threadReducer = (state = initialState, action) => {
 
 export const fetchThreads = (topicId) => (dispatch) => {
     return threadAPI.getThreadByTopic(topicId)
-        .then(threads => dispatch({type: FETCH_THREADS, threads: threads})) //dispatch({type: FETCH_THREAD, threads: threads}
+        .then(threads => dispatch({type: FETCH_THREADS, threads: threads}))
 }
 
 export const searchThreads = (name) => (dispatch) => {
-    console.log('search')
     return threadAPI.searchThread(name)
-        .then(threads => dispatch({type: SEARCH_THREADS, threads: threads})) //dispatch({type: FETCH_THREAD, threads: threads}
+        .then(threads => dispatch({type: SEARCH_THREADS, threads: threads, searchWord: name}))
 }
 
 export const fetchThread = (threadId) => {

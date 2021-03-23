@@ -29,9 +29,11 @@ function Chats(props) {
 
     const [userNames, setUserNames] = useState([])
 
+    const [chatTopic, setChatTopic] = useState('')
+    const[noTopicChosen, setNoTopicChosen] = useState(false)
+
 
     const deleteChat = (id) => {
-        console.log(id)
         setChats(chats => chats.filter(chat => {
             return chat.chat_id !== id
         }))
@@ -47,7 +49,13 @@ function Chats(props) {
     }
 
     const handleCreateChat = () => {
-        dispatch(createChat())
+        if(chatTopic){
+            setNoTopicChosen(false)
+            dispatch(createChat(parseInt(chatTopic)))
+        }else {
+            setNoTopicChosen(true)
+        }
+
     }
 
     useEffect( () => {
@@ -63,6 +71,11 @@ function Chats(props) {
         props.closeChats();
     });
 
+    const getTopicNameById = (id) => {
+        const found = props.topics.filter(topic => topic.topic_id === id)
+        return found[0]
+    }
+
     return ReactDOM.createPortal(
         <div className={props.chatsActive ? CH.darkBackground : CH.darkBackgroundHidden}
         >
@@ -70,12 +83,18 @@ function Chats(props) {
                 {!chatOpen && <div className={CH.chatGrid}>
                     <div className={CH.chatsHeader}>
                         <h1>Чаты мои чаты</h1>
+                        <div className={CH.chatCreateContainer}>
+                            <label className={noTopicChosen ? CH.redLabel : CH.label} htmlFor={'chatTopic'}>Выбери тему нового чата</label>
+                        <select id={'chatTopic'} className={CH.topicSelect} onChange={e => setChatTopic(e.target.value)}>
+                            {props.topics.map(topic => <option value={topic.topic_id}>{topic.topic_title}</option>)}
+                        </select>
                         <button className={CH.sendButton} onClick={handleCreateChat}> Создать чат </button>
+                        </div>
                     </div>
                     <div className={CH.chats}>
-                    {chats.map(chat => <ChatElement
+                    {chats.slice(0).reverse().map(chat => <ChatElement
                         name={chat.participants
-                            .map(user => user.user_name)} id={chat.chat_id} topic={chat.topic}
+                            .map(user => user.user_name)} id={chat.chat_id} topic={getTopicNameById(chat.topic_id)}
                                                     deleteChat={deleteChat} openChat={openChat}/>)}
                     </div>
                 </div>}
@@ -101,8 +120,7 @@ const ChatElement = (props) => {
     return (
         <div className={CH.chatElement} onClick={handleOpenChat}>
             <div>
-                {console.log(props)}
-                <h3>Комната {props.id}</h3>
+                <h3>{'Комната: '}{props.id}{' на тему: '}{props.topic?.topic_title}</h3>
                 <h3>{props.name.reduce((acc, curr) => acc ? acc + ' и ' + curr : acc + curr, '')}</h3>
             </div>
             {/*<button className={CH.closeButton} onClick={handleDeleteClick}>Delete</button>*/}
@@ -113,6 +131,7 @@ const ChatElement = (props) => {
 const mapStateToProps = (state) => ({
     currentId: state.user.userId,
     chats: state.chats.chats,
+    topics: state.topics.topics,
 })
 
 export default connect(mapStateToProps)(Chats);

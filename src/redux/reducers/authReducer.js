@@ -70,7 +70,6 @@ export const logoutActionCreator = () => (dispatch) => {
 
 export const checkToken = () => (dispatch) => {
     return userAPI.getUser().then(response => {
-        console.log('token ok')
     }, error => {
         console.log('token expired')
 

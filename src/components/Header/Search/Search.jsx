@@ -14,7 +14,6 @@ function Search(props) {
         event.preventDefault()
         if(searchWord){
             if(props.field === TOPICS){
-                console.log(searchWord)
                 dispatch(searchTopics(searchWord))
             }else {
                 dispatch(searchThreads(searchWord))

@@ -6,7 +6,6 @@ const initialState = {userName: '', userEmail: '', userPassStatus: ''}
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER:
-            console.log(action.role)
             return {
                 ...state,
                 userName: action.name,
@@ -42,7 +41,6 @@ export const getUser = () => (dispatch) => {
     return userAPI.getUser()
         .then((response) => {
             const {user_name, user_pass, user_id, user_email, user_tag, role} = response.data;
-            console.log('user data', response.data)
             dispatch({
                 type: SET_USER,
                 name: user_name,

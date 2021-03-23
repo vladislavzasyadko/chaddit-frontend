@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://chaddit-on-heroku.herokuapp.com/';
+export const BASE_URL = process.env.REACT_APP_BASE_URL;

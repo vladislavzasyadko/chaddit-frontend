@@ -15,7 +15,8 @@ export const chatReducer = (state = initialState, action) => {
                 chats: [...state.chats,
                     {
                         chat_id: action.chat_id,
-                        participants: action.participants
+                        participants: action.participants,
+                        topic_id: action.topic_id,
                     }]
             }
         case GET_CHATS:
@@ -52,11 +53,12 @@ export const chatReducer = (state = initialState, action) => {
 }
 
 
-export const createChat = () => (dispatch) => {
-    return chatAPI.createChat().then(response => dispatch({
+export const createChat = (topicId) => (dispatch) => {
+    return chatAPI.createChat(topicId).then(response => dispatch({
         type: CREATE_CHAT,
         chat_id: response.chat_id,
         participants: response.participants,
+        topic_id: topicId,
     }))
 }
 

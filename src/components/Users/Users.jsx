@@ -20,7 +20,6 @@ function Users(props) {
 
 
     const deleteUser = (id) => {
-        console.log(id)
         dispatch(updateUser(id, {active: false}))
         setUsers(user => user.filter(chat => chat.user_id !== id))
     }

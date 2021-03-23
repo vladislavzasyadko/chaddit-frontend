@@ -31,7 +31,7 @@
     grid-template-areas:
     "header"
     "chats";
-    grid-template-rows: 5% 95%;
+    grid-template-rows: 10% 90%;
     grid-template-columns: 100%;
     grid-gap: 5px;
     height: 100%;
@@ -39,6 +39,7 @@
 .chatsHeader {
     grid-area: header;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 .chats {
@@ -168,5 +169,31 @@
 
 }
 
+.topicSelect {
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    border: none;
+    outline: none;
+    height: 5%;
+    font-size: 16px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.chatCreateContainer {
+    display: flex;
+    align-items: center;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.redLabel {
+    composes: label;
+    color: var(--red-color);
+}
 
 
