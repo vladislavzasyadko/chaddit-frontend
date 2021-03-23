@@ -93,7 +93,6 @@ function Chats(props) {
                         </div>
                     </div>
                     <div className={CH.chats}>
-                        {console.log('chats', chats)}
                     {chats.slice(0).reverse().map(chat => <ChatElement
                         name={chat.participants
                             .map(user => user.user_name)} id={chat.chat_id} topic={getTopicNameById(chat.topic_id)}
