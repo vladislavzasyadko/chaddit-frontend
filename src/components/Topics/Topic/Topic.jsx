@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import C from "../../Card/Card.module.css";
 import sT from "./Topic.module.css";
-import {formatDate} from "../../../utils/formatters";
 import {Redirect} from "react-router-dom";
 import {connect, useDispatch} from "react-redux";
 import {clearThreads} from "../../../redux/reducers/threadReducer";
@@ -69,11 +68,6 @@ function Topic(props) {
                              onClick={(e) => handleTagClick(e, tag.tag)}>
                             {tag.tag}</div>)}
                     </div>
-                    {/*<div className={C.cardFooter}>*/}
-                    {/*    <div>Автор: {authorName}</div>*/}
-                    {/*    <div className={C.cardDate}>{formatDate(createdAt)}</div>*/}
-                    {/*</div>*/}
-
                 </div>
                 {adminOpen && <AdminTopic topicId={topicId} name={topicTitle} tags={tags} closeTopic={closeAdminTopic} active={adminOpen}/>}
             </>}

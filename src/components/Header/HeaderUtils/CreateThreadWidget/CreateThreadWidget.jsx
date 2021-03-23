@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 import C from "./CreateThreadWidget.module.css";
 import {connect, useDispatch} from "react-redux";
 import useClickOutside from "../utils";
-import {createThread, fetchThreads} from "../../../../redux/reducers/threadReducer";
+import {createThread} from "../../../../redux/reducers/threadReducer";
 import {createTopicId, fetchTopics, setTopicId} from "../../../../redux/reducers/topicReducer";
 
 function CreateThreadWidget(props) {
