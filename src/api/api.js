@@ -82,8 +82,8 @@ export const chatAPI = {
     getChat(chatId) {
         return instance.get(`chaddit/c/chat/${chatId}`).then(response => response.data);
     },
-    createChat() {
-        return instance.post('chaddit/c/chat', {}, {
+    createChat(topicId) {
+        return instance.post('chaddit/c/chat', {topic_id: topicId}, {
             headers: {
                 'api_token': localStorage.getItem('api_token'),
             }
