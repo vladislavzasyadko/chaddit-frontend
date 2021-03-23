@@ -57,12 +57,11 @@ function AdminTopic(props) {
     return ReactDOM.createPortal(
         <div className={props.active ? CH.darkBackground : CH.darkBackgroundHidden}
         >
-            {console.log('TAGS', topicTags)}
             <div className={AT.adminTopic} ref={domNode}>
-                <div className={AT.adminHeader}><h1>topic info</h1>
+                <div className={AT.adminHeader}><h1>Информация о теме</h1>
                     <div>
-                    <button disabled={deletePress} className={AT.saveButton} onClick={saveTopic}> Сохранить</button>
-                    <button disabled={deletePress} className={AT.deleteTopicButton} onClick={handleDeleteTopic}> Удалить </button>
+                    <button disabled={deletePress} className={AT.saveButton} onClick={saveTopic}>{'Сохранить'}</button>
+                    <button disabled={deletePress} className={AT.deleteTopicButton} onClick={handleDeleteTopic}>{'Удалить'}</button>
                     </div>
                 </div>
 
