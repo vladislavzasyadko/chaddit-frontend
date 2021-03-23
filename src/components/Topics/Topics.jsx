@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import T from "./Topics.module.css";
 import {cardColorsNum} from "../../commons/colors";
 import {connect, useDispatch} from 'react-redux';
-import ActiveCard from "../ActiveCard/ActiveCard";
 import {colorIsLight} from "../../utils/formatters";
 import {fetchTopics, getTopic} from "../../redux/reducers/topicReducer";
 import Topic from "../Topics/Topic/Topic";
