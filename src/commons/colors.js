@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export const cardColors = [
     "rgba(255,0,0,0.8)",
     "rgba(246,185,29,0.8)",
