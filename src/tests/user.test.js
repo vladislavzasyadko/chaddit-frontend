@@ -6,8 +6,7 @@ import {act} from "@testing-library/react";
 import {adminAPI} from "../api/api";
 import {store} from "../redux/store";
 
-
-export function createTestStore() {
+function createTestStore() {
     return store
 }
 
@@ -87,10 +86,7 @@ describe('User component testing ', () => {
         const backButton = document.querySelector('.deleteTopicButton')
 
         let mockAdminGetUsers = jest.spyOn(adminAPI, 'getUsers').mockImplementationOnce(() => {
-            return Promise.resolve([{username: 'danila', user_id: 1}, {
-                username: 'nikita',
-                user_id: 2
-            }, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}])
+            return Promise.resolve([{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}])
         })
 
         act(() => {
