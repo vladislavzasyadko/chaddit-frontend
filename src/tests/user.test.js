@@ -3,20 +3,12 @@ import User from "../components/Users/User/User";
 import React from "react";
 import {Provider} from "react-redux";
 import {act} from "@testing-library/react";
-import {updateUser} from "../redux/reducers/adminReducer";
 import {adminAPI} from "../api/api";
-import {combineReducers, createStore} from "redux";
-import {userReducer} from "../redux/reducers/userReducer";
-import {chatReducer} from "../redux/reducers/chatReducer";
+import {store} from "../redux/store";
 
 
 export function createTestStore() {
-    return createStore(
-        combineReducers({
-            user: userReducer,
-            chats: chatReducer,
-        })
-    );
+    return store
 }
 
 
@@ -27,7 +19,8 @@ describe('User component testing ', () => {
     const mockProps = {
         name: 'Vlad',
         mail: 'vlad@gmail.com',
-        uid: '11'
+        uid: '11',
+        closeUser: function closeUser() {}
     }
 
     beforeEach(() => {
@@ -45,7 +38,8 @@ describe('User component testing ', () => {
     test('User component rendering testing', () => {
 
         act(() => {
-            render(<Provider store={mockStore}><User name={mockProps.name} mail={mockProps.mail}/></Provider>, container)
+            render(<Provider store={mockStore}><User name={mockProps.name}
+                                                     mail={mockProps.mail}/></Provider>, container)
         })
 
         const inputCreators = container.querySelectorAll('.inputCreator')
@@ -63,22 +57,46 @@ describe('User component testing ', () => {
         expect(container.querySelector('.deleteTopicButton').textContent).toBe(textContent[5])
     })
 
-    test('User component event testing', () => {
+    test('User component saveButton event testing', () => {
 
         act(() => {
-            render(<Provider store={mockStore}><User name={mockProps.name} mail={mockProps.mail}/></Provider>, container)
+            render(<Provider store={mockStore}><User name={mockProps.name}
+                                                     mail={mockProps.mail}/></Provider>, container)
         })
 
         const saveButton = document.querySelector('.saveButton')
-        const backButton = document.querySelector('.deleteTopicButton')
-
         let mockAdminUpdateUser = jest.spyOn(adminAPI, 'updateUser').mockImplementationOnce((id, user) => {
-            Promise.resolve({data: 'doesnt matter'})
+            return Promise.resolve({data: 'doesnt matter'})
         })
 
         act(() => {
             saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}))
         })
+
         expect(mockAdminUpdateUser).toHaveBeenCalled()
+        mockAdminUpdateUser.mockClear()
+    })
+
+    test('User component backButton event testing', () => {
+
+        act(() => {
+            render(<Provider store={mockStore}><User name={mockProps.name} mail={mockProps.mail}
+                                                     closeUser={mockProps.closeUser}/></Provider>, container)
+        })
+
+        const backButton = document.querySelector('.deleteTopicButton')
+
+        let mockAdminGetUsers = jest.spyOn(adminAPI, 'getUsers').mockImplementationOnce(() => {
+            return Promise.resolve([{username: 'danila', user_id: 1}, {
+                username: 'nikita',
+                user_id: 2
+            }, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}])
+        })
+
+        act(() => {
+            backButton.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+        })
+        expect(mockAdminGetUsers).toHaveBeenCalled()
+        mockAdminGetUsers.mockClear()
     })
 });

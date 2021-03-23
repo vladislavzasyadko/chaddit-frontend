@@ -34,10 +34,7 @@ import {
 
 describe('adminReducer testing', () => {
 
-    const users = [{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {
-        username: 'misha',
-        user_id: 3
-    }, {username: 'vlad', user_id: 4}]
+    const users = [{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}]
 
     test('adminReducer initial state test', () => {
         expect(adminReducer(undefined, {})).toEqual({users: []})
