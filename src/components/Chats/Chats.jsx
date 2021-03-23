@@ -73,7 +73,6 @@ function Chats(props) {
 
     const getTopicNameById = (id) => {
         const found = props.topics.filter(topic => topic.topic_id === id)
-        console.log('found', found)
         return found[0]
     }
 
