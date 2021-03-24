@@ -37,9 +37,7 @@ const Feed = (props) => {
     return (
         <div className={F.feed}>
             {threads.length === 0 && <h2 className={F.notFound}>Ничего не найдено :( </h2>}
-            {console.log(threads)}
             {threads.filter(card => card.topic_id === parseInt(props.match.params.id)).map((card, i) => {
-
                 const color = cardColorsNum[(parseInt(card.thread_id )% (cardColorsNum.length - 1))]
                 const cardProps = {
                     color: `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`,
@@ -53,6 +51,7 @@ const Feed = (props) => {
                     openCard: openCard,
                     closeCard: closeCard,
                     image: card.image,
+                    views: card.views,
                     authorName: `${card.author.user_name}#${card.author.user_tag}`
                 }
                 return <Card key={`card${i}`} {...cardProps} />
