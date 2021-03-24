@@ -50,10 +50,13 @@ describe('UserSettings component testing', () => {
         act(() => {
             render(<Provider store={mockStore}><UserSettings {...mockProps}/></Provider>, container)
         })
-
         expect(container.querySelector('.settings').firstChild.textContent).toBe('Здравствуйте, ' + mockStore.getState().user.userName)
         expect(container.querySelector('.settings div:nth-child(2)').textContent).toBe('Почта ' + mockStore.getState().user.userEmail)
         expect(container.querySelector('.userInput').getAttribute('placeholder')).toBe(mockStore.getState().user.userName + '#' + mockStore.getState().user.userTag)
+        for(let i = 0; i < container.querySelectorAll('option').length; i++){
+            expect(container.querySelectorAll('option')[i].getAttribute('value')).toBe(mockStore.getState().topics.topics[i].topic_title)
+        }
+        expect(container.querySelector('.chatsHeader h1').textContent).toBe('Пользователи для ' + mockStore.getState().user.userRole)
 
     })
 })
