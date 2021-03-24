@@ -45,15 +45,10 @@ describe('User component testing ', () => {
         const userLabels = container.querySelectorAll('.userLabel')
         const textContent = ['Информация пользователя', 'Имя пользователя', 'Email пользователя', 'Пароль пользователя', 'Сохранить', 'Назад']
 
-        expect(container.querySelector('.adminHeader h1').textContent).toBe(textContent[0])
-        expect(userLabels[0].textContent).toBe(textContent[1])
+
         expect(inputCreators[0].value).toBe(mockProps.name)
-        expect(userLabels[1].textContent).toBe(textContent[2])
         expect(inputCreators[1].value).toBe(mockProps.mail)
-        expect(userLabels[2].textContent).toBe(textContent[3])
         expect(inputCreators[2].value).toBe('')
-        expect(container.querySelector('.saveButton').textContent).toBe(textContent[4])
-        expect(container.querySelector('.deleteTopicButton').textContent).toBe(textContent[5])
     })
 
     test('User component saveButton event testing', () => {

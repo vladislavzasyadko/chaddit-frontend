@@ -44,8 +44,6 @@ describe('Topic component testing', () => {
         })
 
         const tags = container.querySelectorAll('.tag')
-
-        expect(container.querySelector('.card').getAttribute('style')).toBe('min-height: 100px; min-width: 250px; width: 23%; background-color: rgba(89, 119, 228, 0.8); color: rgb(208, 208, 208);')
         expect(container.querySelector('.cardTitle').textContent).toBe(mockProps.topicTitle)
         expect(tags[0].textContent).toBe(mockProps.tags[0].tag)
         expect(tags[1].textContent).toBe(mockProps.tags[1].tag)
