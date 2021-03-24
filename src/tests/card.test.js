@@ -19,14 +19,15 @@ describe('Card Component testing', () => {
         authorName: 'testing#1111',
         cardId: 0,
         closeCard: function closeCard() {},
-        color: 'rgba(26,247,88,0.8)',
+        color: 'rgba(26, 247, 88, 0.8)',
         createdAt: '2021-02-18T19:32:40.785550',
         image: null,
         isColorLight: true,
         openCard: function openCard() {},
         preview: 'testing preview testing preview',
         threadId: 83,
-        threadTitle: 'testing title testing title'
+        threadTitle: 'testing title testing title',
+        views: 5
     }
 
     beforeEach(() => {
@@ -59,7 +60,10 @@ describe('Card Component testing', () => {
                 expect(container.querySelector('.cardTextPreview').textContent).toBe(mockProps.preview)
             }
         }
+
         expect(container.querySelector('.authorName').textContent).toBe('Автор: ' + mockProps.authorName)
         expect(container.querySelectorAll('.cardDate')[0].textContent).toBe(formatDate(mockProps.createdAt))
+        expect(container.querySelectorAll('.cardDate')[1].textContent).toBe('views: ' + mockProps.views)
+        expect(container.firstChild.style.backgroundColor).toBe(mockProps.color)
     })
 })
