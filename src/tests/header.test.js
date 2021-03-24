@@ -1,27 +1,37 @@
-import ReactDOM, {render, unmountComponentAtNode} from "react-dom";
 import {store} from "../redux/store";
-import {FETCH_TOPICS, SET_USER, SET_USERS} from "../redux/reducers/types";
+import ReactDOM, {render, unmountComponentAtNode} from "react-dom";
 import {act} from "@testing-library/react";
 import {Provider} from "react-redux";
-import Topic from "../components/Topics/Topic/Topic";
 import React from "react";
-import CreateThreadWidget from "../components/Header/HeaderUtils/CreateThreadWidget/CreateThreadWidget";
+import Header from "../components/Header/Header";
+import {FETCH_TOPICS, LOGIN, SET_USER} from "../redux/reducers/types";
 
-describe('createThreadWidget component testing', () => {
+describe('Header component testing', () => {
     let container = null
     let mockStore
     const mockProps = {
-        closeCreator: function closeCreator() {},
-        creatorActive: true
+        isAuth: true,
+        userName: "Test Admin",
+        userRole: "ADMIN"
     }
 
     beforeEach(() => {
-        container = document.createElement("div");
         ReactDOM.createPortal = jest.fn((element, node) => {
             return element
         })
+        container = document.createElement("div");
         document.body.appendChild(container);
         mockStore = store
+        mockStore.dispatch({
+            type: SET_USER,
+            name: 'admin',
+            pass: undefined,
+            email: 'admin@gmail.com',
+            id: 1,
+            tag: 1111,
+            role: 'ADMIN',
+        })
+        mockStore.dispatch({type: LOGIN, apiToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'})
         let topicTest = [{
             active: true,
             author: {active: true, created_at: '2020-11-12T22:29:19.392312', role: {role_id: 1, role_name: 'ADMIN'}, role_id: 1, updated_at: '2021-02-25T16:44:58.631157', user_email: 'admin@chaddit.tk', user_id: 3, user_name: 'admin', user_tag: '0897'},
@@ -54,7 +64,6 @@ describe('createThreadWidget component testing', () => {
             topic_title: 'test 3',
             updated_at: '2021-02-25T15:55:09.631626'}]
         mockStore.dispatch({type: FETCH_TOPICS, topics: topicTest})
-
     })
 
     afterEach(() => {
@@ -64,12 +73,16 @@ describe('createThreadWidget component testing', () => {
         ReactDOM.createPortal.mockClear()
     });
 
-    test('CreateThreadWidget component rendering test', () => {
+    test('Header component rendering', () => {
         act(() => {
-            render(<Provider store={mockStore}><CreateThreadWidget {...mockProps}/></Provider>, container)
+            render(<Provider store={mockStore}><Header {...mockProps}/></Provider>, container)
         })
-        for(let i = 0; i < container.querySelectorAll('option').length; i++){
-            expect(container.querySelectorAll('option')[i].getAttribute('value')).toBe(mockStore.getState().topics.topics[i].topic_title)
+        if (mockStore.getState().user.userRole === 'ADMIN'){
+            expect(container.querySelectorAll('.buttonChad')[2]).toBeDefined()
         }
+        expect(container.querySelector('.settingsHidden').firstChild.textContent).toBe('Здравствуйте, ' + mockStore.getState().user.userName)
+        expect(container.querySelector('.settingsHidden div:nth-child(2)').textContent).toBe('Почта ' + mockStore.getState().user.userEmail)
+        expect(container.querySelector('.userInput').getAttribute('placeholder')).toBe(mockStore.getState().user.userName + '#' + mockStore.getState().user.userTag)
+
     })
 })
