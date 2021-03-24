@@ -56,7 +56,6 @@ describe('UserSettings component testing', () => {
         for(let i = 0; i < container.querySelectorAll('option').length; i++){
             expect(container.querySelectorAll('option')[i].getAttribute('value')).toBe(mockStore.getState().topics.topics[i].topic_title)
         }
-        expect(container.querySelector('.chatsHeader h1').textContent).toBe('Пользователи для ' + mockStore.getState().user.userRole)
 
     })
 })
