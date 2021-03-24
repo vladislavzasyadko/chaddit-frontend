@@ -46,7 +46,7 @@ test('getThreads() request/response test', () =>{
             expect(thread).toHaveProperty('views')
         })
     })
-})
+}, 10000)
 
 test('getTopics() request/response test', () => {
     return topicAPI.getTopics().then(data => {
@@ -81,7 +81,7 @@ test('getTopics() request/response test', () => {
             expect(typeof topic.updated_at).toBe('string')
         })
     })
-})
+}, 10000)
 
 test('getChats() request/response test', () => {
 
@@ -120,7 +120,7 @@ test('getChats() request/response test', () => {
         })
         chat_id_for_test = data[0].chat_id
     })
-})
+}, 10000)
 
 test('getMessages() request/response test', () => {
 
@@ -161,7 +161,7 @@ test('getMessages() request/response test', () => {
             expect(typeof message.updated_at).toBe('string')
         })
     })
-})
+}, 10000)
 
 test('getUsers() request response test', () => {
 
@@ -205,4 +205,4 @@ test('getUsers() request response test', () => {
             expect(typeof user.created_at).toBe('string')
         })
     })
-})
+}, 10000)
