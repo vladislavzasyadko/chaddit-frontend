@@ -137,7 +137,7 @@ describe('Chat component testing', () => {
         container = null;
     });
 
-    test('Users components rendering testing', () => {
+    test('Chat components rendering testing', () => {
         act(() => {
             render(<Provider store={mockStore}><Chat {...mockProps}/></Provider>, container)
         })

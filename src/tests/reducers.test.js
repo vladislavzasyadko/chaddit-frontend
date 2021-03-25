@@ -29,12 +29,23 @@ import {
     CLEAR_THREAD,
     CLEAR_THREADS,
     CREATE_THREAD,
-    SEARCH_THREADS, SET_USER, SET_USER_NAME, UPDATE_USER_NAME, UPDATE_USER_PASS, FETCHING, SUCCESS, FAILURE
+    SEARCH_THREADS,
+    SET_USER,
+    SET_USER_NAME,
+    UPDATE_USER_NAME,
+    UPDATE_USER_PASS,
+    FETCHING,
+    SUCCESS,
+    FAILURE,
+    FETCH_TOPICS, GET_TOPICS_BY_TAG, SEARCH_TOPICS, UPDATE_TOPIC, SET_SEND_TOPIC_ID, CREATE_TOPIC
 } from "../redux/reducers/types";
 
 describe('adminReducer testing', () => {
 
-    const users = [{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}]
+    const users = [{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {
+        username: 'misha',
+        user_id: 3
+    }, {username: 'vlad', user_id: 4}]
 
     test('adminReducer initial state test', () => {
         expect(adminReducer(undefined, {})).toEqual({users: []})
@@ -338,6 +349,42 @@ describe('topicReducer testing', () => {
             topics: []
         })
     })
+
+    test('topicReducer FETCH_TOPICS action test', () => {
+        const mockTopics = [{topic_id: 1, topic_name: 'test1'}, {topic_id: 2, topic_name: 'test2'}]
+        expect(topicReducer(undefined, {type: FETCH_TOPICS, topics: mockTopics})).toEqual({topics: mockTopics})
+    })
+
+    test('topicReducer GET_TOPICS_BY_TAG action test', () => {
+        const mockTopics = [{topic_id: 1, topic_name: 'test1'}, {topic_id: 2, topic_name: 'test2'}]
+        expect(topicReducer(undefined, {type: GET_TOPICS_BY_TAG, topics: mockTopics})).toEqual({topics: mockTopics})
+    })
+
+    test('topicReducer SEARCH_TOPICS action test', () => {
+        const mockTopics = [{topic_id: 1, topic_name: 'test1'}, {topic_id: 2, topic_name: 'test2'}]
+        expect(topicReducer(undefined, {type: SEARCH_TOPICS, topics: mockTopics})).toEqual({topics: mockTopics})
+    })
+
+    test('topicReducer UPDATE_TOPIC action test', () => {
+        expect(topicReducer(undefined, {type: UPDATE_TOPIC})).toEqual({topics: []})
+    })
+
+    test('topicReducer CREATE_TOPIC action test', () => {
+        const mockId = 1
+        const mockTopics = [{topic_id: 1, topic_name: 'test1'}, {topic_id: 2, topic_name: 'test2'}]
+        expect(topicReducer(undefined, {type: CREATE_TOPIC, id: mockId, topic: mockTopics})).toEqual({
+            sendTopicId: mockId,
+            topics: [mockTopics]
+        })
+    })
+
+    test('topicReducer SET_SEND_TOPIC_ID action test', () => {
+        const mockId = 1
+        expect(topicReducer(undefined, {type: SET_SEND_TOPIC_ID, id: mockId})).toEqual({
+            topics: [],
+            sendTopicId: mockId
+        })
+    })
 })
 
 describe('userReducer testing', () => {
@@ -347,7 +394,14 @@ describe('userReducer testing', () => {
     })
 
     test('userReducer SET_USER action test', () => {
-        const mockResponse = {name: 'vlad', pass: '12345', email: 'vlad@gmail.com', user_id: 1, user_tag: '6789', role: 'user'}
+        const mockResponse = {
+            name: 'vlad',
+            pass: '12345',
+            email: 'vlad@gmail.com',
+            user_id: 1,
+            user_tag: '6789',
+            role: 'user'
+        }
         expect(userReducer(undefined, {
             type: SET_USER,
             name: mockResponse.name,
@@ -356,24 +410,48 @@ describe('userReducer testing', () => {
             id: mockResponse.user_id,
             tag: mockResponse.user_tag,
             role: mockResponse.role,
-        })).toEqual({userName: 'vlad', userTempName: 'vlad', userPass: '12345', userId: 1, userEmail: 'vlad@gmail.com', userTag: '6789', userRole: 'user', userPassStatus: ''})
+        })).toEqual({
+            userName: 'vlad',
+            userTempName: 'vlad',
+            userPass: '12345',
+            userId: 1,
+            userEmail: 'vlad@gmail.com',
+            userTag: '6789',
+            userRole: 'user',
+            userPassStatus: ''
+        })
     })
 
     test('userReducer SET_USER_NAME action test', () => {
         const name = 'vlad'
-        expect(userReducer(undefined, {type: SET_USER_NAME, name})).toEqual({userName: '', userEmail: '', userPassStatus: '', userTempName: 'vlad'})
+        expect(userReducer(undefined, {type: SET_USER_NAME, name})).toEqual({
+            userName: '',
+            userEmail: '',
+            userPassStatus: '',
+            userTempName: 'vlad'
+        })
     })
 
     test('userReducer UPDATE_USER_NAME action test', () => {
         const name = 'vlad'
-        expect(userReducer(undefined, {type: UPDATE_USER_NAME, newName: name})).toEqual({userName: 'vlad', userEmail: '', userPassStatus: ''})
+        expect(userReducer(undefined, {type: UPDATE_USER_NAME, newName: name})).toEqual({
+            userName: 'vlad',
+            userEmail: '',
+            userPassStatus: ''
+        })
     })
 
     test('userReducer UPDATE_USER_PASS action test', () => {
         let mockUserPassStatus = SUCCESS
-        expect(userReducer(undefined, {type: UPDATE_USER_PASS, userPassStatus: mockUserPassStatus})).toEqual({userName: '', userEmail: '', userPassStatus: SUCCESS})
+        expect(userReducer(undefined, {
+            type: UPDATE_USER_PASS,
+            userPassStatus: mockUserPassStatus
+        })).toEqual({userName: '', userEmail: '', userPassStatus: SUCCESS})
         mockUserPassStatus = FAILURE
-        expect(userReducer(undefined, {type: UPDATE_USER_PASS, userPassStatus: mockUserPassStatus})).toEqual({userName: '', userEmail: '', userPassStatus: FAILURE})
+        expect(userReducer(undefined, {
+            type: UPDATE_USER_PASS,
+            userPassStatus: mockUserPassStatus
+        })).toEqual({userName: '', userEmail: '', userPassStatus: FAILURE})
 
     })
 })
