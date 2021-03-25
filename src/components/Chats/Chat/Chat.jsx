@@ -95,7 +95,6 @@ function Chat(props) {
 
 const mapStateToProps = (state) => ({
     currentId: state.user.userId,
-    chats: state.chats,
     messages: state.chats.messages,
 })
 

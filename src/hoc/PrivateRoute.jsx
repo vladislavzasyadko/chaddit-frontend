@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from "react";
 import {connect, useDispatch} from "react-redux";
 import {Redirect, Route} from "react-router-dom";
