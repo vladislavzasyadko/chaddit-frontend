@@ -31,7 +31,6 @@ describe('Search component testing ', () => {
         act(() => {
             render(<Provider store={mockStore}><Search {...mockProps}/></Provider>, container)
         })
-        console.log(container.innerHTML)
         expect(container.querySelector('.searchInput').getAttribute('placeholder')).toBe('Что я могу для Вас найти? ' + mockStore.getState().search.field)
     })
 

@@ -11,7 +11,6 @@ import {setSearchField, setSearchTopicId} from "../../redux/reducers/searchReduc
 import {THREADS} from "../../redux/reducers/types";
 
 const Feed = (props) => {
-    console.log('feed props', props)
     const dispatch = useDispatch()
     const [threads, updateThreads] = useState(props.threads);
 
