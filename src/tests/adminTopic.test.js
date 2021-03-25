@@ -77,7 +77,7 @@ describe('AdminTopic component tester', () => {
         })
         expect(container.querySelector('.inputCreator').getAttribute('value')).toBe(mockProps.name)
         expect(container.querySelector('.inputCreator').getAttribute('value')).toBe(mockProps.name)
-        for (let i = 0; i < container.querySelectorAll('.tag').length - 1; i++) {
+        for (let i = 0; i < container.querySelectorAll('.tag').length; i++) {
             expect(container.querySelectorAll('.tag')[i].textContent).toBe(mockProps.tags[i].tag)
         }
     })

@@ -240,7 +240,7 @@ describe('Feed component testing', () => {
         act(() => {
             render(<Provider store={mockStore}><Feed {...mockProps}/></Provider>, container)
         })
-        for(let i = 0; i < container.querySelectorAll('.cardText').length - 1; i++) {
+        for(let i = 0; i < container.querySelectorAll('.cardText').length; i++) {
             expect(container.querySelectorAll('.cardText')[i].querySelector('.cardTitle').textContent).toBe(mockProps.threads[i].thread_title)
             expect(container.querySelectorAll('.cardText')[i].querySelector('.cardTextPreviewLight, .cardTextPreview, .cardTextPreviewGradientDark, .cardTextPreviewGradientLight').textContent).toBe(mockProps.threads[i].posts[0].body)
             expect(container.querySelectorAll('.cardText')[i].querySelector('.authorName').textContent).toBe('Автор: ' + mockProps.threads[i].author.user_name + '#' + mockProps.threads[i].author.user_tag)

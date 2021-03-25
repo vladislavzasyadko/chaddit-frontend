@@ -204,7 +204,7 @@ describe('ActiveCard component testing', () => {
         expect(container.querySelector('.activeCard_title h2').textContent).toBe(mockProps.thread.thread_title)
         expect(container.querySelector('.activeCard_time').textContent).toBe(formatDate(mockProps.thread.created_at))
         expect(container.querySelector('.commentText div:nth-child(1)').textContent).toBe(mockProps.thread.author.user_name + '#' + mockProps.thread.author.user_tag)
-        for(let i = 1; i < container.querySelectorAll('.commentText').length - 1; i++){
+        for(let i = 1; i < container.querySelectorAll('.commentText').length; i++){
             expect(container.querySelectorAll('.commentText')[i].querySelector('div:nth-child(1)').textContent).toBe(mockProps.thread.posts[0].responses[i-1].author.user_name + '#' + mockProps.thread.posts[0].responses[i-1].author.user_tag)
             expect(container.querySelectorAll('.commentText')[i].querySelector('div:nth-child(2)').textContent).toBe(mockProps.thread.posts[0].responses[i-1].body)
         }

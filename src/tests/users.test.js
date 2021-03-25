@@ -32,7 +32,7 @@ describe('Users component testing', () => {
                 role: {role_id: 3, role_name: 'USER'},
                 updated_at: "2020-12-25T11:09:47.570949",
                 user_email: "vlad@gmail.com",
-                user_id: 20,
+                user_id: 21,
                 user_name: 'vlad',
                 user_tag: '5555'
             },
