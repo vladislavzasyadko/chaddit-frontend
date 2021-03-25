@@ -9,6 +9,7 @@ import ActiveCard from "../ActiveCard/ActiveCard";
 import {colorIsLight} from "../../utils/formatters";
 import {setSearchField, setSearchTopicId} from "../../redux/reducers/searchReducer";
 import {THREADS} from "../../redux/reducers/types";
+import AdminThread from "../ActiveCard/AdminThread";
 
 const Feed = (props) => {
     const dispatch = useDispatch()
@@ -25,6 +26,7 @@ const Feed = (props) => {
     },[props.threads])
 
     const [activeCard, setCardStatus] = useState('');
+    const [adminCard, setAdminStatus] = useState('');
 
     const openCard = (id) => {
         setCardStatus(id);
@@ -58,6 +60,9 @@ const Feed = (props) => {
             })}
             {activeCard &&
             <ActiveCard cardId={activeCard} closeActiveCard={closeCard} info={threads[parseInt(activeCard)]}/>}
+
+            {adminCard && <AdminThread info={threads[parseInt(activeCard)]} />}
+
         </div>
     );
 }

@@ -104,7 +104,7 @@ function ActiveCard(props) {
 
                     </div>
                     <form className={C.activeCardForm} onSubmit={handleSubmit}>
-                        <p className={C.replyToPreview}>{`Replying to: ${replyComment}`}</p>
+                        <div className={C.replyToPreview}>{`Replying to: ${replyComment}`}</div>
                         <textarea className={C.activeCard_createComment}
                                   placeholder={'Ваше сообщение...'}
                                   onChange={ e=> setReplyText(e.target.value)}
