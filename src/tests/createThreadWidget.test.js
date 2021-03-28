@@ -68,7 +68,7 @@ describe('createThreadWidget component testing', () => {
         act(() => {
             render(<Provider store={mockStore}><CreateThreadWidget {...mockProps}/></Provider>, container)
         })
-        for(let i = 0; i < container.querySelectorAll('option').length; i++){
+        for (let i = 0; i < container.querySelectorAll('option').length; i++) {
             expect(container.querySelectorAll('option')[i].getAttribute('value')).toBe(mockStore.getState().topics.topics[i].topic_title)
         }
     })

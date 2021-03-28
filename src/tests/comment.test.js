@@ -74,15 +74,15 @@ describe('Comment component testing', () => {
         container = null;
     });
 
-    test('Comment Component Rendering test', () =>{
+    test('Comment Component Rendering test', () => {
         act(() => {
             render(<Provider store={mockStore}><Comment {...mockProps}/></Provider>, container)
         })
         expect(container.querySelector('.commentText div:nth-child(1)').textContent).toBe(mockProps.userName)
         expect(container.querySelector('.commentText div:nth-child(2)').textContent).toBe(mockProps.body)
-        for(let i = 1; i < container.querySelectorAll('.commentText').length -1; i++){
-            expect(container.querySelectorAll('.commentText')[i].querySelector('div:nth-child(1)').textContent).toBe(mockProps.responses[i-1].author.user_name + '#' + mockProps.responses[i-1].author.user_tag)
-            expect(container.querySelectorAll('.commentText')[i].querySelector('div:nth-child(2)').textContent).toBe(mockProps.responses[i-1].body)
+        for (let i = 1; i < container.querySelectorAll('.commentText').length - 1; i++) {
+            expect(container.querySelectorAll('.commentText')[i].querySelector('div:nth-child(1)').textContent).toBe(mockProps.responses[i - 1].author.user_name + '#' + mockProps.responses[i - 1].author.user_tag)
+            expect(container.querySelectorAll('.commentText')[i].querySelector('div:nth-child(2)').textContent).toBe(mockProps.responses[i - 1].body)
         }
 
     })

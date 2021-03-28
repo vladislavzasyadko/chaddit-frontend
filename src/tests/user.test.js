@@ -42,9 +42,6 @@ describe('User component testing ', () => {
         })
 
         const inputCreators = container.querySelectorAll('.inputCreator')
-        const userLabels = container.querySelectorAll('.userLabel')
-        const textContent = ['Информация пользователя', 'Имя пользователя', 'Email пользователя', 'Пароль пользователя', 'Сохранить', 'Назад']
-
 
         expect(inputCreators[0].value).toBe(mockProps.name)
         expect(inputCreators[1].value).toBe(mockProps.mail)
@@ -81,7 +78,10 @@ describe('User component testing ', () => {
         const backButton = document.querySelector('.deleteTopicButton')
 
         let mockAdminGetUsers = jest.spyOn(adminAPI, 'getUsers').mockImplementationOnce(() => {
-            return Promise.resolve([{username: 'danila', user_id: 1}, {username: 'nikita', user_id: 2}, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}])
+            return Promise.resolve([{username: 'danila', user_id: 1}, {
+                username: 'nikita',
+                user_id: 2
+            }, {username: 'misha', user_id: 3}, {username: 'vlad', user_id: 4}])
         })
 
         act(() => {

@@ -6,6 +6,7 @@ import {act} from "@testing-library/react";
 import {Provider} from "react-redux";
 import User from "../components/Users/User/User";
 import Users from "../components/Users/Users";
+import {adminAPI} from "../api/api";
 
 describe('Users component testing', () => {
 
@@ -75,7 +76,7 @@ describe('Users component testing', () => {
             tag: 1111,
             role: 'ADMIN',
         })
-        mockStore.dispatch({type:SET_USERS, users: mockProps.users})
+        mockStore.dispatch({type: SET_USERS, users: mockProps.users})
     })
 
     afterEach(() => {
@@ -85,7 +86,7 @@ describe('Users component testing', () => {
         ReactDOM.createPortal.mockClear()
     });
 
-    test('Users components rendering testing', () => {
+    test('Users component rendering test', () => {
         act(() => {
             render(<Provider store={mockStore}><Users {...mockProps}/></Provider>, container)
         })
@@ -94,5 +95,43 @@ describe('Users component testing', () => {
             expect(container.querySelectorAll('.chatElement')[i].querySelector('div').querySelectorAll('h3')[0].textContent).toBe(mockStore.getState().admin.users[i].user_name)
             expect(container.querySelectorAll('.chatElement')[i].querySelector('div').querySelectorAll('h3')[1].textContent).toBe(mockStore.getState().admin.users[i].user_email)
         }
+    })
+
+    test('Users component deleteUser event test', () => {
+        act(() => {
+            render(<Provider store={mockStore}><Users {...mockProps}/></Provider>, container)
+        })
+
+        let mockAdminUpdateUser = jest.spyOn(adminAPI, 'updateUser').mockImplementationOnce((id, user) => {
+            return Promise.resolve({data: 'doesnt matter'})
+        })
+
+        const saveButton = container.querySelector('.closeButton')
+
+        act(() => {
+            saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+        })
+
+        expect(mockAdminUpdateUser).toHaveBeenCalled()
+        mockAdminUpdateUser.mockClear()
+    })
+
+    test('Users component openUser event test', () => {
+
+        act(() => {
+            render(<Provider store={mockStore}><Users {...mockProps}/></Provider>, container)
+        })
+
+        const userForm = container.querySelector('.chatElement')
+
+        act(() => {
+            userForm.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+        })
+
+        const inputCreators = container.querySelectorAll('.inputCreator')
+
+        expect(inputCreators[0].value).toBe(mockProps.users[0].user_name)
+        expect(inputCreators[1].value).toBe(mockProps.users[0].user_email)
+        expect(inputCreators[2].value).toBe('')
     })
 })

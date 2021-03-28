@@ -3,7 +3,6 @@ import {render, unmountComponentAtNode} from "react-dom";
 import {CREATE_CHAT, GET_MESSAGES, SET_USER} from "../redux/reducers/types";
 import {act} from "@testing-library/react";
 import {Provider} from "react-redux";
-import Users from "../components/Users/Users";
 import React from "react";
 import Chat from "../components/Chats/Chat/Chat";
 
@@ -76,7 +75,7 @@ describe('Chat component testing', () => {
                 updated_at: '2021-02-28T16:46:32.311881',
             }]
         },
-        closeChat: function closeChat(){},
+        closeChat: function closeChat() {},
         currentId: 20,
         messages: [{
             active: true,
@@ -127,7 +126,12 @@ describe('Chat component testing', () => {
             tag: mockProps.chats.chats[0].participants[0].user_tag,
             role: mockProps.chats.chats[0].participants[0].role.role_name,
         })
-        store.dispatch({type: CREATE_CHAT, chat_id: mockProps.currentId, participants: mockProps.chats.chats[0].participants, topic_id: mockProps.chats.chats[0].topic_id})
+        store.dispatch({
+            type: CREATE_CHAT,
+            chat_id: mockProps.currentId,
+            participants: mockProps.chats.chats[0].participants,
+            topic_id: mockProps.chats.chats[0].topic_id
+        })
         store.dispatch({type: GET_MESSAGES, messages: mockProps.messages})
     })
 
@@ -142,10 +146,10 @@ describe('Chat component testing', () => {
             render(<Provider store={mockStore}><Chat {...mockProps}/></Provider>, container)
         })
         expect(container.querySelector('.chatHeader h2').textContent).toBe('Комната ' + mockProps.names)
-        for(let i = 0; i < container.querySelectorAll('.myMessage').length; i++){
+        for (let i = 0; i < container.querySelectorAll('.myMessage').length; i++) {
             expect(container.querySelectorAll('.myMessage')[i].textContent).toBe(mockProps.messages.filter(message => message.author_id === mockStore.getState().user.userId)[i].body)
         }
-        for(let i = 0; i < container.querySelectorAll('.personMessage').length; i++){
+        for (let i = 0; i < container.querySelectorAll('.personMessage').length; i++) {
             expect(container.querySelectorAll('.personMessage')[i].textContent).toBe(mockProps.messages.filter(message => message.author_id !== mockStore.getState().user.userId)[i].body)
         }
     })

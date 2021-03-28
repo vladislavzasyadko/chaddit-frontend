@@ -28,14 +28,19 @@ describe('UserSettings component testing', () => {
         ReactDOM.createPortal = jest.fn((element, node) => {
             return element
         })
-        mockStore.dispatch({type: SET_USER,
+        mockStore.dispatch({
+            type: SET_USER,
             name: 'Mock User',
             pass: undefined,
             email: 'mock@mock.com',
             id: 1,
             tag: '1234',
-            role: 'ADMIN',})
-        mockStore.dispatch({type: LOGIN, apiToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'})
+            role: 'ADMIN',
+        })
+        mockStore.dispatch({
+            type: LOGIN,
+            apiToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'
+        })
     })
 
     afterEach(() => {
@@ -53,7 +58,7 @@ describe('UserSettings component testing', () => {
         expect(container.querySelector('.settings').firstChild.textContent).toBe('Здравствуйте, ' + mockStore.getState().user.userName)
         expect(container.querySelector('.settings div:nth-child(2)').textContent).toBe('Почта ' + mockStore.getState().user.userEmail)
         expect(container.querySelector('.userInput').getAttribute('placeholder')).toBe(mockStore.getState().user.userName + '#' + mockStore.getState().user.userTag)
-        for(let i = 0; i < container.querySelectorAll('option').length; i++){
+        for (let i = 0; i < container.querySelectorAll('option').length; i++) {
             expect(container.querySelectorAll('option')[i].getAttribute('value')).toBe(mockStore.getState().topics.topics[i].topic_title)
         }
 

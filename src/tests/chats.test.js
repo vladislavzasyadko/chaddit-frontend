@@ -149,8 +149,18 @@ describe('Chats component testing ', () => {
             tag: mockProps.chats[0].participants[0].user_tag,
             role: mockProps.chats[0].participants[0].role.role_name,
         })
-        store.dispatch({type: CREATE_CHAT, chat_id: mockProps.chats[0].chat_id, participants: mockProps.chats[0].participants, topic_id: mockProps.chats[0].topic_id})
-        store.dispatch({type: CREATE_CHAT, chat_id: mockProps.chats[1].chat_id, participants: mockProps.chats[1].participants, topic_id: mockProps.chats[1].topic_id})
+        store.dispatch({
+            type: CREATE_CHAT,
+            chat_id: mockProps.chats[0].chat_id,
+            participants: mockProps.chats[0].participants,
+            topic_id: mockProps.chats[0].topic_id
+        })
+        store.dispatch({
+            type: CREATE_CHAT,
+            chat_id: mockProps.chats[1].chat_id,
+            participants: mockProps.chats[1].participants,
+            topic_id: mockProps.chats[1].topic_id
+        })
         store.dispatch({type: FETCH_TOPICS, topics: mockProps.topics})
     })
 
@@ -166,7 +176,7 @@ describe('Chats component testing ', () => {
             render(<Provider store={mockStore}><Chats {...mockProps}/></Provider>, container)
         })
 
-        for(let i =0; i < container.querySelectorAll('.topicSelect option').length; i++){
+        for (let i = 0; i < container.querySelectorAll('.topicSelect option').length; i++) {
             expect(container.querySelectorAll('.topicSelect option')[i].textContent).toBe(mockProps.topics[i].topic_title)
         }
     })

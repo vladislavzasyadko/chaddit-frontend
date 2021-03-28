@@ -8,7 +8,7 @@ let instance = axios.create({
 const api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'
 let chat_id_for_test
 
-test('getThreads() request/response test', () =>{
+test('getThreads() request/response test', () => {
     return threadAPI.getThreads().then(data => {
         data.forEach((thread) => {
             expect(thread).toHaveProperty('active', true)
@@ -85,7 +85,7 @@ test('getTopics() request/response test', () => {
 
 test('getChats() request/response test', () => {
 
-    jest.mock("../api/api",() => jest.fn())
+    jest.mock("../api/api", () => jest.fn())
     chatAPI.getChats = jest.fn(() => {
         return instance.get(`chaddit/c/chats`, {
             headers: {
@@ -124,7 +124,7 @@ test('getChats() request/response test', () => {
 
 test('getMessages() request/response test', () => {
 
-    jest.mock("../api/api",() => jest.fn())
+    jest.mock("../api/api", () => jest.fn())
     chatAPI.getMessages = jest.fn((chat_id) => {
         return instance.get(`chaddit/c/messages/${chat_id}`, {
             headers: {
@@ -165,7 +165,7 @@ test('getMessages() request/response test', () => {
 
 test('getUsers() request response test', () => {
 
-    jest.mock("../api/api",() => jest.fn())
+    jest.mock("../api/api", () => jest.fn())
     adminAPI.getUsers = jest.fn((chat_id) => {
         return instance.get('chaddit/c/users', {
             headers: {

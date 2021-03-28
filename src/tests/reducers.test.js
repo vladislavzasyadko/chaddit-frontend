@@ -100,6 +100,10 @@ describe('authReducer testing', () => {
     test('authReducer TOKEN_EXPIRED action test', () => {
         expect(authReducer(initialState, {type: TOKEN_EXPIRED})).toEqual({apiToken: '', loggedIn: false})
     })
+
+    test('authReducer FAILURE action test', () => {
+        expect(authReducer(initialState, {type: FAILURE})).toEqual(initialState)
+    })
 })
 
 describe('chatReducer testing', () => {
