@@ -86,7 +86,7 @@ function ActiveCard(props) {
                     <div className={C.activeCard_header}>
                         <div className={C.activeCard_title}>
                             <h2>{thread.thread_title}</h2>
-                            <div>{formatDate(thread.created_at)}</div>
+                            <div className={C.activeCard_time}>{formatDate(thread.created_at)}</div>
                         </div>
                     </div>
                     <div className={C.commentSection}>
