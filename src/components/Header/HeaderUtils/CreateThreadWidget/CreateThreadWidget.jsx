@@ -42,9 +42,6 @@ function CreateThreadWidget(props) {
         }
         setTagField('')
     }
-    const removeTag = (id) => {
-
-    }
 
     function updateThreadText(text) {
         setThreadText(text);
@@ -117,7 +114,7 @@ function CreateThreadWidget(props) {
                        onChange={e => updateThreadName(e.target.value)}/>
                 <input id={'imageLoad'} className={C.inputFile} type={'file'}
                        onChange={e => encodeImageFileAsURL(e.target)}/>
-                <label for={'imageLoad'}
+                <label htmlFor={'imageLoad'}
                        className={loadStatus ? C.loadButtonDone : C.loadButton}>{loadStatus ? 'Картинка загружена' : 'Загрузить картинку'}</label>
                 <textarea className={C.textareaCreator} placeholder={'Сообщение'} value={threadText}
                           onChange={e => updateThreadText(e.target.value)}/>

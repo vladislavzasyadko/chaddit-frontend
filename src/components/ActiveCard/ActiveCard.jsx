@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import C from "./ActiveCard.module.css";
-import cat from "../../icons/cat.png";
-import {formatDate, formatReplyString} from "../../utils/formatters";
+import {formatDate} from "../../utils/formatters";
 import ReactDOM from "react-dom";
 import useClickOutside from "../Header/HeaderUtils/utils";
 import {clearThread, fetchThread} from "../../redux/reducers/threadReducer";
@@ -18,7 +17,7 @@ function ActiveCard(props) {
     const [replyComment, setCurrentReplyComment] = useState('')
     const [replyText, setReplyText] = useState('')
     const [posts, setActivePosts] = useState(props.posts)
-    const [responses, setResponses] = useState([])
+    const [, setResponses] = useState([])
 
     let domNode = useClickOutside(() => {
         dispatch(clearThread());
@@ -85,15 +84,15 @@ function ActiveCard(props) {
             <div className={C.creatorContainer} ref={domNode}>
                 {thread && <div className={C.creatorGrid}>
                     <div className={C.activeCard_header}>
-                        <div className={C.userImage}></div>
                         <div className={C.activeCard_title}>
                             <h2>{thread.thread_title}</h2>
-                            <div className={C.activeCard_time}>{formatDate(thread.created_at)}</div>
+                            <div>{formatDate(thread.created_at)}</div>
                         </div>
                     </div>
                     <div className={C.commentSection}>
                         {posts.map((post) =>
                             <Comment
+                                key={`comment_${post.post_id}`}
                                 responses={post.responses}
                                 body={post.body}
                                 userId={post.author_id}

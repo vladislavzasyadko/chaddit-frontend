@@ -5,19 +5,6 @@ import {connect, useDispatch} from "react-redux";
 import CH from './Chats.module.css'
 import Chat from "./Chat/Chat";
 import {createChat, getChats} from "../../redux/reducers/chatReducer";
-import {setUserName} from "../../redux/reducers/userReducer";
-
-const const_chats = [{id: 1, name: 'kek', topic: 'kok'}, {id: 2, name: 'tinkoff', topic: 'сотку верни'},
-    {
-        id: 3, name: 'Мишаэ', topic: 'флюттер'
-    }, {id: 4, name: 'КУрсач', topic: 'давай завтра'}, {id: 5, name: 'kek', topic: 'kok'}, {
-        id: 6,
-        name: 'kek',
-        topic: 'kok'
-    },
-    {
-        id: 7, name: 'kek', topic: 'kok'
-    }, {id: 8, name: 'kek', topic: 'kok'}, {id: 9, name: 'kek', topic: 'kok'}, {id: 10, name: 'kek', topic: 'kok'},]
 
 function Chats(props) {
 
@@ -82,17 +69,18 @@ function Chats(props) {
             <div className={CH.creatorContainer} ref={domNode}>
                 {!chatOpen && <div className={CH.chatGrid}>
                     <div className={CH.chatsHeader}>
-                        <h1>Чаты мои чаты</h1>
+                        <h1>{'Чаты мои чаты'}</h1>
                         <div className={CH.chatCreateContainer}>
-                            <label className={noTopicChosen ? CH.redLabel : CH.label} htmlFor={'chatTopic'}>Выбери тему нового чата</label>
+                            <label className={noTopicChosen ? CH.redLabel : CH.label} htmlFor={'chatTopic'}>{'Выбери тему нового чата'}</label>
                         <select id={'chatTopic'} className={CH.topicSelect} onChange={e => setChatTopic(e.target.value)}>
-                            {props.topics.map(topic => <option value={topic.topic_id}>{topic.topic_title}</option>)}
+                            {props.topics.map(topic => <option key={`topic_${topic.topic_id}`} value={topic.topic_id}>{topic.topic_title}</option>)}
                         </select>
-                        <button className={CH.sendButton} onClick={handleCreateChat}> Создать чат </button>
+                        <button className={CH.sendButton} onClick={handleCreateChat}>{'Создать чат'}</button>
                         </div>
                     </div>
                     <div className={CH.chats}>
                     {chats.slice(0).reverse().map(chat => <ChatElement
+                        key={`chat_${chat.chat_id}`}
                         name={chat.participants
                             .map(user => user.user_name)} id={chat.chat_id} topic={getTopicNameById(chat.topic_id)}
                                                     deleteChat={deleteChat} openChat={openChat}/>)}
@@ -108,10 +96,10 @@ function Chats(props) {
 }
 
 const ChatElement = (props) => {
-    const handleDeleteClick = (event) => {
-        props.deleteChat(props.id)
-        event.stopPropagation()
-    }
+    // const handleDeleteClick = (event) => {
+    //     props.deleteChat(props.id)
+    //     event.stopPropagation()
+    // }
 
     const handleOpenChat = () => {
         props.openChat(props.id, props.name.reduce((acc, curr) => acc ? acc + ' и ' + curr : acc + curr, ''))

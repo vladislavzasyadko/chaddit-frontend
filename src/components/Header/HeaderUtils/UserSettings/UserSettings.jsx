@@ -114,18 +114,13 @@ function UserSettings(props) {
                         />
                     </div>
                     <div className={U.userPassStatusOption}>
-                        <input className={U.userPassStatusCheck} type="checkbox" checked={passView} onClick={e => setPassView(e.target.checked)}/>
+                        <input className={U.userPassStatusCheck} type="checkbox" checked={passView} onChange={e => setPassView(e.target.checked)}/>
                         <p className={U.userPassStatusText}>{"Показать пароль"}</p>
                     </div>
 
                     <button className={U.userButton} onClick={updateUserPassword}>{status}</button>
                 </div>
-                {/*<div>*/}
-                {/*    <button className={U.userButton}>*/}
-                {/*        Изменить фотографию*/}
-                {/*    </button>*/}
-                {/*</div>*/}
-                <button className={U.exitButton} onClick={e => logout()}>Выйти из аккаунта</button>
+                <button className={U.exitButton} onClick={logout}>{'Выйти из аккаунта'}</button>
             </div>
         </div>,
         document.getElementById("portal")

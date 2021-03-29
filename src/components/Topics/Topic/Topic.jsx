@@ -13,11 +13,8 @@ function Topic(props) {
     const {
         topicTitle,
         topicId,
-        createdAt,
         color,
         isColorLight,
-        authorName,
-        image,
         tags,
     } = props;
 
@@ -47,8 +44,8 @@ function Topic(props) {
             {!chosenTopic && <>
                 <div
                     style={{
-                        'min-height': "100px",
-                        'min-width': '250px',
+                        minHeight: "100px",
+                        minWidth: '250px',
                         width: "23%",
                         backgroundColor: color,
                         color: isColorLight ? 'black' : '#d0d0d0',
@@ -63,8 +60,8 @@ function Topic(props) {
                         <button className={sT.deleteTopicButton}
                                  onClick={e => handleChangeTopic(e)}>{'Изменить'}</button>}
                     </div>
-                    <div className={sT.tagList}>{tags.length > 0 && 'Теги:'}{tags.map(tag =>
-                        <div className={isColorLight ? sT.tagLight : sT.tag}
+                    <div className={sT.tagList}>{tags.length > 0 && 'Теги:'}{tags.map((tag, index) =>
+                        <div key={`tag_${index}_in_${topicId}`} className={isColorLight ? sT.tagLight : sT.tag}
                              onClick={(e) => handleTagClick(e, tag.tag)}>
                             {tag.tag}</div>)}
                     </div>

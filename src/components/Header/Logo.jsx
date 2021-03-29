@@ -23,13 +23,13 @@ function Logo() {
                     y2="34"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#FF0000" />
-                    <stop offset="0.145833" stop-color="#F6B91D" />
-                    <stop offset="0.286458" stop-color="#FFF500" />
-                    <stop offset="0.447917" stop-color="#1AF758" />
-                    <stop offset="0.604167" stop-color="#34CEEF" />
-                    <stop offset="0.791667" stop-color="#5977E4" />
-                    <stop offset="1" stop-color="#9E00FF" />
+                    <stop stopColor="#FF0000" />
+                    <stop offset="0.145833" stopColor="#F6B91D" />
+                    <stop offset="0.286458" stopColor="#FFF500" />
+                    <stop offset="0.447917" stopColor="#1AF758" />
+                    <stop offset="0.604167" stopColor="#34CEEF" />
+                    <stop offset="0.791667" stopColor="#5977E4" />
+                    <stop offset="1" stopColor="#9E00FF" />
                 </linearGradient>
             </defs>
         </svg>

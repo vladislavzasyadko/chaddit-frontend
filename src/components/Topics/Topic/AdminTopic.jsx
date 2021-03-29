@@ -1,20 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import useClickOutside from "../../Header/HeaderUtils/utils";
 import {connect, useDispatch} from "react-redux";
 import CH from '../../Chats/Chats.module.css'
 import AT from './Topic.module.css'
 import C from "../../Header/HeaderUtils/CreateThreadWidget/CreateThreadWidget.module.css";
-import sT from "./Topic.module.css";
 import {fetchTopics, updateTopic} from "../../../redux/reducers/topicReducer";
 
 function AdminTopic(props) {
 
     const dispatch = useDispatch()
-
-    const [chats, setChats] = useState(props.chats)
-
-    const [chatOpen, setChatOpen] = useState('')
 
     const [topicName, setTopicName] = useState(props.name)
     const [topicTags, setTopicTags] = useState(props.tags)
@@ -71,15 +66,10 @@ function AdminTopic(props) {
                        onChange={e => setTagField(e.target.value)}/>
                 <div className={C.tagFormContainer}>
                     <button  disabled={deletePress} className={C.addTagButton} onClick={addTag}>{'Добавить'}</button>
-
                 </div>
-                <div className={AT.tagsContainer}>{topicTags.map(tag => <Tag tag={tag} deleteTag={deleteTag}/>)}
+                <div className={AT.tagsContainer}>{topicTags.map(tag => <Tag key={`tag_${tag.tag_id}`} tag={tag} deleteTag={deleteTag}/>)}
                 </div>
-
-
             </div>
-
-
         </div>,
         document.getElementById("portal")
     )

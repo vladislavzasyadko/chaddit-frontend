@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from "react";
-import ReactDOM from "react-dom";
 import {connect, useDispatch} from "react-redux";
 import CH from '../Chats.module.css'
 import {clearMessages, createMessage, getMessages, receiveMessage} from "../../../redux/reducers/chatReducer";
@@ -8,7 +7,7 @@ import {BASE_URL} from "../../../CONSTANTS/API_CONSTANTS";
 
 function Chat(props) {
 
-    const [socket, setSocket] = useState()
+    const [, setSocket] = useState()
 
     useEffect(() => {
         handleSocket();
@@ -16,8 +15,8 @@ function Chat(props) {
 
     const handleSocket = () => {
         const lobby = io(BASE_URL);
-        lobby.on('new message', function(msg){
-            if(messages.filter(message => message.message_id === msg.message_id).length === 0){
+        lobby.on('new message', function (msg) {
+            if (messages.filter(message => message.message_id === msg.message_id).length === 0) {
                 dispatch(receiveMessage(msg));
             }
         });
@@ -37,16 +36,16 @@ function Chat(props) {
         props.closeChat()
     }
 
-    useEffect( () => {
+    useEffect(() => {
         dispatch(getMessages(props.chatId))
     }, [])
 
-    useEffect( () => {
-        const uniqueArray = props.messages.filter((msg,index) => {
+    useEffect(() => {
+        const uniqueArray = props.messages.filter((msg, index) => {
             return index === props.messages.findIndex(obj => {
                 return obj.message_id === msg.message_id;
             });
-        }).sort((a,b) => a.message_id - b.message_id);
+        }).sort((a, b) => a.message_id - b.message_id);
         setMessages(uniqueArray)
     }, [props.messages])
 
@@ -55,7 +54,6 @@ function Chat(props) {
         const messageText = inputValue.trim();
         if (messageText) {
             dispatch(createMessage(props.chatId, messageText))
-            // setMessages(messages => [...messages, {author_id: currentId, body: messageText}])
             setInputValue('')
         }
 
@@ -63,7 +61,7 @@ function Chat(props) {
     const lastMessageRef = useRef()
 
     useEffect(() => {
-        if(lastMessageRef.current){
+        if (lastMessageRef.current) {
             lastMessageRef.current.scrollIntoView({smooth: true})
         }
 
@@ -78,8 +76,11 @@ function Chat(props) {
             <div className={CH.messageList}>
                 {messages.map((message, index) => {
                     const lastMessage = messages.length - 1 === index
-                    return <div ref={lastMessage ? lastMessageRef : null}
-                                className={message.author_id === currentId ? CH.myMessage : CH.personMessage}>{message.body}</div>
+                    return <div key={`message_from_${message.author_id}_number_${index}`}
+                                ref={lastMessage ? lastMessageRef : null}
+                                className={message.author_id === currentId
+                                    ? CH.myMessage
+                                    : CH.personMessage}>{message.body}</div>
                 })}
             </div>
 

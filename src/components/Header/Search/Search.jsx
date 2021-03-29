@@ -37,11 +37,11 @@ function Search(props) {
                 placeholder={`Что я могу для Вас найти? ${props.field}`}
             />
 
-            <button type="submit" class={S.searchButton}>
-                <img className={S.searchIcon} src={Icon}></img>
+            <button type="submit" className={S.searchButton}>
+                <img className={S.searchIcon} src={Icon} alt={'#'}
+                />
             </button>
         </form>
-        // </div>
     );
 }
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import C from "../ActiveCard.module.css"
 
 function Comment(props) {
-    const {body, userId, postId, handleClick, userName} = props
+    const {body, postId, handleClick, userName} = props
 
     const [responsesStatus, changeResponsesStatus] = useState(props.responsesStatus)
     const [responses, updateResponses] = useState(props.responses)
@@ -12,11 +12,9 @@ function Comment(props) {
     }
     useEffect(() => {
         updateResponses(props.responses);
-        // changeResponsesStatus(true)
     }, [props.responses])
 
-    return <div key={`comment_${postId}`}
-                onClick={e => handleClick(e, postId, body)}
+    return <div onClick={e => handleClick(e, postId, body)}
     >
         <div className={responsesStatus ? C.activeCard_activeComment : C.activeCard_comment}>
             <div className={C.commentText}>
@@ -28,6 +26,7 @@ function Comment(props) {
             </button>}
         </div>
         {responsesStatus && responses && responses.map(post => <Comment
+            key={`comment_${post.post_id}`}
             body={post.body}
             responsesStatus={false}
             responses={post.responses}

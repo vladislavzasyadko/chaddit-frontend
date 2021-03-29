@@ -58,7 +58,8 @@ function Users(props) {
                         <h1>Пользователи для {props.userRole}</h1>
                     </div>
                     <div className={CH.chats}>
-                        {users.map(user => <UserElement id={user.user_id} name={user.user_name} mail={user.user_email}
+                        {users.map(user => <UserElement key={`user_${user.user_id}_${user.user_name}`}
+                                                        id={user.user_id} name={user.user_name} mail={user.user_email}
                                                         deleteUser={deleteUser} openUser={openUser}/>)}
                     </div>
                 </div>}
