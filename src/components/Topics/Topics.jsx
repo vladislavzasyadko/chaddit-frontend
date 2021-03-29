@@ -33,15 +33,15 @@ const Topics = (props) => {
 
     useEffect(() => {
         if (tag) {
-            dispatch(getTopic(tag))
+            dispatch(getTopic(tag, order.desc, order.order))
         } else {
             dispatch(fetchTopics(order.desc, order.order))
         }
-    }, [tag])
+    }, [tag, order])
 
-    useEffect(() => {
-        dispatch(fetchTopics(order.desc, order.order))
-    }, [order])
+    // useEffect(() => {
+    //     dispatch(fetchTopics(order.desc, order.order))
+    // }, [order])
 
     return (<>
             <div className={T.sortContainer}>

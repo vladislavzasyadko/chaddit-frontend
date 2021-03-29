@@ -50,8 +50,8 @@ export const fetchTopics = (desc, order) => (dispatch) => {
         .then(topics => dispatch({type: FETCH_TOPICS, topics}));
 }
 
-export const getTopic = (tag) => (dispatch) => {
-    return topicAPI.getTopicByTag(tag)
+export const getTopic = (tag, desc, order) => (dispatch) => {
+    return topicAPI.getTopicByTag(tag, desc, order)
         .then(topics => dispatch({type: FETCH_TOPICS, topics}));
 }
 
@@ -70,7 +70,7 @@ export const setTopicId = (id) => (dispatch) => {
 }
 
 export const updateTopic = (id, topic) => (dispatch) => {
-    return topicAPI.updateTopic(id, topic).then( response => dispatch({type: UPDATE_TOPIC}))
+    return topicAPI.updateTopic(id, topic).then( () => dispatch({type: UPDATE_TOPIC}))
 }
 
 

@@ -38,8 +38,9 @@ export const topicAPI = {
         const params = desc ? {orderbydesc: order} : {orderby: order};
         return instance.get(`chaddit/c/topics`, {params: {...params, limit: 0} }).then(response => response.data);
     },
-    getTopicByTag(tag) {
-        const params = tag ? {query: '"' + `#${tag}` + '"'} : {}
+    getTopicByTag(tag, desc, order) {
+        const ordr = desc ? {orderbydesc: order} : {orderby: order};
+        const params = tag ? {query: '"' + `#${tag}` + '"', ...ordr} : {}
         return instance.get(`chaddit/c/search/topic`, {params: params}).then(response => response.data);
     },
     searchTopics(name) {
