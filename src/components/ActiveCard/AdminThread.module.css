@@ -1,0 +1,45 @@
+.darkBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminThread {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #e5e5e5;
+    height: 60%;
+    width: 40%;
+}
+
+.adminThreadContainer {
+    margin: 40px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.adminThreadControls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
+}
+
+.adminThreadName {
+    display: flex;
+    flex-direction: column;
+}
+
+.adminThreadImage {
+    border-radius: 10px;
+}

@@ -26,7 +26,7 @@ const Feed = (props) => {
     },[props.threads])
 
     const [activeCard, setCardStatus] = useState('');
-    const [adminCard, setAdminStatus] = useState('');
+    const [adminThread, setAdminThread] = useState('');
 
     const openCard = (id) => {
         setCardStatus(id);
@@ -35,6 +35,19 @@ const Feed = (props) => {
     const closeCard = () => {
         setCardStatus('');
     };
+
+    const openAdminThread = (id) => {
+        setAdminThread(id)
+    }
+
+    const closeAdminThread = () => {
+        setAdminThread('')
+    }
+
+    useEffect(() => {
+        console.log('admin ', adminThread)
+    },[adminThread])
+
 
     return (
         <div className={F.feed}>
@@ -52,6 +65,7 @@ const Feed = (props) => {
                     cardId: i.toString(),
                     openCard: openCard,
                     closeCard: closeCard,
+                    openThread: openAdminThread,
                     image: card.image,
                     views: card.views,
                     authorName: `${card.author.user_name}#${card.author.user_tag}`
@@ -61,7 +75,7 @@ const Feed = (props) => {
             {activeCard &&
             <ActiveCard cardId={activeCard} closeActiveCard={closeCard} info={threads[parseInt(activeCard)]}/>}
 
-            {adminCard && <AdminThread info={threads[parseInt(activeCard)]} />}
+            {adminThread && <AdminThread info={threads[parseInt(adminThread)]} closeThread={closeAdminThread}/>}
 
         </div>
     );

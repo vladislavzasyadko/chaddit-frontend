@@ -1,12 +1,13 @@
-import React, {createRef, useEffect} from "react";
+import React from "react";
 import C from "./Card.module.css";
 import {formatDate} from "../../utils/formatters";
 import cat from '../../icons/cat.png';
+import {connect} from "react-redux";
 
 function Card(props) {
     const {
         threadTitle,
-        authorId,
+        cardId,
         createdAt,
         color,
         threadId,
@@ -29,6 +30,11 @@ function Card(props) {
         return views ?? 0
     }
 
+    const handleOpenAdminThread = e => {
+        props.openThread(cardId)
+        e.stopPropagation();
+    }
+
     return (
         <div
             style={{
@@ -48,7 +54,12 @@ function Card(props) {
                 }}
             />
             <div className={C.cardText}>
-                <h2 className={C.cardTitle}>{threadTitle}</h2>
+                <div className={C.cardHeader}>
+                    <h2 className={C.cardTitle}>{threadTitle}</h2>
+                    {(props.userRole === 'ADMIN' || props.userRole === 'MOD') &&
+                    <button className={C.changeThreadButton}
+                    onClick={e => handleOpenAdminThread(e)}>{'Изменить'}</button>}
+                </div>
                 <span className={previewStyle() ?
                     (isColorLight ? C.cardTextPreviewGradientDark : C.cardTextPreviewGradientLight)
                     :
@@ -72,5 +83,8 @@ function Card(props) {
     );
 }
 
+const mapStateToProps = (state) => ({
+    userRole: state.user.userRole,
+})
 
-export default Card;
+export default connect(mapStateToProps)(Card);

@@ -4,6 +4,8 @@ export const CREATE_THREAD = 'CREATE_THREAD';
 export const CLEAR_THREAD = 'CLEAR_THREAD';
 export const CLEAR_THREADS = 'CLEAR_THREADS';
 export const SEARCH_THREADS = 'SEARCH_THREADS';
+export const UPDATE_THREAD = 'UPDATE_THREAD';
+export const DELETE_THREAD = 'DELETE_THREAD';
 
 export const SEND_POST = 'SEND_POST';
 export const SET_POSTS = 'SET_POSTS';

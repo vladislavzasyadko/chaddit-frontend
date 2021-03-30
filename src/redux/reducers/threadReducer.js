@@ -1,6 +1,6 @@
 import {CREATE_THREAD, FETCH_THREAD, FETCH_THREADS, CLEAR_THREAD} from './types.js'
 import {threadAPI} from "../../api/api";
-import {CLEAR_THREADS, SEARCH_THREADS} from "./types";
+import {CLEAR_THREADS, DELETE_THREAD, SEARCH_THREADS, UPDATE_THREAD} from "./types";
 
 const initialState = {
     threads: [],
@@ -40,6 +40,16 @@ export const threadReducer = (state = initialState, action) => {
                 searchWord: action.searchWord,
                 threads: action.threads
             }
+        case UPDATE_THREAD:
+            return {
+                ...state,
+                threads: [action.thread, ...state.threads.filter(thread => thread.thread_id !== action.id)]
+            }
+        case DELETE_THREAD:
+            return {
+                ...state,
+                threads: [...state.threads.filter(thread => thread.thread_id !== action.id)]
+            }
 
         default:
             return state;
@@ -75,6 +85,20 @@ export const createThread = (topicId, thread) => {
     }
 }
 
-export const clearThreads = () => (dispatch) =>  {
+export const clearThreads = () => (dispatch) => {
     return dispatch({type: CLEAR_THREADS})
+}
+
+export const updateThread = (threadId, thread) => {
+    return dispatch => {
+        threadAPI.updateThread(threadId, thread)
+            .then(thread => dispatch({type: UPDATE_THREAD, id: threadId, thread}))
+    }
+}
+
+export const deleteThread = (threadId) => {
+    return dispatch => {
+        threadAPI.deleteThread(threadId)
+        return dispatch({type: DELETE_THREAD, id: threadId})
+    }
 }

@@ -30,7 +30,21 @@ export const threadAPI = {
                 'topic_id': topicId,
             }
         }).then(response => response.data);
-    }
+    },
+    deleteThread(threadId) {
+        return instance.patch(`chaddit/c/thread/${threadId}`, {active: false}, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            }
+        }).then(response => response.data)
+    },
+    updateThread(threadId, thread) {
+        return instance.patch(`chaddit/c/thread/${threadId}`, thread, {
+            headers: {
+                'api_token': localStorage.getItem('api_token'),
+            }
+        }).then(response => response.data)
+    },
 }
 
 export const topicAPI = {

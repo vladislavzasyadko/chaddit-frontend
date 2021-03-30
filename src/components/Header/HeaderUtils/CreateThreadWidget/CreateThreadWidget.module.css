@@ -40,6 +40,15 @@
     font-size: 16px;
 }
 
+.inputThread {
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
 .dataList {
     composes: inputCreator;
 }
