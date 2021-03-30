@@ -44,11 +44,6 @@ const Feed = (props) => {
         setAdminThread('')
     }
 
-    useEffect(() => {
-        console.log('admin ', adminThread)
-    },[adminThread])
-
-
     return (
         <div className={F.feed}>
             {threads.length === 0 && <h2 className={F.notFound}>Ничего не найдено :( </h2>}

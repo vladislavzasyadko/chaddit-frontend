@@ -23,7 +23,6 @@ function AdminThread(props) {
         let file = element.files[0];
         let reader = new FileReader();
         reader.onloadend = function () {
-            console.log('onloadend')
             setFileByteArray(reader.result)
             setLoadStatus(true)
         }
