@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import U from "./UserSettings.module.css";
 import {logoutActionCreator} from "../../../../redux/reducers/authReducer";
 import {connect, useDispatch} from "react-redux";
-import {getUser, updateUserName, updateUserPass} from "../../../../redux/reducers/userReducer";
+import {getUser, logoutUser, updateUserName, updateUserPass} from "../../../../redux/reducers/userReducer";
 import useClickOutside from "../utils";
 import {SUCCESS} from "../../../../redux/reducers/types";
 
@@ -35,6 +35,7 @@ function UserSettings(props) {
 
     function logout(){
         props.closeSettings();
+        dispatch(logoutUser())
         dispatch(logoutActionCreator());
     }
 

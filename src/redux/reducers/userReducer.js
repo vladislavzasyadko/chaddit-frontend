@@ -1,5 +1,14 @@
 import {userAPI} from "../../api/api";
-import {FAILURE, FETCHING, SET_USER, SET_USER_NAME, SUCCESS, UPDATE_USER_NAME, UPDATE_USER_PASS} from "./types";
+import {
+    FAILURE,
+    FETCHING,
+    SET_USER,
+    SET_USER_NAME,
+    SUCCESS,
+    UPDATE_USER_NAME,
+    UPDATE_USER_PASS,
+    USER_LOGOUT
+} from "./types";
 
 const initialState = {userName: '', userEmail: '', userPassStatus: ''}
 
@@ -31,6 +40,17 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 userPassStatus: action.userPassStatus,
             }
+        case USER_LOGOUT:
+            return {
+                ...state,
+                userName: '',
+                userTempName: '',
+                userPass: '',
+                userId: '',
+                userEmail: '',
+                userTag: '',
+                userRole: '',
+            }
         default:
             return state;
     }
@@ -50,16 +70,16 @@ export const getUser = () => (dispatch) => {
                 tag: user_tag,
                 role: role.role_name,
             })
-        }, (error) => {
+        }, () => {
             // console.log(error)
         });
 }
 
 export const updateUserName = name => dispatch => {
     return userAPI.updateName(name)
-        .then((response) => {
+        .then(() => {
             dispatch({type: UPDATE_USER_NAME, newName: name})
-        }, (error) => {
+        }, () => {
             // console.log(error)
         });
 }
@@ -67,10 +87,10 @@ export const updateUserName = name => dispatch => {
 export const updateUserPass = (oldPassword, newPassword) => dispatch => {
     dispatch({type: UPDATE_USER_PASS, userPassStatus: FETCHING})
     return userAPI.updatePass(oldPassword, newPassword)
-        .then((response) => {
+        .then(() => {
             //console.log(response)
             dispatch({type: UPDATE_USER_PASS, userPassStatus: SUCCESS})
-        }, (error) => {
+        }, () => {
             //console.log(error)
             dispatch({type: UPDATE_USER_PASS, userPassStatus: FAILURE})
         });
@@ -78,4 +98,8 @@ export const updateUserPass = (oldPassword, newPassword) => dispatch => {
 
 export const setUserName = name => dispatch => {
     return dispatch({type: SET_USER_NAME, name})
+}
+
+export const logoutUser = () => dispatch => {
+    return dispatch({type: USER_LOGOUT})
 }
