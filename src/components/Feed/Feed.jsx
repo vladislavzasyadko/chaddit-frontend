@@ -34,6 +34,7 @@ const Feed = (props) => {
 
     const closeCard = () => {
         setCardStatus('');
+        dispatch(fetchThreads(props.match.params.id))
     };
 
     const openAdminThread = (id) => {
