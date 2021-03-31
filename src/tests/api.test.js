@@ -131,7 +131,7 @@ test('getMessages() request/response test', () => {
                 'api_token': api_token,
             },
             params: {
-                limit: -1
+                limit: 0
             }
         }).then(response => {
             return response.data

@@ -34,4 +34,13 @@ describe('Search component testing ', () => {
         expect(container.querySelector('.searchInput').getAttribute('placeholder')).toBe('Что я могу для Вас найти? ' + mockStore.getState().search.field)
     })
 
+    test('Search component handleSubmit event test', () => {
+
+        act(() => {
+            render(<Provider store={mockStore}><Search {...mockProps}/></Provider>, container)
+        })
+
+        expect(container.querySelector('.searchInput').getAttribute('placeholder')).toBe('Что я могу для Вас найти? ' + mockStore.getState().search.field)
+    })
+
 })
