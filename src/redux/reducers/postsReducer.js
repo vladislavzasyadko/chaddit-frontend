@@ -46,6 +46,7 @@ export const postReducer = (state = initialState, action) => {
 
 }
 
+/* istanbul ignore next */
 export const sendPost = (post, parentId) => {
     return dispatch => {
         postAPI.sendPost(post)
@@ -53,10 +54,12 @@ export const sendPost = (post, parentId) => {
     }
 }
 
+/* istanbul ignore next */
 export const setPosts = (posts) => (dispatch) => {
     return dispatch({type: SET_POSTS, posts: posts})
 }
 
+/* istanbul ignore next */
 export const clearPosts = () => (dispatch) => {
     return dispatch({type: CLEAR_POSTS})
 }

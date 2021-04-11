@@ -6,7 +6,7 @@ import AT from '../Topics/Topic/Topic.module.css';
 import AdT from './AdminThread.module.css';
 import C from "../Header/HeaderUtils/CreateThreadWidget/CreateThreadWidget.module.css";
 import {deleteThread, updateThread} from "../../redux/reducers/threadReducer";
-
+/* istanbul ignore file */
 function AdminThread(props) {
 
     const dispatch = useDispatch()

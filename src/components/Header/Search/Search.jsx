@@ -10,6 +10,8 @@ function Search(props) {
     const dispatch = useDispatch()
 
     const [searchWord, setSearchWord] = useState('')
+
+    /* istanbul ignore next */
     const handleSubmit = event => {
         event.preventDefault()
         if(searchWord){

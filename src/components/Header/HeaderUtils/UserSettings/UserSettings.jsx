@@ -17,6 +17,7 @@ function UserSettings(props) {
         [props.isAuth],
     );
 
+    /* istanbul ignore next */
     useEffect(() => {
         let newStatus = 'Изменить пароль';
         if(props.userPassStatus){
@@ -33,12 +34,14 @@ function UserSettings(props) {
     const [password, setPass] = useState('')
     const dispatch = useDispatch()
 
+    /* istanbul ignore next */
     function logout(){
         props.closeSettings();
         dispatch(logoutUser())
         dispatch(logoutActionCreator());
     }
 
+    /* istanbul ignore next */
     function setNewUserName(){
         if(name && !name.includes('#')){
             dispatch(updateUserName(name));
@@ -49,6 +52,7 @@ function UserSettings(props) {
         }
     }
 
+    /* istanbul ignore next */
     function updateUserPassword(){
         if(oldPassword && password){
         dispatch(updateUserPass(oldPassword, password))
@@ -60,6 +64,7 @@ function UserSettings(props) {
         }
     }
 
+    /* istanbul ignore next */
     let domNode = useClickOutside(() => {
         props.closeSettings();
         setName('');

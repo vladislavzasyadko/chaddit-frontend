@@ -13,24 +13,29 @@ const Login = (props) => {
 
     const dispatch = useDispatch()
 
+    /* istanbul ignore next */
     if (props.isAuth) {
         return <Redirect to={'/topics'}/>
     }
 
+    /* istanbul ignore next */
     const changeType = type => {
         setType(type)
     }
 
+    /* istanbul ignore next */
     function login() {
         dispatch(loginActionCreator(email, password))
     }
 
+    /* istanbul ignore next */
     function register() {
         if (checkRegisterData()) {
             dispatch(registerActionCreator(name, email, password))
         }
     }
 
+    /* istanbul ignore next */
     function checkRegisterData() {
         return password === approvingPassword && name && email;
     }

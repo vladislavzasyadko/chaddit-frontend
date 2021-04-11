@@ -24,10 +24,12 @@ export const searchReducer = (state = initialState, action) => {
     }
 }
 
+/* istanbul ignore next */
 export const setSearchField = (field) => (dispatch) => {
     return dispatch({type: SET_SEARCH_FIELD, field: field})
 }
 
+/* istanbul ignore next */
 export const setSearchTopicId = (id) => (dispatch) => {
     return dispatch({type: SET_TOPIC_ID, topicId: id})
 }

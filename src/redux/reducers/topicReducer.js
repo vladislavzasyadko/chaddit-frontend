@@ -45,30 +45,36 @@ export const topicReducer = (state = initialState, action) => {
 
 }
 
+/* istanbul ignore next */
 export const fetchTopics = (desc, order) => (dispatch) => {
     return topicAPI.getTopics(desc, order)
         .then(topics => dispatch({type: FETCH_TOPICS, topics}));
 }
 
+/* istanbul ignore next */
 export const getTopic = (tag, desc, order) => (dispatch) => {
     return topicAPI.getTopicByTag(tag, desc, order)
         .then(topics => dispatch({type: FETCH_TOPICS, topics}));
 }
 
+/* istanbul ignore next */
 export const searchTopics = (name) => (dispatch) => {
     return topicAPI.searchTopics(name)
         .then(topics => dispatch({type: SEARCH_TOPICS, topics}));
 }
 
+/* istanbul ignore next */
 export const createTopicId = (title, tags) => (dispatch) => {
     return topicAPI.createTopic(title, tags)
         .then(topic => dispatch({type: CREATE_TOPIC, id: topic.topic_id, topic:topic}))
 }
 
+/* istanbul ignore next */
 export const setTopicId = (id) => (dispatch) => {
     return dispatch({type: SET_SEND_TOPIC_ID, id: id})
 }
 
+/* istanbul ignore next */
 export const updateTopic = (id, topic) => (dispatch) => {
     return topicAPI.updateTopic(id, topic).then( () => dispatch({type: UPDATE_TOPIC}))
 }

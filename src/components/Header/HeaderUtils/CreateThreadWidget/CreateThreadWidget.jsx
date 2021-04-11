@@ -5,7 +5,6 @@ import {connect, useDispatch} from "react-redux";
 import useClickOutside from "../utils";
 import {createThread} from "../../../../redux/reducers/threadReducer";
 import {createTopicId, fetchTopics, setTopicId} from "../../../../redux/reducers/topicReducer";
-
 function CreateThreadWidget(props) {
     const dispatch = useDispatch()
 
@@ -23,6 +22,7 @@ function CreateThreadWidget(props) {
         dispatch(fetchTopics())
     }, [])
 
+    /* istanbul ignore next */
     let domNode = useClickOutside(() => {
         setTopicTitle('')
         setThreadText('')
@@ -34,6 +34,7 @@ function CreateThreadWidget(props) {
         props.closeCreator();
     });
 
+    /* istanbul ignore next */
     const addTag = () => {
         const tagName = tagField.trim()
         if (tagName && !tagName.includes('#')) {
@@ -51,6 +52,7 @@ function CreateThreadWidget(props) {
         setThreadName(name);
     }
 
+    /* istanbul ignore next */
     function encodeImageFileAsURL(element) {
         let file = element.files[0];
         let reader = new FileReader();
@@ -61,6 +63,7 @@ function CreateThreadWidget(props) {
         reader.readAsDataURL(file);
     }
 
+    /* istanbul ignore next */
     useEffect(() => {
         if (threadName && threadText && props.newTopicId) {
             dispatch(createThread(props.newTopicId, {
@@ -77,6 +80,7 @@ function CreateThreadWidget(props) {
         }
     }, [props.newTopicId])
 
+    /* istanbul ignore next */
     function postThread() {
         let obj = topics.find(o => o.title === topicTitle);
         if (obj) {

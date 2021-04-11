@@ -57,16 +57,19 @@ export const threadReducer = (state = initialState, action) => {
 
 }
 
+/* istanbul ignore next */
 export const fetchThreads = (topicId) => (dispatch) => {
     return threadAPI.getThreadByTopic(topicId)
         .then(threads => dispatch({type: FETCH_THREADS, threads: threads}))
 }
 
+/* istanbul ignore next */
 export const searchThreads = (name) => (dispatch) => {
     return threadAPI.searchThread(name)
         .then(threads => dispatch({type: SEARCH_THREADS, threads: threads, searchWord: name}))
 }
 
+/* istanbul ignore next */
 export const fetchThread = (threadId) => {
     return dispatch => {
         threadAPI.getThread(threadId)
@@ -74,10 +77,12 @@ export const fetchThread = (threadId) => {
     }
 }
 
+/* istanbul ignore next */
 export const clearThread = () => (dispatch) => {
     return dispatch({type: CLEAR_THREAD, thread: null})
 }
 
+/* istanbul ignore next */
 export const createThread = (topicId, thread) => {
     return dispatch => {
         threadAPI.createThread(topicId, thread)
@@ -85,10 +90,12 @@ export const createThread = (topicId, thread) => {
     }
 }
 
+/* istanbul ignore next */
 export const clearThreads = () => (dispatch) => {
     return dispatch({type: CLEAR_THREADS})
 }
 
+/* istanbul ignore next */
 export const updateThread = (threadId, thread) => {
     return dispatch => {
         threadAPI.updateThread(threadId, thread)
@@ -96,6 +103,7 @@ export const updateThread = (threadId, thread) => {
     }
 }
 
+/* istanbul ignore next */
 export const deleteThread = (threadId) => {
     return dispatch => {
         threadAPI.deleteThread(threadId)

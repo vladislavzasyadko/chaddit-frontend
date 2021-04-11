@@ -52,7 +52,7 @@ export const chatReducer = (state = initialState, action) => {
     }
 }
 
-
+/* istanbul ignore next */
 export const createChat = (topicId) => (dispatch) => {
     return chatAPI.createChat(topicId).then(response => dispatch({
         type: CREATE_CHAT,
@@ -61,23 +61,26 @@ export const createChat = (topicId) => (dispatch) => {
         topic_id: topicId,
     }))
 }
-
+/* istanbul ignore next */
 export const getChats = () => (dispatch) => {
     return chatAPI.getChats().then(response => dispatch({type: GET_CHATS, chats: response}))
 }
-
+/* istanbul ignore next */
 export const getMessages = (chatId) => (dispatch) => {
     return chatAPI.getMessages(chatId).then(response => dispatch({type: GET_MESSAGES, messages: response}))
 }
-
+/* istanbul ignore next */
 export const createMessage = (chatId, body) => (dispatch) => {
     return chatAPI.createMessage(chatId, body).then(response => dispatch({type: SEND_MESSAGE, message: response}))
     // response => dispatch({type: GET_MESSAGES, messages: response})
 }
+
+/* istanbul ignore next */
 export const clearMessages = () => (dispatch) => {
     return dispatch({type: CLEAR_MESSAGES})
 }
 
+/* istanbul ignore next */
 export const receiveMessage = (message) => (dispatch) => {
     return dispatch({type:RECEIVE_MESSAGE, message: message})
 }

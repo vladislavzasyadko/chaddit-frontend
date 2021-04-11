@@ -45,7 +45,7 @@ export const authReducer = (state = initialState, action) => {
     }
 
 }
-
+/* istanbul ignore next */
 export const loginActionCreator = (email, password) => (dispatch) => {
     return loginAPI.login(email, password)
         .then((response) => {
@@ -54,7 +54,7 @@ export const loginActionCreator = (email, password) => (dispatch) => {
             dispatch({type: FAILURE, error: error})
         });
 }
-
+/* istanbul ignore next */
 export const registerActionCreator = (name, email, password) => (dispatch) => {
     return loginAPI.register(name, email, password)
         .then((response) => {
@@ -63,7 +63,7 @@ export const registerActionCreator = (name, email, password) => (dispatch) => {
             dispatch({type: FAILURE, error: error})
         });
 }
-
+/* istanbul ignore next */
 export const logoutActionCreator = () => (dispatch) => {
     return dispatch({type: LOGOUT})
 }

@@ -75,6 +75,7 @@ export const getUser = () => (dispatch) => {
         });
 }
 
+/* istanbul ignore next */
 export const updateUserName = name => dispatch => {
     return userAPI.updateName(name)
         .then(() => {
@@ -83,7 +84,7 @@ export const updateUserName = name => dispatch => {
             // console.log(error)
         });
 }
-
+/* istanbul ignore next */
 export const updateUserPass = (oldPassword, newPassword) => dispatch => {
     dispatch({type: UPDATE_USER_PASS, userPassStatus: FETCHING})
     return userAPI.updatePass(oldPassword, newPassword)
@@ -96,10 +97,12 @@ export const updateUserPass = (oldPassword, newPassword) => dispatch => {
         });
 }
 
+/* istanbul ignore next */
 export const setUserName = name => dispatch => {
     return dispatch({type: SET_USER_NAME, name})
 }
 
+/* istanbul ignore next */
 export const logoutUser = () => dispatch => {
     return dispatch({type: USER_LOGOUT})
 }

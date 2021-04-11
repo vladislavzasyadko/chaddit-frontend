@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import axios from 'axios';
 import {BASE_URL} from '../CONSTANTS/API_CONSTANTS';
 
