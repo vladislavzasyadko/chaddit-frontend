@@ -40,10 +40,10 @@ const Login = (props) => {
         <div className={L.loginRegisterContainer}>
             <div className={L.loginForm}>
                 <div className={L.chooseType}>
-                    <div className={type === 'Login' ? L.activeOption : L.typeOption} onClick={e => changeType('Login')}>
+                    <div id={'gotoLogin'} className={type === 'Login' ? L.activeOption : L.typeOption} onClick={e => changeType('Login')}>
                         {'Вход'}
                     </div>
-                    <div className={type === 'Register' ? L.activeOption : L.typeOption} onClick={e => changeType('Register')}>
+                    <div id={'gotoRegister'} className={type === 'Register' ? L.activeOption : L.typeOption} onClick={e => changeType('Register')}>
                         {'Регистрация'}
                     </div>
                 </div>
