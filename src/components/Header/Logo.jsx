@@ -3,7 +3,7 @@ import React from "react";
 
 function Logo() {
     return (
-        <svg
+        <svg id={'chadditLogo'}
             width="385"
             height="64"
             viewBox="0 0 385 64"
