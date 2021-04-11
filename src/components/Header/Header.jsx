@@ -67,18 +67,19 @@ function Header(props) {
                     backgroundSize: "cover",
                 }} onClick={props.isAuth ? openSettings : null}/>
                 <div className={H.buttons}>
-                <div className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>
-                    <button className={common.buttonChad}> Добавить тред </button>
+                <div id={'openCreateThreadWidgetButton'} className={H.userTopicCreator} onClick={props.isAuth ? openCreator : null}>
+                    <button className={common.buttonChad}>{'Добавить тред'}</button>
 
                 </div>
 
-                <div className={H.userTopicCreator} onClick={props.isAuth ? openChats : null}>
-                    <button className={common.buttonChad}> Чаты </button>
+                <div id={'openUserChatsButton'} className={H.userTopicCreator} onClick={props.isAuth ? openChats : null}>
+                    <button className={common.buttonChad}>{'Чаты'}</button>
 
                 </div>
 
-                    {props.userRole === 'ADMIN' && <div className={H.userTopicCreator} onClick={props.isAuth ? openUsers : null}>
-                        <button className={common.buttonChad}> USERS</button>
+                    {props.userRole === 'ADMIN' &&
+                    <div id={'openAdminUsersButton'} className={H.userTopicCreator} onClick={props.isAuth ? openUsers : null}>
+                        <button className={common.buttonChad}>{'USERS'}</button>
 
                     </div>}
                 </div>

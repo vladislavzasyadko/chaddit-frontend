@@ -92,7 +92,7 @@ function CreateThreadWidget(props) {
         >
             <div ref={domNode} className={C.creatorContainer}>
                 <h1>{`Создать новый тред в теме:`}</h1>
-                <input className={C.dataList}
+                <input id={'topicName'} className={C.dataList}
                        placeholder={'Выберите тему треда'}
                        list={'topiclist'}
                        value={topicTitle}
@@ -110,15 +110,15 @@ function CreateThreadWidget(props) {
                         </div>
                     </div>
                 </>}
-                <input className={C.inputCreator} placeholder={'Название треда'} value={threadName}
+                <input id={'threadName'} className={C.inputCreator} placeholder={'Название треда'} value={threadName}
                        onChange={e => updateThreadName(e.target.value)}/>
                 <input id={'imageLoad'} className={C.inputFile} type={'file'}
                        onChange={e => encodeImageFileAsURL(e.target)}/>
                 <label htmlFor={'imageLoad'}
                        className={loadStatus ? C.loadButtonDone : C.loadButton}>{loadStatus ? 'Картинка загружена' : 'Загрузить картинку'}</label>
-                <textarea className={C.textareaCreator} placeholder={'Сообщение'} value={threadText}
+                <textarea id={'threadMessage'} className={C.textareaCreator} placeholder={'Сообщение'} value={threadText}
                           onChange={e => updateThreadText(e.target.value)}/>
-                <button className={C.buttonCreator} onClick={postThread}>{'Отправить'}</button>
+                <button id={'sendThreadButton'} className={C.buttonCreator} onClick={postThread}>{'Отправить'}</button>
             </div>
         </div>,
         document.getElementById("portal")
