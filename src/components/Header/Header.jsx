@@ -62,7 +62,7 @@ function Header(props) {
     return (
         <div className={props.isAuth ? H.header : H.headerGuest}>
             {props.isAuth && <div className={H.utils}>
-                <div className={H.userImage} style={{
+                <div id={'userImage'} className={H.userImage} style={{
                     backgroundImage: `url(${userImage})`,
                     backgroundSize: "cover",
                 }} onClick={props.isAuth ? openSettings : null}/>
