@@ -8,8 +8,9 @@ let instance = axios.create({
 const api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'
 let chat_id_for_test
 
-test('getThreads() request/response test', () =>{
-    return threadAPI.getThreads().then(data => {
+test('getThreadByTopic(topicId) request/response test', () =>{
+    const topicId = 25;
+    return threadAPI.getThreadByTopic(topicId).then(data => {
         data.forEach((thread) => {
             expect(thread).toHaveProperty('active', true)
 
@@ -46,7 +47,7 @@ test('getThreads() request/response test', () =>{
             expect(thread).toHaveProperty('views')
         })
     })
-}, 10000)
+}, 20000)
 
 test('getTopics() request/response test', () => {
     return topicAPI.getTopics().then(data => {
