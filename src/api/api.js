@@ -1,11 +1,14 @@
 /* istanbul ignore file */
 
 import axios from 'axios';
-import {BASE_URL} from '../CONSTANTS/API_CONSTANTS';
+import {BASE_URL, PROXY_HOST, PROXY_PORT} from '../CONSTANTS/API_CONSTANTS';
 
-let instance = axios.create({
-    baseURL: BASE_URL,
-})
+const config = BASE_URL ? {baseURL: BASE_URL} : {proxy: {
+        protocol: 'http',
+        host: PROXY_HOST,
+        port: PROXY_PORT
+    }}
+let instance = axios.create(config)
 
 export const threadAPI = {
     getThreads() {
