@@ -1,15 +1,30 @@
-import {adminAPI, chatAPI, threadAPI, topicAPI} from "../api/api";
+import {adminAPI, chatAPI, threadAPI, topicAPI, loginAPI} from "../api/api";
 import axios from "axios";
-import {BASE_URL} from "../CONSTANTS/API_CONSTANTS";
+import {BASE_URL, PROXY_HOST, PROXY_PORT} from '../CONSTANTS/API_CONSTANTS';
 
-let instance = axios.create({
-    baseURL: BASE_URL,
+const config = BASE_URL ? {baseURL: BASE_URL} : {baseURL: '/api/',
+    proxy: {
+        protocol: 'http',
+        host: PROXY_HOST,
+        port: PROXY_PORT
+    }}
+
+let instance = axios.create(config)
+let api_token
+test('login(email, password) request/response test', () =>{
+    const test_user_email = 'admin@chaddit.tk';
+    const test_user_pass = 'admin';
+        return loginAPI.login(test_user_email, test_user_pass).then(data =>{
+            expect(data.data).toHaveProperty('api_token')
+            expect(typeof data.data.api_token).toBe('string')
+            api_token = data.data.api_token
+        })
 })
-const api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'
+// const api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NzQwMTg3NTAsImlhdCI6MTYxNjMzODc1MCwic3ViIjo2M30.CCsgLTd8laloarkHqawq5fVrMlfAcvxOaB3UmHQDDwA'
 let chat_id_for_test
 
 test('getThreadByTopic(topicId) request/response test', () =>{
-    const topicId = 25;
+    const topicId = 1;
     return threadAPI.getThreadByTopic(topicId).then(data => {
         data.forEach((thread) => {
             expect(thread).toHaveProperty('active', true)
@@ -90,7 +105,7 @@ test('getChats() request/response test', () => {
     chatAPI.getChats = jest.fn(() => {
         return instance.get(`chaddit/c/chats`, {
             headers: {
-                'api_token': api_token,
+                'api-token': api_token,
             }
         }).then(response => {
             return response.data
@@ -129,10 +144,10 @@ test('getMessages() request/response test', () => {
     chatAPI.getMessages = jest.fn((chat_id) => {
         return instance.get(`chaddit/c/messages/${chat_id}`, {
             headers: {
-                'api_token': api_token,
+                'api-token': api_token,
             },
             params: {
-                limit: -1
+                limit: 0
             }
         }).then(response => {
             return response.data
@@ -170,7 +185,7 @@ test('getUsers() request response test', () => {
     adminAPI.getUsers = jest.fn((chat_id) => {
         return instance.get('chaddit/c/users', {
             headers: {
-                'api_token': api_token,
+                'api-token': api_token,
             }
         }).then(response => {
             return response.data
