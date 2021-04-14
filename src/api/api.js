@@ -3,7 +3,8 @@
 import axios from 'axios';
 import {BASE_URL, PROXY_HOST, PROXY_PORT} from '../CONSTANTS/API_CONSTANTS';
 
-const config = BASE_URL ? {baseURL: BASE_URL} : {proxy: {
+const config = BASE_URL ? {baseURL: BASE_URL} : {baseURL: '/api/',
+    proxy: {
         protocol: 'http',
         host: PROXY_HOST,
         port: PROXY_PORT
@@ -17,7 +18,7 @@ export const threadAPI = {
     getThreadByTopic(topicId) {
         return instance.get(`chaddit/c/threads`, {
             headers: {
-                topic_id: topicId
+                'topic-id': topicId
             }
         }).then(response => response.data);
     },
@@ -31,22 +32,22 @@ export const threadAPI = {
     createThread(topicId, data) {
         return instance.post(`chaddit/c/thread`, data, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
-                'topic_id': topicId,
+                'api-token': localStorage.getItem('api_token'),
+                'topic-id': topicId,
             }
         }).then(response => response.data);
     },
     deleteThread(threadId) {
         return instance.patch(`chaddit/c/thread/${threadId}`, {active: false}, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         }).then(response => response.data)
     },
     updateThread(threadId, thread) {
         return instance.patch(`chaddit/c/thread/${threadId}`, thread, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         }).then(response => response.data)
     },
@@ -69,9 +70,9 @@ export const topicAPI = {
         });
     },
     createTopic(title, tags) {
-        return axios.post(BASE_URL + `chaddit/c/topic`, {topic_title: title, tags: tags}, {
+        return instance.post(`chaddit/c/topic`, {topic_title: title, tags: tags}, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         })
             .then(response => response.data)
@@ -82,7 +83,7 @@ export const topicAPI = {
     updateTopic(topicId, topic) {
         return instance.patch(`chaddit/c/topic/${topicId}`, topic, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         }).then(response => response.data)
     },
@@ -93,7 +94,7 @@ export const chatAPI = {
     getChats() {
         return instance.get(`chaddit/c/chats`, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         }).then(response => {
             return response.data
@@ -103,9 +104,9 @@ export const chatAPI = {
         return instance.get(`chaddit/c/chat/${chatId}`).then(response => response.data);
     },
     createChat(topicId) {
-        return instance.post('chaddit/c/chat', {topic_id: topicId}, {
+        return instance.post('chaddit/c/chat', {'topic-id': topicId}, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         }).then(response => {
             return response.data
@@ -114,7 +115,7 @@ export const chatAPI = {
     getMessages(chatId) {
         return instance.get(`chaddit/c/messages/${chatId}`, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             },
             params: {
                 limit: 0
@@ -126,8 +127,8 @@ export const chatAPI = {
     createMessage(chatId, body) {
         return instance.post('chaddit/c/message', {body: body}, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
-                'chat_id': chatId,
+                'api-token': localStorage.getItem('api_token'),
+                'chat-id': chatId,
             }
         }).then(response => {
             return response.data
@@ -151,27 +152,27 @@ export const loginAPI = {
 
 export const userAPI = {
     getUser() {
-        return axios.get(BASE_URL + 'chaddit/c/user', {
+        return instance.get('chaddit/c/user', {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         });
     },
     updateName(name) {
-        return axios.patch(`${BASE_URL}chaddit/c/user`,
+        return instance.patch(`chaddit/c/user`,
             {user_name: name},
             {
                 headers: {
-                    'api_token': localStorage.getItem('api_token'),
+                    'api-token': localStorage.getItem('api_token'),
                 }
             });
     },
     updatePass(oldPassword, newPassword) {
-        return axios.patch(BASE_URL + 'chaddit/c/user',
+        return instance.patch('chaddit/c/user',
             {user_pass: newPassword, old_user_pass: oldPassword},
             {
                 headers: {
-                    'api_token': localStorage.getItem('api_token'),
+                    'api-token': localStorage.getItem('api_token'),
 
                 }
             });
@@ -180,11 +181,11 @@ export const userAPI = {
 
 export const postAPI = {
     sendPost(newPost) {
-        return axios.post(BASE_URL + `chaddit/c/post`, {body: newPost.body}, {
+        return instance.post(`chaddit/c/post`, {body: newPost.body}, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
-                'thread_id': newPost.threadId,
-                'post_id': newPost.rootPostId,
+                'api-token': localStorage.getItem('api_token'),
+                'thread-id': newPost.threadId,
+                'post-id': newPost.rootPostId,
             }
         })
             .then(response => response.data)
@@ -195,7 +196,7 @@ export const adminAPI = {
     getUsers() {
         return instance.get('chaddit/c/users', {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         }).then(response => {
             return response.data
@@ -204,7 +205,7 @@ export const adminAPI = {
     updateUser(userId, user) {
         return instance.patch(`chaddit/c/user/${userId}`, user, {
             headers: {
-                'api_token': localStorage.getItem('api_token'),
+                'api-token': localStorage.getItem('api_token'),
             }
         }).then(response => response.data)
     }
