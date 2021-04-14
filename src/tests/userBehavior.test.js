@@ -43,9 +43,11 @@ const chill = (seconds) =>
     new Promise(resolve => setTimeout(resolve, seconds * 1000));
 
 test('Validating login actions', async () => {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
     const page = await browser.newPage()
-    const app = 'https://chaddit.netlify.app/login';
+    const app = 'http://chaddit.netlify.app/login';
     await page.goto(app);
 
     await page.click('input#loginEmail');
@@ -67,7 +69,9 @@ test('Validating login actions', async () => {
 }, 20000)
 
 test('Validating register actions', async () => {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
     const page = await browser.newPage()
     const app = 'https://chaddit.netlify.app/login';
     await page.goto(app);
