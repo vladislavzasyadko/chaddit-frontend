@@ -24,7 +24,7 @@ test('login(email, password) request/response test', () =>{
 let chat_id_for_test
 
 test('getThreadByTopic(topicId) request/response test', () =>{
-    const topicId = 1;
+    const topicId = 61;
     return threadAPI.getThreadByTopic(topicId).then(data => {
         data.forEach((thread) => {
             expect(thread).toHaveProperty('active', true)

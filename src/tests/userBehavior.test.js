@@ -14,7 +14,7 @@ function process(str) {
 function format(node, level) {
 
     var indentBefore = new Array(level++ + 1).join('  '),
-        indentAfter  = new Array(level - 1).join('  '),
+        indentAfter = new Array(level - 1).join('  '),
         textNode;
 
     for (var i = 0; i < node.children.length; i++) {
@@ -35,7 +35,7 @@ function format(node, level) {
 
 const isElementVisible = async (page, cssSelector) => {
     let visible = true;
-    await page.waitForSelector(cssSelector, { visible: true, timeout: 2000 })
+    await page.waitForSelector(cssSelector, {visible: true, timeout: 2000})
         .catch(() => {
             visible = false;
         });
@@ -48,7 +48,7 @@ const chill = (seconds) =>
 test('Validating login actions', async () => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      })
+    })
     const page = await browser.newPage()
 
     const app = URL;
@@ -75,7 +75,7 @@ test('Validating login actions', async () => {
 test('Validating register actions', async () => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      })
+    })
     const page = await browser.newPage()
     const app = URL;
     await page.goto(app);
@@ -88,7 +88,9 @@ test('Validating register actions', async () => {
     const registerNameValue = await page.$eval('input#registerName', input => input.value)
     expect(registerNameValue).toBe('testUser')
 
-    const randInt = () => { return Math.floor(Math.random()*10000+ 10000)}
+    const randInt = () => {
+        return Math.floor(Math.random() * 10000 + 10000)
+    }
     const testEmail = `test${randInt()}@chaddit.tk`
     console.log(testEmail)
     await page.click('input#registerEmail')
@@ -121,13 +123,13 @@ test('Validating register actions', async () => {
 test('create thread', async () => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      })
+    })
     const page = await browser.newPage()
 
 
     await page.goto(URL)
     await page.setDefaultNavigationTimeout(30000);
-    await page.setViewport({ width: 1848, height: 949 })
+    await page.setViewport({width: 1848, height: 949})
 
 
     await page.waitForSelector('div #loginEmail')
@@ -140,7 +142,7 @@ test('create thread', async () => {
 
     await page.type('div #loginPass', 'admin')
     await page.click('button#loginButton')
-    
+
     await page.waitForSelector('.Header_header__1VCKf > .Header_utils__T1np1 > .Header_buttons__12gv4 > #openCreateThreadWidgetButton > .elements_buttonChad__3D0dV')
     await page.click('.Header_header__1VCKf > .Header_utils__T1np1 > .Header_buttons__12gv4 > #openCreateThreadWidgetButton > .elements_buttonChad__3D0dV')
 
@@ -168,4 +170,49 @@ test('create thread', async () => {
     await page.click('body > #portal #sendThreadButton')
 
 }, 30000)
+
+test('send a message', async () => {
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    })
+    const page = await browser.newPage()
+
+    await page.goto(URL)
+    await page.setDefaultNavigationTimeout(30000);
+    await page.setViewport({width: 1848, height: 949})
+
+
+    await page.waitForSelector('div #loginEmail')
+    await page.click('div #loginEmail')
+
+    await page.type('div #loginEmail', 'admin@chaddit.tk')
+
+    await page.waitForSelector('div #loginPass')
+    await page.click('div #loginPass')
+
+    await page.type('div #loginPass', 'admin')
+
+    await page.click('button#loginButton')
+
+    await page.waitForSelector('#openUserChatsButton > .elements_buttonChad__3D0dV')
+    await page.click(' #openUserChatsButton > .elements_buttonChad__3D0dV')
+
+    await page.waitForSelector('.Chats_messageInput__hlSs6')
+    await page.click('.Chats_messageInput__hlSs6')
+    await page.type('.Chats_messageInput__hlSs6', 'test mssmdms')
+
+    await page.waitForSelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_inputSpace__MUqE5 > .Chats_sendButton__2RVob')
+    await page.click('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_inputSpace__MUqE5 > .Chats_sendButton__2RVob')
+
+    await page.waitForSelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
+    await page.click('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
+
+    await page.waitForSelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
+    await page.click('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
+
+    // await page.waitForSelector('body')
+    //await page.click('body')
+
+    await browser.close()
+}, 60000)
 

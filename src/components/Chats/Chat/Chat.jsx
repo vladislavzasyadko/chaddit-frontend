@@ -85,9 +85,9 @@ function Chat(props) {
             </div>
 
             <form onSubmit={e => sendMessage(e)} className={CH.inputSpace}>
-                <input className={CH.messageInput} placeholder={'Введите ваше сообщение...'}
+                <input id={'chatMessageBody'} className={CH.messageInput} placeholder={'Введите ваше сообщение...'}
                        onChange={e => setInputValue(e.target.value)} value={inputValue}/>
-                <button className={CH.sendButton}>{'Отправить'}</button>
+                <button id={'sendChatMessageButton'} className={CH.sendButton}>{'Отправить'}</button>
             </form>
         </div>
     )
