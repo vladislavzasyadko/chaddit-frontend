@@ -48,7 +48,7 @@ const chill = (seconds) =>
 test('Validating login actions', async () => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      });
+      })
     const page = await browser.newPage()
 
     const app = URL;
@@ -75,7 +75,7 @@ test('Validating login actions', async () => {
 test('Validating register actions', async () => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      });
+      })
     const page = await browser.newPage()
     const app = URL;
     await page.goto(app);
@@ -119,7 +119,9 @@ test('Validating register actions', async () => {
 
 
 test('create thread', async () => {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      })
     const page = await browser.newPage()
 
 
@@ -137,9 +139,8 @@ test('create thread', async () => {
     await page.click('div #loginPass')
 
     await page.type('div #loginPass', 'admin')
-
-    await chill(50)
-
+    await page.click('button#loginButton')
+    
     await page.waitForSelector('.Header_header__1VCKf > .Header_utils__T1np1 > .Header_buttons__12gv4 > #openCreateThreadWidgetButton > .elements_buttonChad__3D0dV')
     await page.click('.Header_header__1VCKf > .Header_utils__T1np1 > .Header_buttons__12gv4 > #openCreateThreadWidgetButton > .elements_buttonChad__3D0dV')
 
@@ -166,5 +167,5 @@ test('create thread', async () => {
     await page.waitForSelector('body > #portal #sendThreadButton')
     await page.click('body > #portal #sendThreadButton')
 
-}, 150000)
+}, 30000)
 
