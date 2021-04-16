@@ -194,15 +194,24 @@ test('send a message', async () => {
 
     await page.click('button#loginButton')
 
-    await page.waitForSelector('#openUserChatsButton > .elements_buttonChad__3D0dV')
-    await page.click(' #openUserChatsButton > .elements_buttonChad__3D0dV')
+    await page.waitForSelector('#openUserChatsButton')
+    await page.click('#openUserChatsButton')
 
-    await page.waitForSelector('.Chats_messageInput__hlSs6')
-    await page.click('.Chats_messageInput__hlSs6')
-    await page.type('.Chats_messageInput__hlSs6', 'test mssmdms')
+    await page.waitForSelector('.Chats_darkBackground__3vJi9:nth-child(3) > .Chats_creatorContainer__1vMRZ > .Chats_chatGrid__1xGPR > .Chats_chats__3FOMc > .Chats_chatElement__2V85u:nth-child(1)')
+    await page.click('.Chats_darkBackground__3vJi9:nth-child(3) > .Chats_creatorContainer__1vMRZ > .Chats_chatGrid__1xGPR > .Chats_chats__3FOMc > .Chats_chatElement__2V85u:nth-child(1)')
 
-    await page.waitForSelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_inputSpace__MUqE5 > .Chats_sendButton__2RVob')
-    await page.click('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_inputSpace__MUqE5 > .Chats_sendButton__2RVob')
+    await page.waitForSelector('input#chatMessageBody')
+    await page.click('input#chatMessageBody')
+    await page.type('input#chatMessageBody', 'test mssmdms')
+    await chill(8)
+
+    let children1 = await page.evaluate(() => {
+        return (Array.from(document.querySelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf ').children).length);
+    })
+    console.log("Result 1:", children1);
+
+    await page.waitForSelector('#sendChatMessageButton')
+    await page.click('#sendChatMessageButton')
 
     await page.waitForSelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
     await page.click('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
@@ -210,9 +219,12 @@ test('send a message', async () => {
     await page.waitForSelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
     await page.click('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf > .Chats_myMessage__3_m6Q:nth-child(6)')
 
-    // await page.waitForSelector('body')
-    //await page.click('body')
-
+    await chill(8)
+    let children2 = await page.evaluate(() => {
+        return (Array.from(document.querySelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf ').children).length);
+    })
+    console.log("Result 2:", children2);
+    expect(children2 === children1 + 1).toBe(true)
     await browser.close()
 }, 60000)
 
