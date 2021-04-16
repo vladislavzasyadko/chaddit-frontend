@@ -1,4 +1,7 @@
 import puppeteer from 'puppeteer';
+import {TEST_URL} from "../CONSTANTS/API_CONSTANTS";
+
+const URL = TEST_URL;
 
 function process(str) {
 
@@ -47,7 +50,8 @@ test('Validating login actions', async () => {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
     const page = await browser.newPage()
-    const app = 'http://chaddit.netlify.app/login';
+
+    const app = URL;
     await page.goto(app);
 
     await page.click('input#loginEmail');
@@ -73,7 +77,7 @@ test('Validating register actions', async () => {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
     const page = await browser.newPage()
-    const app = 'https://chaddit.netlify.app/login';
+    const app = URL;
     await page.goto(app);
 
     await page.click('div#gotoRegister');
@@ -113,68 +117,54 @@ test('Validating register actions', async () => {
     await browser.close()
 }, 20000)
 
-// test('Validating thread creation', async () => {
-//     const browser = await puppeteer.launch()
-//
-//     const page = await browser.newPage()
-//     await page.setViewport( { 'width' : 1500, 'height' : 1000 } )
-//     const app = 'https://chaddit.netlify.app/login';
-//     await page.goto(app);
-//
-//
-//
-//     await page.click('input#loginEmail');
-//     await page.type('input#loginEmail', 'test_admin@chaddit.tk')
-//     const loginEmailValue = await page.$eval('input#loginEmail', input => input.value)
-//     expect(loginEmailValue).toBe('test_admin@chaddit.tk')
-//
-//     await page.click('input#loginPass');
-//     await page.type('input#loginPass', '#test@chaddit#')
-//
-//     const loginPassValue = await page.$eval('input#loginPass', input => input.value)
-//     expect(loginPassValue).toBe('#test@chaddit#')
-//
-//     await page.click('button#loginButton')
-//
-//     await page.waitForSelector('div#userImage')
-//
-//     await page.waitForSelector('div#openCreateThreadWidgetButton')
-//
-//     await page.click('div#openCreateThreadWidgetButton')
-//
-//     const randInt = () => { return Math.floor(Math.random()*10000+ 1000)}
-//     const threadTestId = randInt()
-//
-//     await page.click('input#topicName')
-//     await page.type('input#topicName', `test_topic_name_${threadTestId}`)
-//
-//     const topicNameValue = await page.$eval('input#topicName', input => input.value)
-//     expect(topicNameValue).toBe(`test_topic_name_${threadTestId}`)
-//
-//     await page.click('input#threadName')
-//     await page.type('input#threadName', `test_thread_name_${threadTestId}`)
-//
-//     const threadNameValue = await page.$eval('input#threadName', input => input.value)
-//     expect(threadNameValue).toBe(`test_thread_name_${threadTestId}`)
-//
-//     await page.click('textarea#threadMessage')
-//     await page.type('textarea#threadMessage', `test_topic_msg_${threadTestId}`)
-//
-//     const threadMsgValue = await page.$eval('textarea#threadMessage', input => input.value)
-//     expect(threadMsgValue).toBe(`test_topic_msg_${threadTestId}`)
-//
-//     await page.click('button#sendThreadButton')
-//
-//     await chill(2);
-//     await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
-//
-//     const isVisible = await isElementVisible(page, 'input#topicName');
-//     console.log(isVisible)
-//     expect(isVisible).toBe(false)
-//     await chill(5)
-//
-//
-//
-//     await browser.close()
-// }, 30000)
+
+test('create thread', async () => {
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+
+
+    await page.goto(URL)
+    await page.setDefaultNavigationTimeout(30000);
+    await page.setViewport({ width: 1848, height: 949 })
+
+
+    await page.waitForSelector('div #loginEmail')
+    await page.click('div #loginEmail')
+
+    await page.type('div #loginEmail', 'admin@chaddit.tk')
+
+    await page.waitForSelector('div #loginPass')
+    await page.click('div #loginPass')
+
+    await page.type('div #loginPass', 'admin')
+
+    await chill(50)
+
+    await page.waitForSelector('.Header_header__1VCKf > .Header_utils__T1np1 > .Header_buttons__12gv4 > #openCreateThreadWidgetButton > .elements_buttonChad__3D0dV')
+    await page.click('.Header_header__1VCKf > .Header_utils__T1np1 > .Header_buttons__12gv4 > #openCreateThreadWidgetButton > .elements_buttonChad__3D0dV')
+
+    await page.waitForSelector('body > #portal #topicName')
+    await page.click('body > #portal #topicName')
+    await page.type('body > #portal #topicName', 'topictest')
+
+    await page.waitForSelector('body > #portal > .CreateThreadWidget_darkBackground__2ZNe5 > .CreateThreadWidget_creatorContainer__2-rMA > .CreateThreadWidget_inputCreator__30zWb:nth-child(4)')
+    await page.click('body > #portal > .CreateThreadWidget_darkBackground__2ZNe5 > .CreateThreadWidget_creatorContainer__2-rMA > .CreateThreadWidget_inputCreator__30zWb:nth-child(4)')
+    await page.type('body > #portal > .CreateThreadWidget_darkBackground__2ZNe5 > .CreateThreadWidget_creatorContainer__2-rMA > .CreateThreadWidget_inputCreator__30zWb:nth-child(4)', 'tag')
+
+
+    await page.waitForSelector('#portal > .CreateThreadWidget_darkBackground__2ZNe5 > .CreateThreadWidget_creatorContainer__2-rMA > .CreateThreadWidget_tagFormContainer__3PuPw > .CreateThreadWidget_addTagButton__2p_Hm')
+    await page.click('#portal > .CreateThreadWidget_darkBackground__2ZNe5 > .CreateThreadWidget_creatorContainer__2-rMA > .CreateThreadWidget_tagFormContainer__3PuPw > .CreateThreadWidget_addTagButton__2p_Hm')
+
+    await page.waitForSelector('body > #portal #threadName')
+    await page.click('body > #portal #threadName')
+    await page.type('body > #portal #threadName', 'testthread')
+
+    await page.waitForSelector('body > #portal #threadMessage')
+    await page.click('body > #portal #threadMessage')
+    await page.type('body > #portal #threadMessage', 'testmsg')
+
+    await page.waitForSelector('body > #portal #sendThreadButton')
+    await page.click('body > #portal #sendThreadButton')
+
+}, 150000)
 
