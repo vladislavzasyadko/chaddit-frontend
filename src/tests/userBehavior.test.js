@@ -208,7 +208,6 @@ test('send a message', async () => {
     let children1 = await page.evaluate(() => {
         return (Array.from(document.querySelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf ').children).length);
     })
-    console.log("Result 1:", children1);
 
     await page.waitForSelector('#sendChatMessageButton')
     await page.click('#sendChatMessageButton')
@@ -223,8 +222,68 @@ test('send a message', async () => {
     let children2 = await page.evaluate(() => {
         return (Array.from(document.querySelector('.Chats_darkBackground__3vJi9 > .Chats_creatorContainer__1vMRZ > .Chats_chat__mHS5n > .Chats_messageList__2LhPf ').children).length);
     })
-    console.log("Result 2:", children2);
+
     expect(children2 === children1 + 1).toBe(true)
     await browser.close()
 }, 60000)
+
+test('send comment', async() => {
+
+})
+
+test('change username', async() => {
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    })
+    const page = await browser.newPage()
+
+    await page.goto(URL)
+    await page.setDefaultNavigationTimeout(30000);
+    await page.setViewport({width: 1848, height: 949})
+
+
+    await page.waitForSelector('div #loginEmail')
+    await page.click('div #loginEmail')
+
+    await page.type('div #loginEmail', 'admin@chaddit.tk')
+
+    await page.waitForSelector('div #loginPass')
+    await page.click('div #loginPass')
+
+    await page.type('div #loginPass', 'admin')
+
+    await page.click('button#loginButton')
+
+    await page.waitForSelector('#root #userImage')
+    await page.click('#root #userImage')
+
+    await page.waitForSelector('.UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userInputContainer__1TQff > .UserSettings_userInput__1QQAY')
+    await page.click('.UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userInputContainer__1TQff > .UserSettings_userInput__1QQAY')
+    await page.type('.UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userInputContainer__1TQff > .UserSettings_userInput__1QQAY', 'test')
+
+    await page.waitForSelector('#portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userButton__19Gay')
+    await page.click('#portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userButton__19Gay')
+
+    await chill(4)
+
+    await page.waitForSelector('body > #portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(1)')
+    await page.click('body > #portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(1)')
+
+    let element = await page.$('body > #portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(1)')
+    let value = await page.evaluate(el => el.textContent, element)
+    console.log(value)
+    expect(value).toBe('Здравствуйте, test')
+
+    await page.type('.UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userInputContainer__1TQff > .UserSettings_userInput__1QQAY', 'admin')
+
+    await page.waitForSelector('#portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userButton__19Gay')
+    await page.click('#portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > div:nth-child(3) > .UserSettings_userButton__19Gay')
+
+    await chill(4)
+
+}, 60000)
+
+test('admin delete thread', async() => {
+
+})
 
