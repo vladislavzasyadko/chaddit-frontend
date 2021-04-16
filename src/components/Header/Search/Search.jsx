@@ -32,6 +32,7 @@ function Search(props) {
     return (
         <form className={S.searchContainer} onSubmit={e => handleSubmit(e)}>
             <input
+                id={'searchInput'}
                 value={searchWord}
                 onChange={e => setSearchWord(e.target.value)}
                 className={S.searchInput}
@@ -39,7 +40,7 @@ function Search(props) {
                 placeholder={`Что я могу для Вас найти? ${props.field}`}
             />
 
-            <button type="submit" className={S.searchButton}>
+            <button id={'searchInputButton'} type="submit" className={S.searchButton}>
                 <img className={S.searchIcon} src={Icon} alt={'#'}
                 />
             </button>
