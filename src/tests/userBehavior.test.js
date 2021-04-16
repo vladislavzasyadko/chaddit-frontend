@@ -227,10 +227,6 @@ test('send a message', async () => {
     await browser.close()
 }, 60000)
 
-test('send comment', async() => {
-
-})
-
 test('change username', async() => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -283,7 +279,57 @@ test('change username', async() => {
 
 }, 60000)
 
-test('admin delete thread', async() => {
+// test('admin delete thread', async() => {
+//     const browser = await puppeteer.launch({
+//         args: ['--no-sandbox', '--disable-setuid-sandbox'],
+//     })
+//     const page = await browser.newPage()
+//
+//     await page.goto(URL)
+//     await page.setDefaultNavigationTimeout(30000);
+//     await page.setViewport({width: 1848, height: 949})
+//
+//
+//     await page.waitForSelector('div #loginEmail')
+//     await page.click('div #loginEmail')
+//
+//     await page.type('div #loginEmail', 'admin@chaddit.tk')
+//
+//     await page.waitForSelector('div #loginPass')
+//     await page.click('div #loginPass')
+//
+//     await page.type('div #loginPass', 'admin')
+//
+//     await page.click('button#loginButton')
+//
+//     await chill(20)
+//
+//     await page.waitForSelector('body > #root > div > .Topics_topics__NiLwq > .Card_card__1eE8R:nth-child(1)')
+//     await page.click('body > #root > div > .Topics_topics__NiLwq > .Card_card__1eE8R:nth-child(1)')
+//
+//     await chill(20)
+//     let threads = await page.evaluate(() => {
+//         return (Array.from(document.querySelector('.Feed_feed__2uK3R').children).length);
+//     })
+//     console.log(threads)
+//
+//     await page.waitForSelector('.Feed_feed__2uK3R > .Card_card__1eE8R > .Card_cardText__tIADe > .Card_cardHeader__1OCsI > .Card_changeThreadButton__QtEGt')
+//     await page.click('.Feed_feed__2uK3R > .Card_card__1eE8R > .Card_cardText__tIADe > .Card_cardHeader__1OCsI > .Card_changeThreadButton__QtEGt')
+//
+//     await page.waitForSelector('.AdminThread_darkBackground__1C2Np > .AdminThread_adminThread__19rAD > .Topic_adminHeader__3EgZT > div > .Topic_deleteTopicButton__3kmF5:nth-child(2)')
+//     await page.click('.AdminThread_darkBackground__1C2Np > .AdminThread_adminThread__19rAD > .Topic_adminHeader__3EgZT > div > .Topic_deleteTopicButton__3kmF5:nth-child(2)')
+//
+//     await chill(10)
+//     let threads2 = await page.evaluate(() => {
+//         return (Array.from(document.querySelector('.Feed_feed__2uK3R').children).length);
+//     })
+//     console.log(threads, threads2)
+//     //count before and after and
+//     expect(threads === threads2 + 1).toBe(true)
+//
+// }, 70000)
+
+test('logout test', async () => {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
     })
@@ -292,7 +338,6 @@ test('admin delete thread', async() => {
     await page.goto(URL)
     await page.setDefaultNavigationTimeout(30000);
     await page.setViewport({width: 1848, height: 949})
-
 
     await page.waitForSelector('div #loginEmail')
     await page.click('div #loginEmail')
@@ -306,30 +351,57 @@ test('admin delete thread', async() => {
 
     await page.click('button#loginButton')
 
-    await chill(20)
+    await page.waitForSelector('#root #userImage')
+    await page.click('#root #userImage')
 
-    await page.waitForSelector('body > #root > div > .Topics_topics__NiLwq > .Card_card__1eE8R:nth-child(1)')
-    await page.click('body > #root > div > .Topics_topics__NiLwq > .Card_card__1eE8R:nth-child(1)')
+    await page.waitForSelector('body > #portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > .UserSettings_exitButton__2oGTq')
+    await page.click('body > #portal > .UserSettings_darkBackground__3NLlN > .UserSettings_settings__2L3Zx > .UserSettings_exitButton__2oGTq')
 
-    await chill(10)
-    let threads = await page.evaluate(() => {
-        return (Array.from(document.querySelector('.Feed_feed__2uK3R').children).length);
+    await page.waitForSelector('div #gotoLogin')
+    await page.click('div #gotoLogin')
+
+    await page.waitForSelector('div #gotoRegister')
+    await page.click('div #gotoRegister')
+
+
+}, 30000)
+
+test('search topic test', async () => {
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
     })
-    console.log(threads)
+    const page = await browser.newPage()
 
-    await page.waitForSelector('.Feed_feed__2uK3R > .Card_card__1eE8R > .Card_cardText__tIADe > .Card_cardHeader__1OCsI > .Card_changeThreadButton__QtEGt')
-    await page.click('.Feed_feed__2uK3R > .Card_card__1eE8R > .Card_cardText__tIADe > .Card_cardHeader__1OCsI > .Card_changeThreadButton__QtEGt')
+    await page.goto(URL)
+    await page.setDefaultNavigationTimeout(30000);
+    await page.setViewport({width: 1848, height: 949})
 
-    await page.waitForSelector('.AdminThread_darkBackground__1C2Np > .AdminThread_adminThread__19rAD > .Topic_adminHeader__3EgZT > div > .Topic_deleteTopicButton__3kmF5:nth-child(2)')
-    await page.click('.AdminThread_darkBackground__1C2Np > .AdminThread_adminThread__19rAD > .Topic_adminHeader__3EgZT > div > .Topic_deleteTopicButton__3kmF5:nth-child(2)')
+    await page.waitForSelector('div #loginEmail')
+    await page.click('div #loginEmail')
 
-    await chill(10)
-    let threads2 = await page.evaluate(() => {
-        return (Array.from(document.querySelector('.Feed_feed__2uK3R').children).length);
-    })
-    console.log(threads2)
-    //count before and after and
-    expect(threads === threads2 + 1).toBe(true)
+    await page.type('div #loginEmail', 'admin@chaddit.tk')
+
+    await page.waitForSelector('div #loginPass')
+    await page.click('div #loginPass')
+
+    await page.type('div #loginPass', 'admin')
+
+    await page.click('button#loginButton')
+
+    await page.waitForSelector('input#searchInput')
+    await page.type('input#searchInput', 'новая')
+
+
+    await page.waitForSelector('button#searchInputButton')
+    await page.click('button#searchInputButton')
+
+
+    await page.waitForSelector('#root > div > .Topics_topics__NiLwq > .Card_card__1eE8R:nth-child(1)')
+
+    let element = await page.$('#root > div > .Topics_topics__NiLwq > .Card_card__1eE8R:nth-child(1) > .Topic_adminTopicDelete__13IXQ > .Card_cardTitle___nUI9')
+    let value = await page.evaluate(el => el.textContent, element)
+    console.log(value)
+    expect(value.includes('новая')).toBe(true)
 
 }, 50000)
 
